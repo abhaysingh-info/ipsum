@@ -1,0 +1,19 @@
+{
+	"name": "ipsum2k23",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"server:dev": "cd backend/ ; npm run start:dev",
+		"ui:dev": "cd frontend/ ; npm run start"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"workspaces": [
+		"frontend",
+		"backend",
+		"@shared/*"
+	]
+}

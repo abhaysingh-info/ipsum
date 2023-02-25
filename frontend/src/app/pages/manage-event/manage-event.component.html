@@ -1,0 +1,83 @@
+<div class="max-w-screen-xl w-full mx-auto">
+	<div class="flex px-3 lg:px-0">
+		<button
+			class="btn btn-sm btn-primary"
+			(click)="toggleShowCreateEventModal()"
+		>
+			Create Event
+		</button>
+	</div>
+	<section class="mt-2">
+		<div class="overflow-x-auto">
+			<table class="table w-full">
+				<!-- head -->
+				<thead>
+					<tr>
+						<th>Sr.No</th>
+						<th>Event Id</th>
+						<th>Event Type</th>
+						<th>Event Name</th>
+						<th>Venue</th>
+						<th>Registration ClosesOn</th>
+						<th>Commencement Date</th>
+						<th>Event Batch</th>
+						<th>PDF</th>
+						<th>Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					<!-- row 1 -->
+					<tr
+						class="hover"
+						*ngFor="let event of events; trackBy: trackById; let index = index"
+					>
+						<th>{{ index + 1 }}</th>
+						<td>{{ event.eventId }}</td>
+						<td>{{ event.eventType }}</td>
+						<td>{{ event.name }}</td>
+						<td>{{ event.venue }}</td>
+						<td>{{ event.registrationClosesOn | date : 'dd-MM-yyyy' }}</td>
+						<td>{{ event.commencementDate | date : 'dd-MM-yyyy' }}</td>
+						<td>{{ event.eventBatch }}</td>
+						<td>
+							<a
+								class="hover:text-underline hover:text-secondary"
+								[href]="event.moreInformationPdf"
+								target="_blank"
+								>view pdf</a
+							>
+						</td>
+						<td class="min-w-[5rem] max-w-[12rem] break-words overflow-hidden">
+							{{ event.description.slice(0, 50) }}...
+						</td>
+					</tr>
+
+					<tr *ngIf="requestInProgress && !loadedAllData" class="hover">
+						<td [colSpan]="10" class="text-2xl text-center bg-gray-200">
+							<span class="inline-block animate-spin">
+								<fa-icon [icon]="faSpinner"></fa-icon>
+							</span>
+						</td>
+					</tr>
+
+					<tr *ngIf="!loadedAllData && !requestInProgress" class="hover">
+						<td [colSpan]="10" class="text-2xl text-center bg-gray-200">
+							<button
+								class="btn btn-primary btn-outline btn-sm"
+								(click)="getEvents()"
+								[disabled]="loadedAllData || requestInProgress"
+							>
+								Load more
+							</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</section>
+</div>
+
+<app-create-event
+	[showModel]="showCreateEventModal"
+	(showModelEmitter)="createEventModalEmitHandler($event)"
+></app-create-event>

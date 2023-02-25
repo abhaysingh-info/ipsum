@@ -1,0 +1,40 @@
+<div class="animate-pulse">
+	<ng-container *ngIf="type === 'image'; emptyTemplate">
+		<div class="w-full min-h-[15rem] md:min-h-[25rem] bg-slate-200">&nbsp;</div>
+	</ng-container>
+	<ng-container *ngIf="type === 'text-line'; emptyTemplate">
+		<div class="w-full rounded-xl bg-slate-200">&nbsp;</div>
+		<div class="w-2/3 rounded-xl bg-slate-200 mt-1">&nbsp;</div>
+	</ng-container>
+	<ng-container *ngIf="type === 'description'; emptyTemplate">
+		<div class="w-full rounded-xl bg-slate-200 mt-1">&nbsp;</div>
+		<div class="w-full rounded-xl bg-slate-200 mt-1">&nbsp;</div>
+		<div class="w-full rounded-xl bg-slate-200 mt-1">&nbsp;</div>
+		<div class="w-full rounded-xl bg-slate-200 mt-1">&nbsp;</div>
+		<div class="w-2/3 rounded-xl bg-slate-200 mt-1">&nbsp;</div>
+	</ng-container>
+	<ng-container *ngIf="type === 'short-title'; emptyTemplate">
+		<div class="w-1/2 md:w-2/3 lg:w-1/3 rounded-xl bg-slate-200 mt-1">
+			&nbsp;
+		</div>
+	</ng-container>
+	<ng-container *ngIf="type === 'single-line'; emptyTemplate">
+		<div class="w-full rounded-xl bg-slate-200 mt-1">&nbsp;</div>
+	</ng-container>
+	<ng-container *ngIf="type === 'stats'; emptyTemplate">
+		<div class="stats w-full">
+			<div class="stat gap-1">
+				<div class="stat-title">
+					<div class="w-3/4 bg-slate-200 rounded-xl">&nbsp;</div>
+				</div>
+				<div class="stat-value">
+					<div class="w-full md:w-1/2 lg:w-1/3 bg-slate-300 rounded-xl">
+						&nbsp;
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- <div class="w-full rounded-xl bg-slate-200 mt-1">&nbsp;</div> -->
+	</ng-container>
+</div>
+<ng-template #emptyTemplate></ng-template>

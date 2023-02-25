@@ -1,0 +1,1137 @@
+<ng-container
+	*ngIf="
+		form?.get(
+			fieldDetail.controlPath
+				| replacePrefex
+					: form?.value?.property_type
+					: form?.value?.property_sub_type
+		) !== null &&
+			(property_profile?.includes(fieldDetail.propertyProfileKey) ||
+				!fieldDetail.controlPath.startsWith('__PREFIX__'));
+		else emptyTemplate
+	"
+>
+	<ng-container [ngSwitch]="fieldDetail.checkShowIf">
+		<ng-container *ngSwitchCase="true">
+			<ng-container [ngSwitch]="fieldDetail?.showIf?.checkWhat">
+				<ng-container *ngSwitchCase="'isDefined'">
+					<ng-container
+						*ngIf="
+							form?.get(
+								fieldDetail.showIf.controlPath
+									| replacePrefex
+										: form?.value?.property_type
+										: form?.value?.property_sub_type
+							)?.value ||
+								form?.get(
+									fieldDetail.showIf.controlPath
+										| replacePrefex
+											: form?.value?.property_type
+											: form?.value?.property_sub_type
+								)?.value?.length;
+							else emptyTemplate
+						"
+					>
+						<ng-container
+							[ngTemplateOutlet]="fieldGeneratorBase"
+						></ng-container>
+					</ng-container>
+				</ng-container>
+				<ng-container *ngSwitchCase="'expectedValue'">
+					<ng-container
+						*ngIf="
+							form?.get(
+								fieldDetail.showIf.controlPath
+									| replacePrefex
+										: form?.value?.property_type
+										: form?.value?.property_sub_type
+							)?.value === fieldDetail?.showIf?.controlsExpectedValue;
+							else emptyTemplate
+						"
+					>
+						<ng-container
+							[ngTemplateOutlet]="fieldGeneratorBase"
+						></ng-container>
+					</ng-container>
+				</ng-container>
+				<ng-container *ngSwitchDefault>DEFAULT EXECUTED</ng-container>
+			</ng-container>
+		</ng-container>
+		<ng-container *ngSwitchDefault>
+			<ng-container [ngTemplateOutlet]="fieldGeneratorBase"></ng-container>
+		</ng-container>
+	</ng-container>
+</ng-container>
+
+<ng-template #emptyTemplate></ng-template>
+
+<ng-template #inputTitle let-title="title" let-sub_title="sub_title">
+	<label class="label mb-3">
+		<span class="label-text font-semibold text-lg"
+			>{{ title }}
+			<span *ngIf="sub_title; else emptyTemplate" class="font-normal">{{
+				sub_title
+			}}</span>
+		</span>
+	</label>
+</ng-template>
+
+<ng-template #fieldGeneratorBase>
+	<button
+		class="btn btn-outline btn-xs rounded-2xl mt-2 md:mt-3 cursor-pointer mx-1"
+		*ngIf="fieldDetail.optionalField && showFieldDisplayStatus === false"
+		(click)="setShowField(true)"
+	>
+		+ {{ fieldDetail.title }}
+	</button>
+	<div
+		class="form-control w-full mt-2 md:mt-4"
+		[ngClass]="fieldDetail?.class ? fieldDetail?.class : ''"
+		*ngIf="showFieldDisplayStatus; else emptyTemplate"
+	>
+		<div
+			[ngTemplateOutlet]="inputTitle"
+			[ngTemplateOutletContext]="{
+				title: fieldDetail.title,
+				sub_title: !form
+					?.get(
+						fieldDetail.controlPath
+							| replacePrefex
+								: form?.value?.property_type
+								: form?.value?.property_sub_type
+					)
+					?.hasValidator(validators.required)
+					? '(optional)'
+					: ''
+			}"
+		></div>
+		<div [ngSwitch]="fieldDetail.fieldType">
+			<div *ngSwitchCase="'number'">
+				<input
+					type="number"
+					placeholder="Type here"
+					class="input input-bordered w-full"
+					[formControl]="
+						$any(
+							form?.get(
+								fieldDetail.controlPath
+									| replacePrefex
+										: form?.value?.property_type
+										: form?.value?.property_sub_type
+							)
+						)
+					"
+					[name]="
+						fieldDetail.controlPath
+							| replacePrefex
+								: form?.value?.property_type
+								: form?.value?.property_sub_type
+					"
+					[ngClass]="{
+						'input-error':
+							(form?.get(
+								fieldDetail.controlPath
+									| replacePrefex
+										: form?.value?.form?.value?.property_type
+										: form?.value?.form?.value?.property_sub_type
+							)?.touched ||
+								form?.get(
+									fieldDetail.controlPath
+										| replacePrefex
+											: form?.value?.form?.value?.property_type
+											: form?.value?.form?.value?.property_sub_type
+								)?.dirty) &&
+							(form
+								?.get(
+									fieldDetail.controlPath
+										| replacePrefex
+											: form?.value?.form?.value?.property_type
+											: form?.value?.form?.value?.property_sub_type
+								)
+								?.hasError('required') ||
+								form
+									?.get(
+										fieldDetail.controlPath
+											| replacePrefex
+												: form?.value?.form?.value?.property_type
+												: form?.value?.form?.value?.property_sub_type
+									)
+									?.hasError('min') ||
+								form
+									?.get(
+										fieldDetail.controlPath
+											| replacePrefex
+												: form?.value?.form?.value?.property_type
+												: form?.value?.form?.value?.property_sub_type
+									)
+									?.hasError('max'))
+					}"
+				/>
+				<label class="label block">
+					<span
+						class="label-text-alt text-error text-base"
+						*ngIf="
+							form?.get(
+								fieldDetail.controlPath
+									| replacePrefex
+										: form?.value?.property_type
+										: form?.value?.property_sub_type
+							)?.touched ||
+								form?.get(
+									fieldDetail.controlPath
+										| replacePrefex
+											: form?.value?.form?.value?.property_type
+											: form?.value?.form?.value?.property_sub_type
+								)?.dirty;
+							else emptyTemplate
+						"
+					>
+						<ng-container
+							*ngIf="
+								form
+									?.get(
+										fieldDetail.controlPath
+											| replacePrefex
+												: form?.value?.property_type
+												: form?.value?.property_sub_type
+									)
+									?.hasError('min');
+								else emptyTemplate
+							"
+						>
+							{{ fieldDetail.title }} cannot be lower than
+							{{
+								form
+									?.get(
+										fieldDetail.controlPath
+											| replacePrefex
+												: form?.value?.property_type
+												: form?.value?.property_sub_type
+									)
+									?.getError('min')?.min
+							}}
+						</ng-container>
+						<ng-container
+							*ngIf="
+								form
+									?.get(
+										fieldDetail.controlPath
+											| replacePrefex
+												: form?.value?.property_type
+												: form?.value?.property_sub_type
+									)
+									?.hasError('required');
+								else emptyTemplate
+							"
+						>
+							{{ fieldDetail.title }} is required
+						</ng-container>
+					</span>
+				</label>
+			</div>
+			<div *ngSwitchCase="'number_controls'">
+				<div class="input-group w-full max-w-full">
+					<button class="btn btn-outline" (click)="setNumberValue('subtract')">
+						-
+					</button>
+					<input
+						#number_control_field
+						type="number"
+						[formControl]="
+							$any(
+								form?.get(
+									fieldDetail.controlPath
+										| replacePrefex
+											: form?.value?.property_type
+											: form?.value?.property_sub_type
+								)
+							)
+						"
+						[name]="
+							fieldDetail.controlPath
+								| replacePrefex
+									: form?.value?.property_type
+									: form?.value?.property_sub_type
+						"
+						placeholder="Type here"
+						class="input input-bordered max-w-[30%]"
+						[ngClass]="{
+							'input-error':
+								(form?.get(
+									fieldDetail.controlPath
+										| replacePrefex
+											: form?.value?.property_type
+											: form?.value?.property_sub_type
+								)?.touched ||
+									form?.get(
+										fieldDetail.controlPath
+											| replacePrefex
+												: form?.value?.form?.value?.property_type
+												: form?.value?.form?.value?.property_sub_type
+									)?.dirty) &&
+								(form
+									?.get(
+										fieldDetail.controlPath
+											| replacePrefex
+												: form?.value?.property_type
+												: form?.value?.property_sub_type
+									)
+									?.hasError('required') ||
+									form
+										?.get(
+											fieldDetail.controlPath
+												| replacePrefex
+													: form?.value?.property_type
+													: form?.value?.property_sub_type
+										)
+										?.hasError('min') ||
+									form
+										?.get(
+											fieldDetail.controlPath
+												| replacePrefex
+													: form?.value?.property_type
+													: form?.value?.property_sub_type
+										)
+										?.hasError('max'))
+						}"
+					/>
+					<button class="btn btn-outline" (click)="setNumberValue('add')">
+						+
+					</button>
+				</div>
+				<label class="label block">
+					<span
+						class="label-text-alt text-error text-base"
+						*ngIf="
+							form?.get(
+								fieldDetail.controlPath
+									| replacePrefex
+										: form?.value?.property_type
+										: form?.value?.property_sub_type
+							)?.touched ||
+								form?.get(
+									fieldDetail.controlPath
+										| replacePrefex
+											: form?.value?.form?.value?.property_type
+											: form?.value?.form?.value?.property_sub_type
+								)?.dirty;
+							else emptyTemplate
+						"
+					>
+						<span
+							*ngIf="
+								form
+									?.get(
+										fieldDetail.controlPath
+											| replacePrefex
+												: form?.value?.property_type
+												: form?.value?.property_sub_type
+									)
+									?.hasError('min');
+								else emptyTemplate
+							"
+						>
+							{{ fieldDetail.title }} cannot be lower than
+							{{
+								form
+									?.get(
+										fieldDetail.controlPath
+											| replacePrefex
+												: form?.value?.property_type
+												: form?.value?.property_sub_type
+									)
+									?.getError('min')?.min
+							}}
+						</span>
+						<span
+							*ngIf="
+								form
+									?.get(
+										fieldDetail.controlPath
+											| replacePrefex
+												: form?.value?.property_type
+												: form?.value?.property_sub_type
+									)
+									?.hasError('required');
+								else emptyTemplate
+							"
+						>
+							{{ fieldDetail.title }} is required
+						</span>
+					</span>
+				</label>
+			</div>
+			<div *ngSwitchCase="'select'">
+				<div class="flex flex-wrap gap-2">
+					<span
+						*ngFor="let option of fieldDetail.options; trackBy: trackByValue"
+					>
+						<input
+							type="radio"
+							[value]="option"
+							[formControl]="
+								$any(
+									form?.get(
+										fieldDetail.controlPath
+											| replacePrefex
+												: form?.value?.property_type
+												: form?.value?.property_sub_type
+									)
+								)
+							"
+							[name]="
+								fieldDetail.controlPath
+									| replacePrefex
+										: form?.value?.property_type
+										: form?.value?.property_sub_type
+							"
+							[id]="
+								option + fieldDetail.controlPath
+									| replacePrefex
+										: form?.value?.property_type
+										: form?.value?.property_sub_type
+							"
+							class="radio"
+							hidden
+						/>
+						<label
+							class="btn btn-sm w-max rounded-full border-gray-300 gap-2"
+							[for]="
+								option + fieldDetail.controlPath
+									| replacePrefex
+										: form?.value?.property_type
+										: form?.value?.property_sub_type
+							"
+							[ngClass]="{
+								'btn-outline':
+									option !==
+									form?.get(
+										fieldDetail.controlPath
+											| replacePrefex
+												: form?.value?.property_type
+												: form?.value?.property_sub_type
+									)?.value
+							}"
+						>
+							{{ option }}
+						</label>
+					</span>
+				</div>
+				<label class="label block">
+					<span
+						class="label-text-alt text-error text-base"
+						*ngIf="
+							form?.get(
+								fieldDetail.controlPath
+									| replacePrefex
+										: form?.value?.property_type
+										: form?.value?.property_sub_type
+							)?.touched ||
+								form?.get(
+									fieldDetail.controlPath
+										| replacePrefex
+											: form?.value?.form?.value?.property_type
+											: form?.value?.form?.value?.property_sub_type
+								)?.dirty;
+							else emptyTemplate
+						"
+					>
+						<ng-container
+							*ngIf="
+								form
+									?.get(
+										fieldDetail.controlPath
+											| replacePrefex
+												: form?.value?.property_type
+												: form?.value?.property_sub_type
+									)
+									?.hasError('required');
+								else emptyTemplate
+							"
+						>
+							{{ fieldDetail.title }} is required
+						</ng-container>
+					</span>
+				</label>
+			</div>
+			<div *ngSwitchCase="'select_multiple'">
+				<div class="flex flex-wrap gap-2">
+					<span
+						*ngFor="let option of fieldDetail.options; trackBy: trackByValue"
+						class="btn btn-sm w-max rounded-full border-gray-300 gap-2"
+						[ngClass]="{
+							'btn-outline': !form
+								?.get(
+									fieldDetail.controlPath
+										| replacePrefex
+											: form?.value?.property_type
+											: form?.value?.property_sub_type
+								)
+								?.value?.includes(option)
+						}"
+						(click)="toggleSelectValue(option)"
+					>
+						<fa-icon
+							[icon]="
+								form
+									?.get(
+										fieldDetail.controlPath
+											| replacePrefex
+												: form?.value?.property_type
+												: form?.value?.property_sub_type
+									)
+									?.value?.includes(option)
+									? faCheck
+									: faPlus
+							"
+						></fa-icon>
+						{{ option }}
+					</span>
+				</div>
+				<label class="label block">
+					<span
+						class="label-text-alt text-error text-base"
+						*ngIf="
+							form?.get(
+								fieldDetail.controlPath
+									| replacePrefex
+										: form?.value?.property_type
+										: form?.value?.property_sub_type
+							)?.touched ||
+								form?.get(
+									fieldDetail.controlPath
+										| replacePrefex
+											: form?.value?.form?.value?.property_type
+											: form?.value?.form?.value?.property_sub_type
+								)?.dirty;
+							else emptyTemplate
+						"
+					>
+						<ng-container
+							*ngIf="
+								form
+									?.get(
+										fieldDetail.controlPath
+											| replacePrefex
+												: form?.value?.property_type
+												: form?.value?.property_sub_type
+									)
+									?.hasError('required');
+								else emptyTemplate
+							"
+						>
+							{{ fieldDetail.title }} is required
+						</ng-container>
+					</span>
+				</label>
+			</div>
+			<div *ngSwitchCase="'string'">
+				<!-- (input)="getLocationDistinct(key)" -->
+				<input
+					type="text"
+					placeholder="Type here"
+					class="input input-bordered w-full"
+					[attr.list]="
+						'property-form_location_' + fieldDetail.controlPath
+							| replacePrefex
+								: form?.value?.property_type
+								: form?.value?.property_sub_type
+					"
+					[formControl]="
+						$any(
+							form?.get(
+								fieldDetail.controlPath
+									| replacePrefex
+										: form?.value?.property_type
+										: form?.value?.property_sub_type
+							)
+						)
+					"
+					[name]="
+						fieldDetail.controlPath
+							| replacePrefex
+								: form?.value?.property_type
+								: form?.value?.property_sub_type
+					"
+					[ngClass]="{
+						'input-error':
+							(form?.get(
+								fieldDetail.controlPath
+									| replacePrefex
+										: form?.value?.property_type
+										: form?.value?.property_sub_type
+							)?.touched ||
+								form?.get(
+									fieldDetail.controlPath
+										| replacePrefex
+											: form?.value?.form?.value?.property_type
+											: form?.value?.form?.value?.property_sub_type
+								)?.dirty) &&
+							(form
+								?.get(
+									fieldDetail.controlPath
+										| replacePrefex
+											: form?.value?.property_type
+											: form?.value?.property_sub_type
+								)
+								?.hasError('required') ||
+								form
+									?.get(
+										fieldDetail.controlPath
+											| replacePrefex
+												: form?.value?.property_type
+												: form?.value?.property_sub_type
+									)
+									?.hasError('minlength') ||
+								form
+									?.get(
+										fieldDetail.controlPath
+											| replacePrefex
+												: form?.value?.property_type
+												: form?.value?.property_sub_type
+									)
+									?.hasError('maxlength') ||
+								form
+									?.get(
+										fieldDetail.controlPath
+											| replacePrefex
+												: form?.value?.property_type
+												: form?.value?.property_sub_type
+									)
+									?.hasError('pattern'))
+					}"
+				/>
+
+				<label class="label block">
+					<span
+						class="label-text-alt text-error"
+						*ngIf="
+							form?.get(
+								fieldDetail.controlPath
+									| replacePrefex
+										: form?.value?.property_type
+										: form?.value?.property_sub_type
+							)?.touched ||
+								form?.get(
+									fieldDetail.controlPath
+										| replacePrefex
+											: form?.value?.form?.value?.property_type
+											: form?.value?.form?.value?.property_sub_type
+								)?.dirty;
+							else emptyTemplate
+						"
+					>
+						<ng-container
+							*ngIf="
+								form
+									?.get(
+										fieldDetail.controlPath
+											| replacePrefex
+												: form?.value?.property_type
+												: form?.value?.property_sub_type
+									)
+									?.hasError('pattern');
+								else emptyTemplate
+							"
+						>
+							Please enter valid {{ fieldDetail.title | titlecase }}, only A-Z
+							characters is required!
+						</ng-container>
+						<ng-container
+							*ngIf="
+								form
+									?.get(
+										fieldDetail.controlPath
+											| replacePrefex
+												: form?.value?.property_type
+												: form?.value?.property_sub_type
+									)
+									?.hasError('required');
+								else emptyTemplate
+							"
+						>
+							{{ fieldDetail.title | titlecase }} is required
+						</ng-container>
+						<ng-container
+							*ngIf="
+								form
+									?.get(
+										fieldDetail.controlPath
+											| replacePrefex
+												: form?.value?.property_type
+												: form?.value?.property_sub_type
+									)
+									?.hasError('minlength');
+								else emptyTemplate
+							"
+						>
+							{{ fieldDetail.title | titlecase }} should be atleast
+							{{
+								form
+									?.get(
+										fieldDetail.controlPath
+											| replacePrefex
+												: form?.value?.property_type
+												: form?.value?.property_sub_type
+									)
+									?.getError('minlength').requiredLength
+							}}
+							characters but is of
+							{{
+								form
+									?.get(
+										fieldDetail.controlPath
+											| replacePrefex
+												: form?.value?.property_type
+												: form?.value?.property_sub_type
+									)
+									?.getError('minlength').actualLength
+							}}
+							characters
+						</ng-container>
+						<ng-container
+							*ngIf="
+								form
+									?.get(
+										fieldDetail.controlPath
+											| replacePrefex
+												: form?.value?.property_type
+												: form?.value?.property_sub_type
+									)
+									?.hasError('maxlength');
+								else emptyTemplate
+							"
+						>
+							{{ fieldDetail.title | titlecase }} can be maximum
+							{{
+								form
+									?.get(
+										fieldDetail.controlPath
+											| replacePrefex
+												: form?.value?.property_type
+												: form?.value?.property_sub_type
+									)
+									?.getError('maxlength').requiredLength
+							}}
+							character but is of
+							{{
+								form
+									?.get(
+										fieldDetail.controlPath
+											| replacePrefex
+												: form?.value?.property_type
+												: form?.value?.property_sub_type
+									)
+									?.getError('maxlength').actualLength
+							}}
+							character
+						</ng-container>
+					</span>
+				</label>
+			</div>
+			<div *ngSwitchCase="'textarea'">
+				<textarea
+					class="textarea textarea-bordered min-h-[12rem] w-full"
+					[formControl]="
+						$any(
+							form?.get(
+								fieldDetail.controlPath
+									| replacePrefex
+										: form?.value?.property_type
+										: form?.value?.property_sub_type
+							)
+						)
+					"
+					[name]="
+						fieldDetail.controlPath
+							| replacePrefex
+								: form?.value?.property_type
+								: form?.value?.property_sub_type
+					"
+					[ngClass]="{
+						'textarea-error':
+							(form?.get(
+								fieldDetail.controlPath
+									| replacePrefex
+										: form?.value?.property_type
+										: form?.value?.property_sub_type
+							)?.touched ||
+								form?.get(
+									fieldDetail.controlPath
+										| replacePrefex
+											: form?.value?.form?.value?.property_type
+											: form?.value?.form?.value?.property_sub_type
+								)?.dirty) &&
+							(form
+								?.get(
+									fieldDetail.controlPath
+										| replacePrefex
+											: form?.value?.property_type
+											: form?.value?.property_sub_type
+								)
+								?.hasError('required') ||
+								form
+									?.get(
+										fieldDetail.controlPath
+											| replacePrefex
+												: form?.value?.property_type
+												: form?.value?.property_sub_type
+									)
+									?.hasError('minlength') ||
+								form
+									?.get(
+										fieldDetail.controlPath
+											| replacePrefex
+												: form?.value?.property_type
+												: form?.value?.property_sub_type
+									)
+									?.hasError('maxlength') ||
+								form
+									?.get(
+										fieldDetail.controlPath
+											| replacePrefex
+												: form?.value?.property_type
+												: form?.value?.property_sub_type
+									)
+									?.hasError('pattern'))
+					}"
+				></textarea>
+				<label class="label block">
+					<span
+						class="label-text-alt text-error"
+						*ngIf="
+							form?.get(
+								fieldDetail.controlPath
+									| replacePrefex
+										: form?.value?.property_type
+										: form?.value?.property_sub_type
+							)?.touched ||
+								form?.get(
+									fieldDetail.controlPath
+										| replacePrefex
+											: form?.value?.form?.value?.property_type
+											: form?.value?.form?.value?.property_sub_type
+								)?.dirty;
+							else emptyTemplate
+						"
+					>
+						<ng-container
+							*ngIf="
+								form
+									?.get(
+										fieldDetail.controlPath
+											| replacePrefex
+												: form?.value?.property_type
+												: form?.value?.property_sub_type
+									)
+									?.hasError('pattern');
+								else emptyTemplate
+							"
+						>
+							Please enter valid {{ fieldDetail.title | titlecase }}, only A-Z
+							characters is required!
+						</ng-container>
+						<ng-container
+							*ngIf="
+								form
+									?.get(
+										fieldDetail.controlPath
+											| replacePrefex
+												: form?.value?.property_type
+												: form?.value?.property_sub_type
+									)
+									?.hasError('required');
+								else emptyTemplate
+							"
+						>
+							{{ fieldDetail.title | titlecase }} is required
+						</ng-container>
+						<ng-container
+							*ngIf="
+								form
+									?.get(
+										fieldDetail.controlPath
+											| replacePrefex
+												: form?.value?.property_type
+												: form?.value?.property_sub_type
+									)
+									?.hasError('minlength');
+								else emptyTemplate
+							"
+						>
+							{{ fieldDetail.title | titlecase }} should be atleast
+							{{
+								form
+									?.get(
+										fieldDetail.controlPath
+											| replacePrefex
+												: form?.value?.property_type
+												: form?.value?.property_sub_type
+									)
+									?.getError('minlength').requiredLength
+							}}
+							characters but is of
+							{{
+								form
+									?.get(
+										fieldDetail.controlPath
+											| replacePrefex
+												: form?.value?.property_type
+												: form?.value?.property_sub_type
+									)
+									?.getError('minlength').actualLength
+							}}
+							characters
+						</ng-container>
+						<ng-container
+							*ngIf="
+								form
+									?.get(
+										fieldDetail.controlPath
+											| replacePrefex
+												: form?.value?.property_type
+												: form?.value?.property_sub_type
+									)
+									?.hasError('maxlength');
+								else emptyTemplate
+							"
+						>
+							{{ fieldDetail.title | titlecase }} can be maximum
+							{{
+								form
+									?.get(
+										fieldDetail.controlPath
+											| replacePrefex
+												: form?.value?.property_type
+												: form?.value?.property_sub_type
+									)
+									?.getError('maxlength').requiredLength
+							}}
+							character but is of
+							{{
+								form
+									?.get(
+										fieldDetail.controlPath
+											| replacePrefex
+												: form?.value?.property_type
+												: form?.value?.property_sub_type
+									)
+									?.getError('maxlength').actualLength
+							}}
+							character
+						</ng-container>
+					</span>
+				</label>
+			</div>
+			<div *ngSwitchCase="'boolean'">
+				<div class="flex gap-3 items-center">
+					<span class="flex gap-1 items-center">
+						<input
+							type="radio"
+							[value]="true"
+							[formControl]="
+								$any(
+									form?.get(
+										fieldDetail.controlPath
+											| replacePrefex
+												: form?.value?.property_type
+												: form?.value?.property_sub_type
+									)
+								)
+							"
+							[name]="
+								fieldDetail.controlPath
+									| replacePrefex
+										: form?.value?.property_type
+										: form?.value?.property_sub_type
+							"
+							[id]="
+								'yes_' + fieldDetail.controlPath
+									| replacePrefex
+										: form?.value?.property_type
+										: form?.value?.property_sub_type
+							"
+							class="radio"
+						/>
+						<label
+							[for]="
+								'yes_' + fieldDetail.controlPath
+									| replacePrefex
+										: form?.value?.property_type
+										: form?.value?.property_sub_type
+							"
+							class="cursor-pointer"
+						>
+							Yes
+						</label>
+					</span>
+					<span class="flex gap-1 items-center">
+						<input
+							type="radio"
+							[value]="false"
+							[formControl]="
+								$any(
+									form?.get(
+										fieldDetail.controlPath
+											| replacePrefex
+												: form?.value?.property_type
+												: form?.value?.property_sub_type
+									)
+								)
+							"
+							[name]="
+								fieldDetail.controlPath
+									| replacePrefex
+										: form?.value?.property_type
+										: form?.value?.property_sub_type
+							"
+							[id]="
+								'no_' + fieldDetail.controlPath
+									| replacePrefex
+										: form?.value?.property_type
+										: form?.value?.property_sub_type
+							"
+							class="radio"
+						/>
+						<label
+							[for]="
+								'no_' + fieldDetail.controlPath
+									| replacePrefex
+										: form?.value?.property_type
+										: form?.value?.property_sub_type
+							"
+							class="cursor-pointer"
+						>
+							No
+						</label>
+					</span>
+				</div>
+				<label class="label block">
+					<span
+						class="label-text-alt text-error text-base"
+						*ngIf="
+							form?.get(
+								fieldDetail.controlPath
+									| replacePrefex
+										: form?.value?.property_type
+										: form?.value?.property_sub_type
+							)?.touched ||
+								form?.get(
+									fieldDetail.controlPath
+										| replacePrefex
+											: form?.value?.form?.value?.property_type
+											: form?.value?.form?.value?.property_sub_type
+								)?.dirty;
+							else emptyTemplate
+						"
+					>
+						<ng-container
+							*ngIf="
+								form
+									?.get(
+										fieldDetail.controlPath
+											| replacePrefex
+												: form?.value?.property_type
+												: form?.value?.property_sub_type
+									)
+									?.hasError('required');
+								else emptyTemplate
+							"
+						>
+							{{ fieldDetail.title }} is required
+						</ng-container>
+					</span>
+				</label>
+			</div>
+			<div *ngSwitchCase="'date'">
+				<div class="flex gap-3 items-center">
+					<input
+						type="date"
+						[formControl]="
+							$any(
+								form?.get(
+									fieldDetail.controlPath
+										| replacePrefex
+											: form?.value?.property_type
+											: form?.value?.property_sub_type
+								)
+							)
+						"
+						[min]="minDate | date : 'yyyy-MM-dd'"
+						[name]="
+							fieldDetail.controlPath
+								| replacePrefex
+									: form?.value?.property_type
+									: form?.value?.property_sub_type
+						"
+						class="input input-bordered w-full"
+						[ngClass]="{
+							'input-error':
+								(form?.get(
+									fieldDetail.controlPath
+										| replacePrefex
+											: form?.value?.property_type
+											: form?.value?.property_sub_type
+								)?.touched ||
+									form?.get(
+										fieldDetail.controlPath
+											| replacePrefex
+												: form?.value?.form?.value?.property_type
+												: form?.value?.form?.value?.property_sub_type
+									)?.dirty) &&
+								form
+									?.get(
+										fieldDetail.controlPath
+											| replacePrefex
+												: form?.value?.property_type
+												: form?.value?.property_sub_type
+									)
+									?.hasError('required')
+						}"
+					/>
+				</div>
+				<label class="label block">
+					<span
+						class="label-text-alt text-error text-base"
+						*ngIf="
+							form?.get(
+								fieldDetail.controlPath
+									| replacePrefex
+										: form?.value?.property_type
+										: form?.value?.property_sub_type
+							)?.touched ||
+								form?.get(
+									fieldDetail.controlPath
+										| replacePrefex
+											: form?.value?.form?.value?.property_type
+											: form?.value?.form?.value?.property_sub_type
+								)?.dirty;
+							else emptyTemplate
+						"
+					>
+						<ng-container
+							*ngIf="
+								form
+									?.get(
+										fieldDetail.controlPath
+											| replacePrefex
+												: form?.value?.property_type
+												: form?.value?.property_sub_type
+									)
+									?.hasError('required');
+								else emptyTemplate
+							"
+						>
+							{{ fieldDetail.title }} is required
+						</ng-container>
+					</span>
+				</label>
+			</div>
+
+			<div *ngSwitchDefault>
+				Error while loading field! If you find this bug please report it to
+				developers!
+			</div>
+		</div>
+	</div>
+</ng-template>

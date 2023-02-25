@@ -1,0 +1,119 @@
+<div
+	class="card lg:card-side lg:bg-base-100 lg:shadow-2xl w-full p-5 max-w-screen-lg"
+>
+	<app-spinner *ngIf="loading"></app-spinner>
+	<div class="md:w-full lg:w-5/12 hidden lg:flex justify-center">
+		<img src="/assets/svg/welcoming.svg" alt="Shoes" class="rounded-xl" />
+	</div>
+
+	<div class="card-body items-center text-center md:w-full lg:w-7/12">
+		<h2 class="card-title">Log-in</h2>
+		<div>We are happy to see you again</div>
+		<div class="w-full flex flex-col justify-center">
+			<form [formGroup]="loginUser">
+				<div class="form-control w-full">
+					<label class="label">
+						<span class="label-text">Email</span>
+					</label>
+					<input
+						type="text"
+						placeholder="Enter your email"
+						class="input input-bordered w-full"
+						formControlName="email"
+						[ngClass]="{
+							'input-error':
+								loginUser.get('email')?.touched &&
+								(loginUser.get('email')?.hasError('required') ||
+									loginUser.get('email')?.hasError('email'))
+						}"
+					/>
+					<label class="label">
+						<span
+							class="label-text-alt text-error"
+							*ngIf="loginUser.get('email')?.touched"
+						>
+							<ng-container *ngIf="loginUser.get('email')?.hasError('email')">
+								Please enter valid Email
+							</ng-container>
+							<ng-container
+								*ngIf="loginUser.get('email')?.hasError('required')"
+							>
+								Email is required
+							</ng-container>
+						</span>
+					</label>
+				</div>
+				<div class="form-control w-full">
+					<label class="label">
+						<span class="label-text">Password</span>
+					</label>
+					<div class="input-group">
+						<input
+							[type]="passwordFieldType"
+							placeholder="Type your password"
+							class="input input-bordered w-full"
+							formControlName="password"
+						/>
+						<span (click)="togglePasswordType()">
+							<fa-icon
+								[icon]="passwordFieldType === 'password' ? faEye : faEyeSlash"
+							></fa-icon>
+						</span>
+					</div>
+					<label class="label">
+						<span
+							class="label-text-alt text-left text-error"
+							*ngIf="loginUser.get('password')?.touched"
+						>
+							<ng-container
+								*ngIf="loginUser.get('password')?.hasError('required')"
+							>
+								Password is required
+							</ng-container>
+							<ng-container
+								*ngIf="loginUser.get('password')?.hasError('minlength')"
+							>
+								Password should be atleast
+								{{
+									loginUser.get('password')?.getError('minlength')
+										.requiredLength
+								}}
+								but is of
+								{{
+									loginUser.get('password')?.getError('minlength').actualLength
+								}}
+							</ng-container>
+							<ng-container
+								*ngIf="loginUser.get('password')?.hasError('maxlength')"
+							>
+								Password can be maximum
+								{{
+									loginUser.get('password')?.getError('maxlength')
+										.requiredLength
+								}}
+								but is of
+								{{
+									loginUser.get('password')?.getError('maxlength').actualLength
+								}}
+							</ng-container>
+						</span>
+					</label>
+				</div>
+				<div class="form-control w-full">
+					<div class="text-error my-2">
+						{{ error }}
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="card-actions">
+			<button
+				class="btn btn-primary"
+				[ngClass]="{ 'btn-disabled': loginUser.invalid }"
+				(click)="onSubmit()"
+			>
+				Log-in
+			</button>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,19 @@
+<div class="toast toast-end">
+	<ng-container *ngFor="let toast of toasts">
+		<div
+			class="alert"
+			[ngClass]="{
+				'alert-error': toast.toastFace === 'error',
+				'alert-success': toast.toastFace === 'success',
+				'alert-warning': toast.toastFace === 'warning',
+				'alert-info': toast.toastFace === 'info',
+				'alert-primary': toast.toastFace === 'primary',
+				'alert-secondary': toast.toastFace === 'secondary'
+			}"
+		>
+			<div>
+				<span>{{ toast.message }}</span>
+			</div>
+		</div>
+	</ng-container>
+</div>

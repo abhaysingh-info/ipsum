@@ -1,0 +1,123 @@
+<div class="navbar fixed bg-base-100 lg:hidden w-full z-50">
+	<div class="flex-1">
+		<a
+			class="btn btn-ghost normal-case text-xl"
+			[routerLink]="isLoggedIn ? '/home' : '/'"
+			>{{ appName }}</a
+		>
+	</div>
+	<div class="flex-none">
+		<div class="dropdown dropdown-end">
+			<label tabindex="0" class="btn btn-ghost btn-circle">
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					class="h-5 w-5"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke="currentColor"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						stroke-width="2"
+						d="M4 6h16M4 12h16M4 18h7"
+					/>
+				</svg>
+			</label>
+			<ul
+				tabindex="0"
+				class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+			>
+				<ng-container *ngFor="let link of links">
+					<li
+						*ngIf="
+							(!isLoggedIn && link.forLoggedIn === false) ||
+							(isLoggedIn && link.forLoggedIn === true) ||
+							link.forLoggedIn === 'both'
+						"
+					>
+						<a
+							class="gap-2 rounded-lg"
+							[ngClass]="{
+								btn: link.isBtn,
+								'btn-primary btn-active hover:btn-primary-focus text-primary-content':
+									link.isBtn && link.isBtnHighlight,
+								'btn-ghost': link.isBtn && !link.isBtnHighlight
+							}"
+							[routerLink]="link.link"
+						>
+							<fa-icon [icon]="link.icon"></fa-icon>
+							{{ link.title }}</a
+						>
+					</li>
+				</ng-container>
+				<ng-container *ngIf="isLoggedIn">
+					<li>
+						<button
+							(click)="logOut()"
+							class="gap-2 rounded-lg btn-ghost hover:btn-primary-focus"
+						>
+							<fa-icon [icon]="faRightFromBracket"></fa-icon>
+						</button>
+					</li>
+				</ng-container>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<header class="navbar fixed bg-base-100 hidden lg:flex z-50">
+	<div class="flex-1">
+		<a
+			class="btn btn-ghost normal-case text-xl"
+			[routerLink]="isLoggedIn ? '/home' : '/'"
+			>{{ appName }}</a
+		>
+	</div>
+	<div class="flex-none">
+		<ul class="menu menu-horizontal p-0 gap-1">
+			<ng-container *ngFor="let link of links">
+				<li
+					*ngIf="
+						link.forLoggedIn === 'both' ||
+						(isLoggedIn === false && link.forLoggedIn === false) ||
+						(isLoggedIn === true && link.forRoles.includes(user.roles))
+					"
+				>
+					<a
+						class="gap-2 rounded-lg"
+						[ngClass]="{
+							btn: link.isBtn,
+							'btn-secondary': link.isBtn && link.isBtnHighlight,
+							'btn-ghost': link.isBtn && !link.isBtnHighlight
+						}"
+						[routerLink]="link.link"
+						*ngIf="!link.hidden"
+					>
+						<fa-icon [icon]="link.icon"></fa-icon>
+						{{ link.title }}
+					</a>
+				</li>
+			</ng-container>
+			<ng-container *ngIf="isLoggedIn">
+				<li>
+					<button
+						(click)="logOut()"
+						class="gap-2 rounded-lg btn-ghost hover:btn-primary-focus"
+					>
+						<fa-icon [icon]="faRightFromBracket"></fa-icon>
+						<!-- Log-out -->
+					</button>
+				</li>
+			</ng-container>
+			<!-- <li>
+				<button
+					class="btn rounded-lg text-primary-content"
+					(click)="setTheme(currentTheme === 'light' ? 'dark' : 'light')"
+				>
+					<fa-icon [icon]="currentTheme === 'light' ? faSun : faMoon"></fa-icon>
+				</button>
+			</li> -->
+		</ul>
+	</div>
+</header>

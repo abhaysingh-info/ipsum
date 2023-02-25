@@ -1,0 +1,269 @@
+<div
+	class="card lg:card-side lg:bg-base-100 lg:shadow-2xl w-full p-5 max-w-screen-lg relative overflow-hidden"
+>
+	<app-spinner *ngIf="loading"></app-spinner>
+	<div class="md:w-full lg:w-5/12 hidden lg:flex justify-center">
+		<img src="/assets/svg/city_girl.svg" alt="Shoes" class="rounded-xl" />
+	</div>
+	<div class="card-body items-center text-center md:w-full lg:w-7/12">
+		<h2 class="card-title">Sign-up</h2>
+		<div>Welcome to our family</div>
+		<div class="w-full">
+			<form [formGroup]="createUser">
+				<div class="form-control w-full">
+					<label class="label">
+						<span class="label-text">Name</span>
+					</label>
+					<input
+						type="text"
+						placeholder="Enter your name"
+						class="input input-bordered w-full"
+						formControlName="name"
+						[ngClass]="{
+							'input-error':
+								createUser.get('name')?.touched &&
+								(createUser.get('name')?.hasError('required') ||
+									createUser.get('name')?.hasError('minlength') ||
+									createUser.get('name')?.hasError('maxlength') ||
+									createUser.get('name')?.hasError('pattern'))
+						}"
+					/>
+					<label class="label">
+						<div class="text-error">
+							{{ error.name }}
+						</div>
+						<span
+							class="label-text-alt text-error"
+							*ngIf="createUser.get('name')?.touched"
+						>
+							<ng-container *ngIf="createUser.get('name')?.hasError('pattern')">
+								Please enter valid name, only A-Z characters is required!
+							</ng-container>
+							<ng-container
+								*ngIf="createUser.get('name')?.hasError('required')"
+							>
+								Name is required
+							</ng-container>
+							<ng-container
+								*ngIf="createUser.get('name')?.hasError('minlength')"
+							>
+								Name should be atleast
+								{{
+									createUser.get('name')?.getError('minlength').requiredLength
+								}}
+								but is of
+								{{ createUser.get('name')?.getError('minlength').actualLength }}
+							</ng-container>
+							<ng-container
+								*ngIf="createUser.get('name')?.hasError('maxlength')"
+							>
+								Name can be maximum
+								{{
+									createUser.get('name')?.getError('maxlength').requiredLength
+								}}
+								but is of
+								{{ createUser.get('name')?.getError('maxlength').actualLength }}
+							</ng-container>
+						</span>
+					</label>
+				</div>
+				<div class="form-control w-full">
+					<label class="label">
+						<span class="label-text">Email</span>
+					</label>
+					<input
+						type="text"
+						placeholder="Enter your email"
+						class="input input-bordered w-full"
+						formControlName="email"
+						[ngClass]="{
+							'input-error':
+								createUser.get('email')?.touched &&
+								(createUser.get('email')?.hasError('required') ||
+									createUser.get('email')?.hasError('email'))
+						}"
+					/>
+					<label class="label">
+						<div class="text-error">
+							{{ error.email }}
+						</div>
+						<span
+							class="label-text-alt text-error"
+							*ngIf="createUser.get('email')?.touched"
+						>
+							<ng-container *ngIf="createUser.get('email')?.hasError('email')">
+								Please enter valid Email
+							</ng-container>
+							<ng-container
+								*ngIf="createUser.get('email')?.hasError('required')"
+							>
+								Email is required
+							</ng-container>
+						</span>
+					</label>
+				</div>
+				<div class="form-control w-full">
+					<label class="label">
+						<span class="label-text">Phone Number</span>
+					</label>
+					<div class="input-group">
+						<select
+							class="select select-bordered"
+							formControlName="countryCode"
+						>
+							<ng-container *ngFor="let country of countryCodeWithFlag">
+								<option [value]="country.dialCode">
+									{{ country.emoji }} {{ country.dialCode }}
+								</option>
+							</ng-container>
+						</select>
+						<input
+							type="text"
+							placeholder="Enter your phone number"
+							class="input input-bordered w-full"
+							maxlength="18"
+							[ngClass]="{
+								'input-error':
+									createUser.get('phoneNumber')?.touched &&
+									(createUser.get('phoneNumber')?.hasError('required') ||
+										createUser.get('phoneNumber')?.hasError('minlength') ||
+										createUser.get('phoneNumber')?.hasError('maxlength') ||
+										createUser.get('phoneNumber')?.hasError('pattern'))
+							}"
+							formControlName="phoneNumber"
+						/>
+					</div>
+					<label class="label">
+						<div class="text-error">
+							{{ error.phoneNumber }}
+						</div>
+						<span
+							class="label-text-alt text-left text-error"
+							*ngIf="createUser.get('phoneNumber')?.touched"
+						>
+							<ng-container
+								*ngIf="createUser.get('phoneNumber')?.hasError('pattern')"
+							>
+								Please enter valid Phone Number, only 0-9 is valid!
+							</ng-container>
+							<ng-container
+								*ngIf="createUser.get('phoneNumber')?.hasError('required')"
+							>
+								Phone Number is required
+							</ng-container>
+							<ng-container
+								*ngIf="createUser.get('phoneNumber')?.hasError('minlength')"
+							>
+								Phone Number should be atleast
+								{{
+									createUser.get('phoneNumber')?.getError('minlength')
+										.requiredLength
+								}}
+								but is of
+								{{
+									createUser.get('phoneNumber')?.getError('minlength')
+										.actualLength
+								}}
+							</ng-container>
+							<ng-container
+								*ngIf="createUser.get('phoneNumber')?.hasError('maxlength')"
+							>
+								Phone Number can be maximum
+								{{
+									createUser.get('phoneNumber')?.getError('maxlength')
+										.requiredLength
+								}}
+								but is of
+								{{
+									createUser.get('phoneNumber')?.getError('maxlength')
+										.actualLength
+								}}
+							</ng-container>
+						</span>
+					</label>
+				</div>
+				<div class="form-control w-full">
+					<label class="label">
+						<span class="label-text">Password</span>
+					</label>
+					<div class="input-group">
+						<input
+							[type]="passwordFieldType"
+							placeholder="Create a strong password"
+							class="input input-bordered w-full"
+							formControlName="password"
+							[ngClass]="{
+								'input-error':
+									createUser.get('password')?.touched &&
+									(createUser.get('password')?.hasError('required') ||
+										createUser.get('password')?.hasError('minlength') ||
+										createUser.get('password')?.hasError('maxlength'))
+							}"
+						/>
+						<span (click)="togglePasswordType()">
+							<fa-icon
+								[icon]="passwordFieldType === 'password' ? faEye : faEyeSlash"
+							></fa-icon>
+						</span>
+					</div>
+					<label class="label">
+						<span
+							class="label-text-alt text-left text-error"
+							*ngIf="createUser.get('password')?.touched"
+						>
+							<ng-container
+								*ngIf="createUser.get('password')?.hasError('required')"
+							>
+								Password is required
+							</ng-container>
+							<ng-container
+								*ngIf="createUser.get('password')?.hasError('minlength')"
+							>
+								Password should be atleast
+								{{
+									createUser.get('password')?.getError('minlength')
+										.requiredLength
+								}}
+								but is of
+								{{
+									createUser.get('password')?.getError('minlength').actualLength
+								}}
+							</ng-container>
+							<ng-container
+								*ngIf="createUser.get('password')?.hasError('maxlength')"
+							>
+								Password can be maximum
+								{{
+									createUser.get('password')?.getError('maxlength')
+										.requiredLength
+								}}
+								but is of
+								{{
+									createUser.get('password')?.getError('maxlength').actualLength
+								}}
+							</ng-container>
+						</span>
+					</label>
+				</div>
+				<div class="form-control w-full">
+					<div class="text-muted">
+						By creating an account with us, you aggree to our terms and
+						conditions!
+					</div>
+					<div class="text-error my-2">
+						{{ error.general }}
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="card-actions mt-5">
+			<button
+				class="btn btn-primary"
+				[ngClass]="{ 'btn-disabled': createUser.invalid }"
+				(click)="onSubmit()"
+			>
+				Create Account
+			</button>
+		</div>
+	</div>
+</div>

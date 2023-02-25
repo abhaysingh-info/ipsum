@@ -1,0 +1,19 @@
+{
+	"name": "@shared/utils",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"build": "rm -r ./dist/*.js ./dist/*.d.ts; tsc --build"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"bcryptjs": "^2.4.3"
+	},
+	"devDependencies": {
+		"typescript": "^4.9.3"
+	}
+}

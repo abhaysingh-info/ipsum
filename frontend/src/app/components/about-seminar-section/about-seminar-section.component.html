@@ -1,0 +1,17 @@
+<div class="w-full max-w-screen-xl mx-auto">
+	<h2
+		class="max-w-2xl text-3xl font-bold leading-none tracking-tight md:text-4xl xl:text-5xl capitalize text-center mx-auto"
+	>
+		{{ data.title }}
+	</h2>
+	<div class="divider max-w-sm text-gray-300 mx-auto my-8 text-xl xl:text-2xl">
+		<fa-icon [icon]="data.dividerIcon"></fa-icon>
+	</div>
+	<div
+		class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 place-items-center mt-14"
+	>
+		<ng-container *ngFor="let card of data.iconCardContent">
+			<app-icon-card [data]="card"></app-icon-card>
+		</ng-container>
+	</div>
+</div>
