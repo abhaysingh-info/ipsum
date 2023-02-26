@@ -4,6 +4,13 @@ import { eventType } from 'src/utils/event';
 
 @Schema()
 export class Event extends Document {
+  @Prop({
+    required: true,
+    type: String,
+    default: 'default.jpg',
+  })
+  image: string;
+
   @Prop({ required: true, unique: true, type: String })
   eventId: string;
 

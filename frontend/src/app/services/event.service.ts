@@ -1,7 +1,11 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { environment } from 'src/environments/environment'
-import { defaultHttpPostHeader, getQueryString } from './helper'
+import {
+	defaultHttpPostHeader,
+	defaultHttpPostHeaderMultipart,
+	getQueryString,
+} from './helper'
 import { Event } from '@shared/interfaces/event'
 
 @Injectable({
@@ -20,5 +24,9 @@ export class EventService {
 		const query_string = getQueryString(query)
 
 		return this.http.get(`${this.url}?${query_string}`, defaultHttpPostHeader)
+	}
+
+	delete(id: string) {
+		return this.http.delete(`${this.url}/${id}`, defaultHttpPostHeader)
 	}
 }

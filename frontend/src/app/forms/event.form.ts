@@ -1,4 +1,4 @@
-import { FormArray, FormGroup, Validators, FormControl } from '@angular/forms'
+import { FormGroup, Validators, FormControl } from '@angular/forms'
 import { eventType } from '../utils/event'
 import { oneOfFromArray } from '../validators'
 

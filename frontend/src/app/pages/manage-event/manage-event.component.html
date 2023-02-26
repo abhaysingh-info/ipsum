@@ -1,3 +1,4 @@
+<app-spinner *ngIf="loaderForSpinner"></app-spinner>
 <div class="max-w-screen-xl w-full mx-auto">
 	<div class="flex px-3 lg:px-0">
 		<button
@@ -7,10 +8,11 @@
 			Create Event
 		</button>
 	</div>
-	<section class="mt-2">
-		<div class="overflow-x-auto">
+	<section
+		class="mt-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5"
+	>
+		<!-- <div class="overflow-x-auto">
 			<table class="table w-full">
-				<!-- head -->
 				<thead>
 					<tr>
 						<th>Sr.No</th>
@@ -23,10 +25,10 @@
 						<th>Event Batch</th>
 						<th>PDF</th>
 						<th>Description</th>
+						<th>Action</th>
 					</tr>
 				</thead>
 				<tbody>
-					<!-- row 1 -->
 					<tr
 						class="hover"
 						*ngFor="let event of events; trackBy: trackById; let index = index"
@@ -50,10 +52,30 @@
 						<td class="min-w-[5rem] max-w-[12rem] break-words overflow-hidden">
 							{{ event.description.slice(0, 50) }}...
 						</td>
+						<td class="flex gap-4 flex-wrap w-[20rem]">
+							<button
+								class="btn btn-error btn-outline btn-sm"
+								(click)="deleteEvent(index)"
+							>
+								Delete
+							</button>
+						</td>
+					</tr>
+
+					<tr *ngIf="!events.length">
+						<td [colSpan]="11" class="bg-gray-200 justify-center min-h-[10rem]">
+							<div class="text-center">
+								<img
+									src="/assets/svg/joyride.svg"
+									class="max-w-[15rem] mx-auto"
+								/>
+								<div class="text-2xl">Create a new event!</div>
+							</div>
+						</td>
 					</tr>
 
 					<tr *ngIf="requestInProgress && !loadedAllData" class="hover">
-						<td [colSpan]="10" class="text-2xl text-center bg-gray-200">
+						<td [colSpan]="11" class="text-2xl text-center bg-gray-200">
 							<span class="inline-block animate-spin">
 								<fa-icon [icon]="faSpinner"></fa-icon>
 							</span>
@@ -61,7 +83,7 @@
 					</tr>
 
 					<tr *ngIf="!loadedAllData && !requestInProgress" class="hover">
-						<td [colSpan]="10" class="text-2xl text-center bg-gray-200">
+						<td [colSpan]="11" class="text-2xl text-center bg-gray-200">
 							<button
 								class="btn btn-primary btn-outline btn-sm"
 								(click)="getEvents()"
@@ -73,6 +95,47 @@
 					</tr>
 				</tbody>
 			</table>
+		</div> -->
+
+		<div
+			*ngIf="!events.length"
+			class="col-span-1 md:col-span-2 lg:col-span-3 xl:col-span-5 flex flex-col items-center justify-center min-h-screen"
+		>
+			<img src="/assets/svg/joyride.svg" class="max-w-[15rem] mx-auto" />
+			<div class="text-2xl">Create a new event!</div>
+		</div>
+
+		<div
+			*ngFor="let event of events; trackBy: trackById; let index = index"
+			class="m-5 flex justify-center items-center"
+		>
+			<app-event-card
+				(onDelete)="deleteEvent($event)"
+				[event]="event"
+				[user]="user"
+				[index]="index"
+			></app-event-card>
+		</div>
+
+		<div
+			*ngIf="requestInProgress && !loadedAllData"
+			class="flex justify-center items-center w-full bg-gray-100 rounded-lg h-full"
+		>
+			<span class="inline-block animate-spin">
+				<fa-icon [icon]="faSpinner"></fa-icon>
+			</span>
+		</div>
+		<div
+			*ngIf="!loadedAllData && !requestInProgress"
+			class="flex justify-center items-center"
+		>
+			<button
+				class="btn btn-primary btn-outline btn-sm"
+				(click)="getEvents()"
+				[disabled]="loadedAllData || requestInProgress"
+			>
+				Load more
+			</button>
 		</div>
 	</section>
 </div>
@@ -81,3 +144,16 @@
 	[showModel]="showCreateEventModal"
 	(showModelEmitter)="createEventModalEmitHandler($event)"
 ></app-create-event>
+
+<app-ask-confirmation
+	[showConfirmation]="showDeleteConfirmation"
+	(confirmationByUser)="deleteEventAfterEmit($event)"
+	[title]="
+		'Delete ' +
+		(deleteEventIndex !== undefined || deleteEventIndex !== null
+			? $any(events[$any(deleteEventIndex)])?.name
+			: '') +
+		'?'
+	"
+	[btnActionType]="'error'"
+></app-ask-confirmation>

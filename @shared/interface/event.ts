@@ -1,6 +1,7 @@
 import { ObjectId } from 'mongoose'
 
 export interface Event {
+	image: string
 	eventId: string
 	eventType: 'individual' | 'team'
 	name: string
@@ -14,6 +15,7 @@ export interface Event {
 
 export interface IDBEvent {
 	_id: ObjectId
+	image: string
 	eventId: string
 	eventType: string
 	name: string

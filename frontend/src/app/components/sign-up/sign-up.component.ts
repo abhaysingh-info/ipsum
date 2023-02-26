@@ -116,7 +116,6 @@ export class SignUpComponent implements OnInit {
 				}
 			},
 			error: (error: any) => {
-				console.log(error.error)
 				if (error.error.statusCode === 409) {
 					if (`${error.error.message}`.toLowerCase().includes('email')) {
 						this.setErrorMessage('email', 'Email alreay exists!')
@@ -139,6 +138,11 @@ export class SignUpComponent implements OnInit {
 						)
 					}
 				}
+				this.setErrorMessage(
+					'general',
+					error?.message ||
+						'Failed to create account Please try again in sometime, if this issue persists please contact support',
+				)
 				this.setLoading(false)
 			},
 			complete: () => {

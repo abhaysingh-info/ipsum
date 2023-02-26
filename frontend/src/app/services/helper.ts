@@ -1,6 +1,14 @@
 import { HttpHeaders } from '@angular/common/http'
 import { IStringKey } from '@shared/interfaces'
 
+export const defaultHttpPostHeaderMultipart = {
+	headers: new HttpHeaders({
+		'Content-Type': 'multipart/form-data',
+		Accept: 'application/json',
+	}),
+	withCredentials: true,
+}
+
 export const defaultHttpPostHeader = {
 	headers: new HttpHeaders({
 		'Content-Type': 'application/json',

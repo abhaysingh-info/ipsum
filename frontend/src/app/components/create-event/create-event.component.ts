@@ -33,6 +33,7 @@ export class CreateEventComponent implements OnInit {
 		description: null,
 		eventBatch: null,
 		moreInformationPdf: null,
+		image: null,
 	}
 
 	todaysDate = new Date()
@@ -65,8 +66,11 @@ export class CreateEventComponent implements OnInit {
 	}
 
 	onSubmit() {
-		if (this.createForm.invalid || this.requestInProgress) return
-
+		if (this.requestInProgress) return
+		if (this.createForm.invalid) {
+			this.createForm.markAllAsTouched()
+			return
+		}
 		this.requestInProgress = true
 		this.resetMessages()
 		this.eventService.create(this.createForm.value).subscribe({

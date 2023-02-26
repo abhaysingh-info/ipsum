@@ -85,20 +85,23 @@ export class SignInComponent
 					this.router.navigateByUrl(redirectAfterLoginAuth)
 				},
 				error: (error: any) => {
-					console.log(error.error)
-					if (error.error.statusCode === 401) {
+					console.log(error)
+					if (error.error.statusCode === 401 || error.status === 401) {
 						this.setErrorMessage('Email or password you entered is invalid!')
 					}
-					if (error.error.statusCode === 404) {
+					if (error.error.statusCode === 404 || error.status === 404) {
 						this.setErrorMessage(
 							"There's no account associated with this email!",
 						)
 					}
-					if (error.error.statusCode === 400) {
+					if (error.error.statusCode === 400 || error.status === 400) {
 						if (`${error.error.message}`.toLowerCase().includes('email')) {
 							this.setErrorMessage('Please enter valid email!')
 						}
 					}
+					this.setErrorMessage(
+						error?.message || 'Failed to login please try again in sometime...',
+					)
 					this.loading = false
 				},
 				complete: () => {

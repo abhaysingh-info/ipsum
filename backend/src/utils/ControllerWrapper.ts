@@ -23,7 +23,7 @@ export default async function (next: Function) {
     if (error.status) {
       throw error;
     }
-    console.log(error)
+    console.log(error);
     throw new InternalServerErrorException('There was an error');
   }
 }

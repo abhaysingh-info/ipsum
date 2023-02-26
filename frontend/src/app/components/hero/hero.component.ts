@@ -4,11 +4,12 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 import { UserService } from 'src/app/services/user.service'
 import { IVerifyUser } from '@shared/interfaces/user'
 import { CustomSubscription } from 'src/app/utils/common'
+import { RouterModule } from '@angular/router'
 
 @Component({
 	selector: 'app-hero',
 	standalone: true,
-	imports: [CommonModule, FontAwesomeModule],
+	imports: [CommonModule, FontAwesomeModule, RouterModule],
 	templateUrl: './hero.component.html',
 	styleUrls: ['./hero.component.scss'],
 })

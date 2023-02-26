@@ -1,0 +1,81 @@
+<div
+	class="card w-full bg-base-100 shadow-xl max-w-screen-sm h-20rem max-h-[25rem] group relative"
+>
+	<figure class="relative">
+		<picture class="inline-block min-h-[14rem] w-full bg-gray-100">
+			<source
+				media="(min-width: 1536px)"
+				class="min-h-full"
+				[srcset]="imageBaseUrl + '/filters:quality(50)/265x224/' + event.image"
+			/>
+			<source
+				media="(min-width: 1248px)"
+				class="min-h-full"
+				[srcset]="imageBaseUrl + '/filters:quality(50)/372x298/' + event.image"
+			/>
+			<source
+				media="(min-width: 1024px)"
+				class="min-h-full"
+				[srcset]="imageBaseUrl + '/filters:quality(50)/362x289/' + event.image"
+			/>
+			<source
+				media="(min-width: 768px)"
+				class="min-h-full"
+				[srcset]="imageBaseUrl + '/filters:quality(50)/461x368/' + event.image"
+			/>
+			<source
+				media="(min-width: 0px)"
+				class="min-h-full"
+				[srcset]="imageBaseUrl + '/filters:quality(50)/720x613/' + event.image"
+			/>
+			<img
+				[alt]="event.name"
+				class="brightness-[0.8]"
+				[src]="imageBaseUrl + '/filters:quality(50)/265x224/' + event.image"
+			/>
+		</picture>
+		<div class="absolute top-0 bottom-0 left-0 right-0 flex">
+			<span
+				class="inline-block w-full text-xs text-gray-100 font-semibold self-end mb-1 flex justify-between flex-col"
+			>
+				<span> Event Date: {{ event.commencementDate | date }} </span>
+			</span>
+		</div>
+	</figure>
+	<div class="card-body">
+		<h2 class="card-title">{{ event.name }}</h2>
+		<div>
+			<div>{{ event.description?.slice(0, 50) }}...</div>
+			<div class="text-xs mt-3">
+				<div class="font-medium">
+					Venue:
+					<span class="font-semibold">
+						{{ event.venue }}
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="card-actions justify-end gap-1">
+			<a
+				[href]="event.moreInformationPdf"
+				target="_blank"
+				class="btn btn-outline btn-error btn-sm gap-1"
+			>
+				<fa-icon [icon]="faFilePdf"></fa-icon> View
+			</a>
+			<button
+				class="btn btn-outline btn-error btn-sm"
+				*ngIf="user?.roles === roles.admin"
+				(click)="emitOnDelete()"
+			>
+				Delete
+			</button>
+		</div>
+	</div>
+	<div
+		class="absolute hidden group-hover:block top-0 bottom-0 left-0 right-0 px-4 py-5 overflow-y-auto break-word bg-base-100"
+		*ngIf="user?.roles !== roles.admin"
+	>
+		{{ event.description }}
+	</div>
+</div>

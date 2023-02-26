@@ -130,6 +130,12 @@ export class User {
   @Prop({ type: Boolean, default: false, required: true })
   isBlocked: boolean; // blocked is for no access
 
+  @Prop({ type: Boolean, default: false, required: true })
+  payment_made: boolean;
+
+  @Prop({ type: String })
+  payment_screenshot: string;
+
   @Prop({
     type: String,
   })

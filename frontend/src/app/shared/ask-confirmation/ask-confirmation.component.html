@@ -1,0 +1,25 @@
+<div class="modal" [ngClass]="{ 'modal-open': showConfirmation }">
+	<div class="modal-box relative">
+		<button
+			(click)="emitConfirmationByUser(false)"
+			for="my-modal-3"
+			class="btn btn-sm btn-outline border-0 btn-circle absolute right-2 top-2"
+		>
+			✕
+		</button>
+		<h3 class="font-bold text-lg">{{ title }}</h3>
+		<div class="py-4"></div>
+		<div class="modal-action gap-2">
+			<button class="btn btn-outline" (click)="emitConfirmationByUser(false)">
+				No
+			</button>
+			<button
+				class="btn"
+				[ngClass]="'btn-' + btnActionType"
+				(click)="emitConfirmationByUser(true)"
+			>
+				Yes
+			</button>
+		</div>
+	</div>
+</div>
