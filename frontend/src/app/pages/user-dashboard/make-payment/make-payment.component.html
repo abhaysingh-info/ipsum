@@ -1,0 +1,121 @@
+<app-spinner *ngIf="requestInProgress"></app-spinner>
+<div class="modal" [ngClass]="{ 'modal-open': show }">
+	<div class="modal-box relative">
+		<button
+			(click)="emitConfirmationByUser(false)"
+			for="my-modal-3"
+			class="btn btn-sm btn-outline border-0 btn-circle absolute right-2 top-2"
+		>
+			✕
+		</button>
+		<h3 class="font-bold text-lg">Make Payment</h3>
+		<div class="py-4 prose">
+			<div class="w-full flex flex-col items-center">
+				<img
+					[src]="paymentDetails.upiQrCode"
+					class="max-w-sm mb-0"
+					[alt]="'UPI QR Code for ' + paymentDetails.upiId"
+				/>
+				<h2 class="text-lg mt-3">
+					<span class="text-gray-500">UPI ID: </span>
+					<span class="text-bold">
+						{{ paymentDetails.upiId }}
+					</span>
+				</h2>
+			</div>
+			<form [formGroup]="paymentForm" class="w-full">
+				<div class="form-control mb-3">
+					<label class="label">
+						<span class="label-text">Enter Transaction Id</span>
+					</label>
+					<input
+						type="text"
+						placeholder="Enter Transaction ID"
+						class="input input-bordered w-full"
+						formControlName="transaction_id"
+						[ngClass]="{
+							'input-error':
+								paymentForm.get('transaction_id')?.touched &&
+								(paymentForm.get('transaction_id')?.hasError('required') ||
+									paymentForm.get('transaction_id')?.hasError('minlength'))
+						}"
+					/>
+					<label
+						*ngIf="
+							(paymentForm.controls['transaction_id'].invalid &&
+								(paymentForm.controls['transaction_id'].dirty ||
+									paymentForm.controls['transaction_id'].touched)) ||
+							messages['transaction_id']
+						"
+						class="label text-error"
+					>
+						<div *ngIf="messages['transaction_id']">
+							{{ messages['transaction_id'] }}
+						</div>
+						<div
+							*ngIf="paymentForm.get('transaction_id')?.hasError('required')"
+						>
+							Transaction ID is required.
+						</div>
+						<div
+							*ngIf="paymentForm.get('transaction_id')?.hasError('minlength')"
+						>
+							Transaction Id should be of minimum 1 character
+						</div>
+					</label>
+				</div>
+				<div class="form-control w-full mb-3">
+					<label class="label">
+						<span class="label-text">Attach screenshot of payment</span>
+					</label>
+					<input
+						type="file"
+						class="file-input file-input-bordered w-full max-w-xs"
+						(change)="onFileChange($event)"
+					/>
+					<label
+						*ngIf="
+							(paymentForm.controls['transaction_image'].invalid &&
+								(paymentForm.controls['transaction_image'].dirty ||
+									paymentForm.controls['transaction_image'].touched)) ||
+							messages['transaction_image']
+						"
+						class="label text-error"
+					>
+						<div *ngIf="messages['transaction_image']">
+							{{ messages['transaction_image'] }}
+						</div>
+						<div
+							*ngIf="paymentForm.get('transaction_image')?.hasError('required')"
+						>
+							Screenshot of transaction is required.
+						</div>
+					</label>
+				</div>
+			</form>
+		</div>
+		<div class="label block mb-3">
+			<div class="label-text text-success">
+				{{ messages['success'] }}
+			</div>
+			<div class="label-text text-error">
+				{{ messages['general'] }}
+			</div>
+		</div>
+		<div class="modal-action gap-2">
+			<button
+				class="btn btn-danger btn-outline"
+				(click)="emitConfirmationByUser(false)"
+			>
+				Cancel
+			</button>
+			<button
+				class="btn btn-primary"
+				(click)="onSubmit()"
+				[disabled]="paymentForm.invalid"
+			>
+				Make Payment
+			</button>
+		</div>
+	</div>
+</div>

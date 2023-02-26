@@ -18,6 +18,7 @@ import {
 	IconDefinition,
 } from '@fortawesome/free-solid-svg-icons'
 import { IStringKey } from '@shared/interfaces'
+import { IRoles } from '@shared/interfaces/user'
 import { Subscription } from 'rxjs'
 
 // Subscription
@@ -30,7 +31,9 @@ export enum MaxScreenSize {
 	xxl = 1536,
 }
 
-export const roles = {
+export const roles: {
+	[key: string]: IRoles
+} = {
 	admin: 'ADMIN',
 	client: 'CLIENT',
 }

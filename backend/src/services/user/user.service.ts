@@ -1,14 +1,24 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  ConflictException,
+  Injectable,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import ControllerWrapper from 'src/utils/ControllerWrapper';
 import { CreateUserDto } from '../../dto/user/create-user.dto';
 import { UpdateUserDto } from '../../dto/user/update-user.dto';
 import { User, UserDocument } from '../../entities/user.entity';
+import { Express } from 'express';
+import { S3Service } from 'src/services/s3/s3.service';
 
 @Injectable()
 export class UserService {
-  constructor(@InjectModel(User.name) private UserModel: Model<UserDocument>) {}
+  constructor(
+    @InjectModel(User.name) private UserModel: Model<UserDocument>,
+    private s3Service: S3Service,
+  ) {}
 
   async create(createUserDto: CreateUserDto) {
     return await ControllerWrapper(async () => {
@@ -50,6 +60,53 @@ export class UserService {
       return await this.UserModel.findOne({
         email,
       }).select(`${includePassword ? '+' : '-'}password`);
+    });
+  }
+
+  async capturePayment(
+    transaction_id: string,
+    transaction_image: Express.Multer.File,
+    user: UserDocument,
+  ) {
+    return await ControllerWrapper(async () => {
+      if (!transaction_id || !transaction_image) {
+        throw new BadRequestException('All fields are required!');
+      }
+      const allowedMimeType = [
+        'image/jpg',
+        'image/png',
+        'image/jpeg',
+        'image/webp',
+      ];
+      if (!allowedMimeType.includes(transaction_image.mimetype)) {
+        throw new BadRequestException(
+          'transaction_image is invalid, please provide valid image!',
+        );
+      }
+      const imageUrl = await this.s3Service.uploadFile(transaction_image);
+      if (!imageUrl) {
+        throw new InternalServerErrorException(
+          'Internal Server Error, if this error persist please contact our support',
+        );
+      }
+
+      const _user = await this.UserModel.updateOne(
+        {
+          _id: user._id,
+        },
+        {
+          payment_made: true,
+          payment_status: 'pending',
+          payment_image: imageUrl,
+        },
+      );
+      if (_user.acknowledged) {
+        return { success: true };
+      } else {
+        throw new InternalServerErrorException(
+          'Failed to save data, if this error persists please contact out support',
+        );
+      }
     });
   }
 

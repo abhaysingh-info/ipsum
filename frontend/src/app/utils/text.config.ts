@@ -33,3 +33,8 @@ export const aboutSeminarSection = {
 		},
 	],
 }
+
+export const paymentDetails = {
+	upiId: '9881860680@upi',
+	upiQrCode: '/assets/images/upi/qrcode.png',
+}

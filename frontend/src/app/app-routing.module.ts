@@ -51,14 +51,26 @@ const routes: Routes = [
 		canActivate: [AuthGuard, IsAdminGuard],
 	},
 	{
+		path: 'manage-user',
+		loadChildren: () =>
+			import('./pages/manage-clients/manage-clients.module').then(
+				(m) => m.ManageClientsModule,
+			),
+	},
+	{
+		path: 'dashboard',
+		loadChildren: () =>
+			import('./pages/user-dashboard/user-dashboard.module').then(
+				(m) => m.UserDashboardModule,
+			),
+		canActivate: [AuthGuard],
+	},
+	{
 		path: '',
 		loadChildren: () =>
 			import('./pages/home/home.module').then((m) => m.HomeModule),
 		pathMatch: 'full',
-		// canActivate: [UnauthGuard],
 	},
-	{ path: 'manage-user', loadChildren: () => import('./pages/manage-clients/manage-clients.module').then(m => m.ManageClientsModule) },
-
 	{
 		path: '**',
 		loadChildren: () =>

@@ -31,24 +31,24 @@
 				<ng-container *ngFor="let link of links">
 					<li
 						*ngIf="
-							(!isLoggedIn && link.forLoggedIn === false) ||
-							(isLoggedIn && link.forLoggedIn === true) ||
-							link.forLoggedIn === 'both'
+							link.forLoggedIn === 'both' ||
+							(isLoggedIn === false && link.forLoggedIn === false) ||
+							(isLoggedIn === true && link.forRoles.includes(user.roles))
 						"
 					>
 						<a
 							class="gap-2 rounded-lg"
 							[ngClass]="{
 								btn: link.isBtn,
-								'btn-primary btn-active hover:btn-primary-focus text-primary-content':
-									link.isBtn && link.isBtnHighlight,
+								'btn-secondary': link.isBtn && link.isBtnHighlight,
 								'btn-ghost': link.isBtn && !link.isBtnHighlight
 							}"
 							[routerLink]="link.link"
+							*ngIf="!link.hidden"
 						>
 							<fa-icon [icon]="link.icon"></fa-icon>
-							{{ link.title }}</a
-						>
+							{{ link.title }}
+						</a>
 					</li>
 				</ng-container>
 				<ng-container *ngIf="isLoggedIn">

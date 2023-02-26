@@ -4,6 +4,8 @@ import { UserController } from './user.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from '../../entities/user.entity';
 import { AttachUserMiddleware } from 'src/middlewares/attach-user/attach-user.middleware';
+import { S3Service } from 'src/services/s3/s3.service';
+import { ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -15,7 +17,7 @@ import { AttachUserMiddleware } from 'src/middlewares/attach-user/attach-user.mi
     ]),
   ],
   controllers: [UserController],
-  providers: [UserService],
+  providers: [UserService, S3Service, ConfigService],
 })
 export class UserModule {
   configure(consumer: MiddlewareConsumer) {

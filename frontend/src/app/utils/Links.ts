@@ -6,6 +6,7 @@ import {
 	faUserPlus,
 } from '@fortawesome/free-solid-svg-icons'
 import { ILink } from '@shared/interfaces/frontend'
+import { roles } from './common'
 
 export const redirectAfterLoginAuth = '/manage-event'
 export const redirectAfterLoginUnAuth = '/'
@@ -17,20 +18,19 @@ export const redirectLinks = {
 }
 
 const links: ILink[] = [
-	// {
-	// 	forLoggedIn: true,
-	// 	link: '/home',
-	// 	title: 'Home',
-	// 	icon: faHouseChimney,
-	// 	forRoles: ['ADMIN', 'CLIENT'],
-	// },
-
 	{
 		forLoggedIn: 'both',
 		link: '/',
 		title: 'Home',
 		icon: faHouseChimney,
 		forRoles: [],
+	},
+	{
+		forLoggedIn: true,
+		link: '/dashboard',
+		title: 'Dashboard',
+		icon: faUser,
+		forRoles: [roles['admin'], roles['client']],
 	},
 	{
 		forLoggedIn: true,

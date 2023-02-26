@@ -25,6 +25,7 @@ export class AppComponent implements OnInit {
 			},
 			error: () => {
 				this.userService.setIsLoggedIn(false)
+				this.userService.setUser({})
 			},
 		})
 	}

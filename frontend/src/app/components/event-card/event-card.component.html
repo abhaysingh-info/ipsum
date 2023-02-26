@@ -65,7 +65,7 @@
 			</a>
 			<button
 				class="btn btn-outline btn-error btn-sm"
-				*ngIf="user?.roles === roles.admin"
+				*ngIf="user?.roles === roles['admin']"
 				(click)="emitOnDelete()"
 			>
 				Delete
@@ -74,7 +74,7 @@
 	</div>
 	<div
 		class="absolute hidden group-hover:block top-0 bottom-0 left-0 right-0 px-4 py-5 overflow-y-auto break-word bg-base-100"
-		*ngIf="user?.roles !== roles.admin"
+		*ngIf="user?.roles !== roles['admin']"
 	>
 		{{ event.description }}
 	</div>

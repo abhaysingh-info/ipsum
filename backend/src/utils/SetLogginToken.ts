@@ -16,6 +16,9 @@ export default async function (res: Response, user: UserDocument) {
       isEmailVerified: user.isEmailVerified,
       name: user.name,
       roles: user.roles,
+      payment_made: user.payment_made,
+      payment_screenshot: user.payment_screenshot,
+      payment_status: user.payment_status,
     },
   };
 }

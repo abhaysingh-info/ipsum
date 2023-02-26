@@ -8,21 +8,23 @@ import {
   NotFoundException,
   UnauthorizedException,
   Res,
-  UseInterceptors,
-  Req,
   UseGuards,
   Get,
+  UseInterceptors,
+  UploadedFile,
+  BadRequestException,
 } from '@nestjs/common';
 import { UserService } from '../../services/user/user.service';
 import { CreateUserDto } from '../../dto/user/create-user.dto';
 import { UpdateUserDto } from '../../dto/user/update-user.dto';
 import { LoginUserDto } from '../../dto/user/login-user.dto';
 import SetLogginToken from 'src/utils/SetLogginToken';
-import { Request, Response } from 'express';
-// import { AttachUserInterceptor } from 'src/interceptors/attach-user/attach-user.interceptor';
+import { Response } from 'express';
 import { AuthenticateGuard } from 'src/guards/authenticate/authenticate.guard';
 import { CurrentUser } from 'src/decorators/CurrentUser.decorator';
-import { User, UserDocument } from 'src/entities/user.entity';
+import { UserDocument } from 'src/entities/user.entity';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { Express } from 'express';
 
 @Controller('user')
 export class UserController {
@@ -134,5 +136,36 @@ export class UserController {
   @UseGuards(AuthenticateGuard)
   remove(@CurrentUser() user: UserDocument) {
     return this.userService.remove(user._id.toString());
+  }
+
+  @Post('payment/:transaction_id')
+  @UseGuards(AuthenticateGuard)
+  @UseInterceptors(
+    FileInterceptor('transaction_image', {
+      fileFilter(req, file, callback) {
+        const allowedMimeType = [
+          'image/png',
+          'image/webp',
+          'image/jpeg',
+          'image/jpg',
+        ];
+        if (!allowedMimeType.includes(file.mimetype)) {
+          callback(new BadRequestException(`Invalid file provided!`), false);
+          return;
+        }
+        callback(null, true);
+      },
+    }),
+  )
+  accept_user_payment(
+    @Param('transaction_id') transaction_id: string,
+    @UploadedFile() transaction_image: Express.Multer.File,
+    @CurrentUser() currentUser: UserDocument,
+  ) {
+    return this.userService.capturePayment(
+      transaction_id,
+      transaction_image,
+      currentUser,
+    );
   }
 }

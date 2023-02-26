@@ -4,7 +4,6 @@ import { IStringKey } from '@shared/interfaces'
 export const defaultHttpPostHeaderMultipart = {
 	headers: new HttpHeaders({
 		'Content-Type': 'multipart/form-data',
-		Accept: 'application/json',
 	}),
 	withCredentials: true,
 }

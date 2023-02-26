@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { environment } from 'src/environments/environment'
 import { ICreateUser, ILoginUser, IVerifyUser } from '@shared/interfaces/user'
-import { BehaviorSubject, Observable, Subscribable } from 'rxjs'
-import { defaultHttpPostHeader } from './helper'
+import { BehaviorSubject, Observable } from 'rxjs'
+import { defaultHttpPostHeader, defaultHttpPostHeaderMultipart } from './helper'
 
 @Injectable({
 	providedIn: 'root',
 })
 export class UserService {
-	private url: string = environment.serverUrl
+	private url: string = `${environment.serverUrl}/user`
 
 	private userBehaviour: BehaviorSubject<Partial<IVerifyUser>> =
 		new BehaviorSubject<Partial<IVerifyUser>>({})
@@ -48,19 +48,19 @@ export class UserService {
 	}
 
 	create(userDetails: ICreateUser) {
-		return this.http.post(`${this.url}/user/`, userDetails)
+		return this.http.post(`${this.url}/`, userDetails)
 	}
 
 	login(userDetails: ILoginUser) {
 		return this.http.post(
-			`${this.url}/user/login`,
+			`${this.url}/login`,
 			userDetails,
 			defaultHttpPostHeader,
 		)
 	}
 
 	logout() {
-		return this.http.get(`${this.url}/user/logout`, {
+		return this.http.get(`${this.url}/logout`, {
 			withCredentials: true,
 		})
 	}
@@ -68,9 +68,18 @@ export class UserService {
 	// login token is being auto-sent with help of cookies
 	verifyLogin() {
 		return this.http.post<any>(
-			`${this.url}/user/login/verify`,
+			`${this.url}/login/verify`,
 			{},
 			defaultHttpPostHeader,
 		)
+	}
+
+	capturePayment(transaction_id: string, file: File) {
+		const formData = new FormData()
+		formData.append('transaction_image', file, file.name)
+
+		return this.http.post(`${this.url}/payment/${transaction_id}`, formData, {
+			withCredentials: true,
+		})
 	}
 }

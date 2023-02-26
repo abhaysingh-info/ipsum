@@ -1,0 +1,54 @@
+<!-- <div
+	class="border-gray-400 rounded-md lg:rounded-lg xl:rounded-xl px-2 py-1"
+>
+	hello world!
+</div> -->
+
+<div class="stats shadow w-full min-h-[8rem] border">
+	<div class="stat">
+		<div class="stat-figure text-secondary text-5xl">
+			<ng-container [ngSwitch]="user.payment_made">
+				<ng-container *ngSwitchCase="true">
+					<ng-container [ngSwitch]="user.payment_status">
+						<ng-container *ngSwitchCase="'pending'">
+							<fa-icon
+								[icon]="faExclamationCircle"
+								class="text-warning"
+							></fa-icon>
+						</ng-container>
+						<ng-container *ngSwitchCase="'rejected'">
+							<fa-icon [icon]="faXMarkCircle" class="text-error"></fa-icon>
+						</ng-container>
+						<ng-container *ngSwitchCase="'verified'">
+							<fa-icon [icon]="faCheckCircle" class="text-success"></fa-icon>
+						</ng-container>
+					</ng-container>
+				</ng-container>
+				<ng-container *ngSwitchDefault>
+					<fa-icon [icon]="faExclamationCircle" class="text-info"></fa-icon>
+				</ng-container>
+			</ng-container>
+		</div>
+		<div class="stat-title">Payment Status</div>
+		<div class="stat-value">
+			<ng-container [ngSwitch]="user.payment_made">
+				<ng-container *ngSwitchCase="true">
+					{{ user.payment_status }}
+				</ng-container>
+				<ng-container *ngSwitchDefault> Not made </ng-container>
+			</ng-container>
+		</div>
+		<div class="stat-desc" *ngIf="!user.payment_made">
+			<div
+				class="btn btn-primary btn-outline btn-xs"
+				(click)="captureEmitMakePaymentModal(true)"
+			>
+				Make Payment
+			</div>
+		</div>
+	</div>
+</div>
+<app-make-payment
+	[show]="makePaymentModal"
+	(onShow)="captureEmitMakePaymentModal($event)"
+></app-make-payment>

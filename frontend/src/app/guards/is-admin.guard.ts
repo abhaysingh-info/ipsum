@@ -21,7 +21,7 @@ export class IsAdminGuard implements CanActivate {
 		state: RouterStateSnapshot,
 	): Promise<boolean | UrlTree> | boolean | UrlTree {
 		const user = this.userService.getUser()
-		if (user.roles !== roles.admin) {
+		if (user.roles !== roles['admin']) {
 			return this.router.createUrlTree([redirectLinks.notAdmin])
 		}
 		return true

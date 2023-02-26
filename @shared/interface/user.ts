@@ -29,7 +29,12 @@ export interface IUser {
 	isBlocked: boolean
 	token: string
 	tokenExpiry: Date | null
+	payment_made: boolean
+	payment_screenshot: string
+	payment_status: payment_status
 }
+
+export type payment_status = 'pending' | 'verified' | 'rejected'
 
 export interface IVerifyUser {
 	_id: string
@@ -39,6 +44,9 @@ export interface IVerifyUser {
 	isEmailVerified: boolean
 	name: string
 	roles: IRoles
+	payment_made: boolean
+	payment_screenshot: string
+	payment_status: payment_status
 }
 
 export interface ICreateUser {
