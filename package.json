@@ -6,7 +6,7 @@
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"server:dev": "cd backend/ ; npm run start:dev",
-		"ui:dev": "cd frontend/ ; npm run start"
+		"ui:dev": "cd frontend/ ; npm run start -- --host=0.0.0.0"
 	},
 	"keywords": [],
 	"author": "",
