@@ -1,4 +1,4 @@
-import { FormGroup, Validators, FormControl } from '@angular/forms'
+import { FormGroup, Validators, FormControl, FormArray } from '@angular/forms'
 import { eventType } from '../utils/event'
 import { oneOfFromArray } from '../validators'
 
@@ -61,4 +61,8 @@ export const CreateEvent = () =>
 			'',
 			Validators.compose([Validators.required]),
 		), // done
+		eventRequirementField: new FormArray(
+			[EventRequirementFieldForm()],
+			Validators.compose([Validators.required, Validators.maxLength(5)]),
+		),
 	})
