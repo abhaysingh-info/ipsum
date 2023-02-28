@@ -1,18 +1,31 @@
+import { IrequirementFieldType } from '@shared/interfaces/event';
 import { Transform } from 'class-transformer';
 import {
   IsEnum,
   IsNotEmpty,
   IsString,
-  IsArray,
   IsDateString,
   IsNumber,
   MaxLength,
   IsDefined,
   IsUrl,
+  IsArray,
+  ArrayMaxSize,
 } from 'class-validator';
+import { requirementFieldType } from '../../utils/event';
 
 export const eventType = ['individual', 'team'] as const;
 export type EventType = (typeof eventType)[number];
+
+class EventRequirementFieldDto {
+  @IsString()
+  @MaxLength(512)
+  question: string;
+
+  @IsString()
+  @IsEnum(requirementFieldType)
+  requirementFieldType: IrequirementFieldType;
+}
 
 export class CreateEventDto {
   @IsDefined()
@@ -64,4 +77,9 @@ export class CreateEventDto {
   @IsNotEmpty()
   @IsUrl()
   moreInformationPdf: string;
+
+  @IsDefined()
+  @IsArray()
+  @ArrayMaxSize(5)
+  eventRequirementFieldDto: EventRequirementFieldDto[];
 }

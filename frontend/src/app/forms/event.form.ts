@@ -2,6 +2,21 @@ import { FormGroup, Validators, FormControl } from '@angular/forms'
 import { eventType } from '../utils/event'
 import { oneOfFromArray } from '../validators'
 
+export const EventRequirementFieldForm = () =>
+	new FormGroup({
+		question: new FormControl(
+			'',
+			Validators.compose([Validators.required, Validators.maxLength(512)]),
+		),
+		requirementFieldType: new FormControl(
+			'',
+			Validators.compose([
+				Validators.required,
+				oneOfFromArray(['text', 'file']),
+			]),
+		),
+	})
+
 export const CreateEvent = () =>
 	new FormGroup({
 		eventId: new FormControl(

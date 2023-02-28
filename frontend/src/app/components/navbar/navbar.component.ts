@@ -43,8 +43,8 @@ export class NavbarComponent
 	}
 
 	ngOnInit(): void {
-		// const html = document.querySelector('body')
-		// html?.setAttribute('data-theme', 'light')
+		const html = document.querySelector('body')
+		html?.setAttribute('data-theme', 'light')
 
 		this.subscriptions.push(
 			this.userService.isLoggedIn.subscribe({

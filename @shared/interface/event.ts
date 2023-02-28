@@ -1,9 +1,13 @@
 import { ObjectId } from 'mongoose'
 
+export type eventType = 'individual' | 'team'
+
+export type IrequirementFieldType = 'text' | 'file'
+
 export interface Event {
 	image: string
 	eventId: string
-	eventType: 'individual' | 'team'
+	eventType: eventType
 	name: string
 	commencementDate: Date
 	venue: string
