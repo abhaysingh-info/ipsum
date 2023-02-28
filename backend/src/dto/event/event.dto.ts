@@ -81,5 +81,5 @@ export class CreateEventDto {
   @IsDefined()
   @IsArray()
   @ArrayMaxSize(5)
-  eventRequirementFieldDto: EventRequirementFieldDto[];
+  eventRequirementField: EventRequirementFieldDto[];
 }

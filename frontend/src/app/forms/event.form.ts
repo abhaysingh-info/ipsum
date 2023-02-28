@@ -9,7 +9,7 @@ export const EventRequirementFieldForm = () =>
 			Validators.compose([Validators.required, Validators.maxLength(512)]),
 		),
 		requirementFieldType: new FormControl(
-			'',
+			null,
 			Validators.compose([
 				Validators.required,
 				oneOfFromArray(['text', 'file']),

@@ -3,6 +3,7 @@ import {
   HttpException,
   Injectable,
   InternalServerErrorException,
+  Logger,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Types } from 'mongoose';
@@ -15,6 +16,8 @@ import { Express } from 'express';
 
 @Injectable()
 export class EventService {
+  logger = new Logger('EventService');
+
   constructor(
     @InjectModel(Event.name) private EventModel: Model<EventDocument>,
     private s3Service: S3Service,
@@ -31,7 +34,6 @@ export class EventService {
           'eventId already exists, please use a different one',
         );
       }
-
       return await this.EventModel.create(event);
     });
   }

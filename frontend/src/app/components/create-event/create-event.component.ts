@@ -1,7 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import { FormGroup, ReactiveFormsModule } from '@angular/forms'
-import { CreateEvent } from 'src/app/forms/event.form'
+import { FormArray, FormGroup, ReactiveFormsModule } from '@angular/forms'
+import {
+	CreateEvent,
+	EventRequirementFieldForm,
+} from 'src/app/forms/event.form'
 import { eventType } from 'src/app/utils/event'
 import { EventService } from 'src/app/services/event.service'
 import { ToastService } from 'src/app/services/toast.service'
@@ -108,5 +111,22 @@ export class CreateEventComponent implements OnInit {
 	resetForm() {
 		this.createForm.reset()
 		this.resetMessages()
+	}
+
+	addEventRequirementField() {
+		const eventRequirementValue = this.createForm?.get(
+			'eventRequirementField',
+		) as FormArray
+		;(this.createForm?.get('eventRequirementField') as FormArray)?.push(
+			EventRequirementFieldForm(),
+		)
+	}
+	removeEventRequirementField(index: number) {
+		const eventRequirementValue = this.createForm.get(
+			'eventRequirementField',
+		) as FormArray
+		if (eventRequirementValue.length >= 1) {
+			eventRequirementValue.removeAt(index)
+		}
 	}
 }

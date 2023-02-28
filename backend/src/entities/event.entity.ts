@@ -3,14 +3,18 @@ import { Document, HydratedDocument } from 'mongoose';
 import { eventType, requirementFieldType } from 'src/utils/event';
 import { IrequirementFieldType } from '../../../@shared/interface/event';
 
-@Schema()
-class EventRequirementField extends Document {
+@Schema({ _id: false })
+class EventRequirementField {
   @Prop({ required: true, type: String })
   question: string;
 
   @Prop({ required: true, type: String, enum: requirementFieldType })
   requirementFieldType: IrequirementFieldType;
 }
+
+const EventRequirementFieldSchema = SchemaFactory.createForClass(
+  EventRequirementField,
+);
 
 @Schema()
 export class Event extends Document {
@@ -48,8 +52,8 @@ export class Event extends Document {
   @Prop({ required: true, type: String })
   moreInformationPdf: string;
 
-  @Prop({ required: true, type: [EventRequirementField] })
-  requirementField: EventRequirementField[];
+  @Prop({ required: true, type: [EventRequirementFieldSchema] })
+  eventRequirementField: (typeof EventRequirementField)[];
 
   @Prop({ required: true, type: Date, default: Date.now })
   createdAt: Date;
