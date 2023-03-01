@@ -1,9 +1,11 @@
 <div
-	class="flex flex-col-reverse md:grid max-w-screen-xl px-4 mx-auto lg:gap-8 xl:gap-0 lg:pb-16 md:grid-cols-2 lg:grid-cols-5"
+	class="flex flex-col md:grid max-w-screen-xl px-4 mx-auto lg:gap-8 xl:gap-0 lg:pb-16 md:grid-cols-2 lg:grid-cols-5"
 >
-	<div class="mr-auto place-self-center md:col-span-1 lg:col-span-3">
+	<div
+		class="mr-auto place-self-center text-center md:text-left md:col-span-1 lg:col-span-3"
+	>
 		<h1
-			class="max-w-2xl text-4xl font-extrabold leading-none tracking-tight md:text-5xl xl:text-6xl uppercase"
+			class="max-w-2xl text-4xl font-extrabold leading-none tracking-tight md:text-5xl xl:text-6xl uppercase mb-1"
 		>
 			<span
 				(mouseenter)="startChangingLettersOfTitle()"
@@ -30,7 +32,17 @@
 			<a class="btn btn-lg btn-primary" [routerLink]="'/sign-up'">Register</a>
 		</div>
 	</div>
-	<div class="lg:mt-0 md:col-span-1 lg:col-span-2 lg:flex">
-		<img src="/assets/hero.svg" alt="hero image" />
+	<div class="lg:mt-0 md:col-span-1 lg:col-span-2 lg:flex relative">
+		<!-- <div class="octagon">
+			<div class="side side-1"></div>
+			<div class="side side-2"></div>
+			<div class="side side-3"></div>
+			<div class="side side-4"></div>
+			<div class="side side-5"></div>
+			<div class="side side-6"></div>
+			<div class="side side-7"></div>
+			<div class="side side-8"></div>
+		</div> -->
+		<img src="/assets/hero.svg" alt="hero image" class="object-cover" />
 	</div>
 </div>

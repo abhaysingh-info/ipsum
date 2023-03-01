@@ -1,6 +1,22 @@
 <section>
 	<app-hero></app-hero>
 </section>
-<section class="mt-20 lg:mt-8">
+
+<section class="mt-20 lg:mt-8 px-2">
+	<div class="max-w-screen-xl mx-auto">
+		<div class="flex flex-col items-center">
+			<h2
+				class="max-w-2xl text-3xl font-medium leading-none tracking-tight md:text-4xl xl:text-5xl capitalize text-center mx-auto"
+			>
+				Events at <span class="font-bold text-primary">IPSUM</span>
+			</h2>
+			<div class="divider mx-auto w-full max-w-screen-sm">
+				<fa-icon class="text-gray-600" [icon]="faCalendarAlt"></fa-icon>
+			</div>
+		</div>
+		<app-events-carousel></app-events-carousel>
+	</div>
+</section>
+<section class="lg:mt-8">
 	<app-about-seminar-section></app-about-seminar-section>
 </section>

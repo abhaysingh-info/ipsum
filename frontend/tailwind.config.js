@@ -6,6 +6,14 @@ module.exports = {
 	},
 	plugins: [require('@tailwindcss/typography'), require('daisyui')],
 	daisyui: {
-		themes: ['light'],
+		themes: [
+			'corporate',
+			// {
+			// 	dark: {
+			// 		...require('daisyui/src/colors/themes')['[data-theme=dark]'],
+			// 		'base-100': '#191919',
+			// 	},
+			// },
+		],
 	},
 }

@@ -5,7 +5,13 @@ import { IVerifyUser } from '@shared/interfaces/user'
 import { environment } from 'src/environments/environment'
 import { roles } from 'src/app/utils/common'
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
-import { faFilePdf } from '@fortawesome/free-solid-svg-icons'
+import {
+	faCalendar,
+	faFilePdf,
+	faLocation,
+	faMapMarker,
+	faMapMarkerAlt,
+} from '@fortawesome/free-solid-svg-icons'
 
 @Component({
 	selector: 'app-event-card',
@@ -22,6 +28,8 @@ export class EventCardComponent {
 	@Output() onDelete: EventEmitter<number> = new EventEmitter<number>(false)
 
 	faFilePdf = faFilePdf
+	faCalendar = faCalendar
+	faLocation = faMapMarkerAlt
 
 	loaderForSpinner: boolean = false
 

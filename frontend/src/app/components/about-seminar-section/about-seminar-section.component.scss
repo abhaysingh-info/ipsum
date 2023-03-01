@@ -1,0 +1,26 @@
+.left {
+	perspective: 100px;
+}
+
+.mockup-phone {
+	transform-style: preserve-3d;
+	// transform: rotateY(1deg) rotateX(1deg);
+	// animation: phone_mockup_animation 2s ease-in-out infinite;
+}
+
+.artboard {
+	background-image: url('/assets/images/pexels-rfstudio-3810792.jpg');
+	background-size: cover;
+}
+
+// @keyframes phone_mockup_animation {
+// 	0% {
+// 		transform: rotateZ(0deg);
+// 	}
+// 	51% {
+// 		transform: rotateZ(360deg);
+// 	}
+// 	100% {
+// 		transform: rotateZ(0deg);
+// 	}
+// }
