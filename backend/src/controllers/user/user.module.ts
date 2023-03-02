@@ -6,6 +6,12 @@ import { User, UserSchema } from '../../entities/user.entity';
 import { AttachUserMiddleware } from 'src/middlewares/attach-user/attach-user.middleware';
 import { S3Service } from 'src/services/s3/s3.service';
 import { ConfigService } from '@nestjs/config';
+import { TeamService } from 'src/services/team/team.service';
+import { Team, TeamSchema } from 'src/entities/team.entity';
+import {
+  TeamJoinRequest,
+  TeamJoinRequestSchema,
+} from 'src/entities/team-join-request.entity';
 
 @Module({
   imports: [
@@ -14,10 +20,18 @@ import { ConfigService } from '@nestjs/config';
         name: User.name,
         schema: UserSchema,
       },
+      {
+        name: Team.name,
+        schema: TeamSchema,
+      },
+      {
+        name: TeamJoinRequest.name,
+        schema: TeamJoinRequestSchema,
+      },
     ]),
   ],
   controllers: [UserController],
-  providers: [UserService, S3Service, ConfigService],
+  providers: [UserService, S3Service, ConfigService, TeamService],
 })
 export class UserModule {
   configure(consumer: MiddlewareConsumer) {

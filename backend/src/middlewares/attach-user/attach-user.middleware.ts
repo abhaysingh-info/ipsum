@@ -1,4 +1,9 @@
-import { Injectable, NestMiddleware, NotFoundException, ForbiddenException } from '@nestjs/common';
+import {
+  Injectable,
+  NestMiddleware,
+  NotFoundException,
+  ForbiddenException,
+} from '@nestjs/common';
 import { UserService } from 'src/services/user/user.service';
 import { User } from 'src/entities/user.entity';
 import GetLogginToken from 'src/utils/GetLogginToken';
@@ -25,11 +30,15 @@ export class AttachUserMiddleware implements NestMiddleware {
       if (!user) {
         throw new NotFoundException('User not found!');
       }
-      if(user.isBlocked){
-        throw new ForbiddenException("Your account is temprorary blocked, please check your e-mail associated with the account")
+      if (user.isBlocked) {
+        throw new ForbiddenException(
+          'Your account is temprorary blocked, please check your e-mail associated with the account',
+        );
       }
-      if(user.suspended){
-        throw new ForbiddenException("Your account is permanentaly suspended please contact our support.")
+      if (user.suspended) {
+        throw new ForbiddenException(
+          'Your account is permanentaly suspended please contact our support.',
+        );
       }
       req.user = user;
     }

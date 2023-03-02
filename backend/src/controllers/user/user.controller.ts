@@ -25,10 +25,15 @@ import { CurrentUser } from 'src/decorators/CurrentUser.decorator';
 import { UserDocument } from 'src/entities/user.entity';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Express } from 'express';
+import { TeamService } from 'src/services/team/team.service';
+import { IStringKey } from '@shared/interfaces';
 
 @Controller('user')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService,
+    private readonly teamService: TeamService,
+  ) {}
 
   @Post()
   async create(@Body() createUserDto: CreateUserDto) {
@@ -98,6 +103,24 @@ export class UserController {
       );
     }
 
+    const userTeam: any = await this.teamService.getTeam({ user });
+
+    if (userTeam) {
+      if ((userTeam.leader_id as any) === user._id) {
+        userTeam.leader_id = user.email;
+      } else {
+        const leader = await this.userService.getUserById(
+          userTeam.leader_id,
+          false,
+          {
+            email: 1,
+          },
+        );
+        userTeam.leader_id = leader.email;
+      }
+      (user as any).team = userTeam;
+    }
+
     return await SetLogginToken(res, user);
   }
 
@@ -115,7 +138,27 @@ export class UserController {
     @CurrentUser() user: UserDocument,
   ) {
     if (user?._id) {
-      let data = { ...(await SetLogginToken(res, user)), success: true };
+      const userTeam: any = await this.teamService.getTeam({ user });
+
+      if (userTeam) {
+        if ((userTeam.leader_id as any) === user._id) {
+          userTeam.leader_id = user.email;
+        } else {
+          const leader = await this.userService.getUserById(
+            userTeam.leader_id,
+            false,
+            {
+              email: 1,
+            },
+          );
+          userTeam.leader_id = leader.email;
+        }
+        (user as any).team = userTeam;
+      }
+      let data = {
+        ...(await SetLogginToken(res, user)),
+        success: true,
+      };
       return data;
     }
     res.clearCookie('token');

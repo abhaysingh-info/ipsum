@@ -1,8 +1,100 @@
+{{ (user$ | async)?.team | json }}
 <div class="card bg-base-100 border">
-	<div class="card-body">
+	<div class="card-body" *ngIf="(user$ | async)?.team">
+		<h2 class="card-title">Team Details</h2>
+		<div class="py-4">
+			<div class="flex items-center m-2">
+				<div class="flex-1">
+					<h3 class="card-subtitle font-bold">Team Name</h3>
+					<p class="card-text text-gray-500">
+						{{ (user$ | async)?.team?.teamName }}
+					</p>
+				</div>
+				<div class="flex-1">
+					<h3 class="card-subtitle font-bold">Team Code</h3>
+					<p class="card-text text-gray-500">
+						{{ (user$ | async)?.team?.teamID }}
+					</p>
+				</div>
+			</div>
+			<div class="flex items-center m-2">
+				<div class="flex-1">
+					<h3 class="card-subtitle font-bold">Team Leaders Email:</h3>
+					<p class="card-text text-gray-500">
+						{{ (user$ | async)?.team?.leader_id }}
+					</p>
+				</div>
+			</div>
+			<div class="flex items-center m-2">
+				<div class="flex-1">
+					<h3 class="card-subtitle font-bold">Team Members:</h3>
+					<div
+						class="card-text text-gray-500"
+						*ngIf="!(user$ | async)?.team?.teamMembersEmail?.length"
+					>
+						No members yet
+					</div>
+					<div
+						class="card-text text-gray-500"
+						*ngIf="(user$ | async)?.team?.teamMembersEmail?.length"
+					>
+						<ul>
+							<li *ngFor="let email of (user$ | async)?.team?.teamMembersEmail">
+								{{ email }}
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="card-body" *ngIf="!(user$ | async)?.team">
 		<div>
 			<h2 class="card-title">Join a team</h2>
-			<p>If a dog chews shoes whose shoes does he choose?</p>
+			<form [formGroup]="joinTeamForm">
+				<div class="form-control">
+					<label class="label"
+						><span class="label-text"> Team Code </span></label
+					>
+					<div class="input-group">
+						<input
+							type="text"
+							formControlName="teamID"
+							class="input input-bordered"
+							placeholder="Enter team code"
+							[ngClass]="{
+								'input-error':
+									(joinTeamForm.controls.teamID.touched ||
+										joinTeamForm.controls.teamID.dirty) &&
+									joinTeamForm.controls.teamID.invalid
+							}"
+						/>
+						<button class="btn btn-primary">Send Request</button>
+					</div>
+					<div
+						class="error-message"
+						*ngIf="
+							(joinTeamForm.controls.teamID.touched ||
+								joinTeamForm.controls.teamID.dirty) &&
+							joinTeamForm.controls.teamID.invalid
+						"
+					>
+						<div *ngIf="joinTeamForm.controls.teamID.hasError('required')">
+							Team code is required
+						</div>
+						<div *ngIf="joinTeamForm.controls.teamID.hasError('minlength')">
+							Team code must be 3 characters long
+						</div>
+						<div *ngIf="joinTeamForm.controls.teamID.hasError('maxlength')">
+							Team code cannot be more than 10 characters long
+						</div>
+						<div *ngIf="joinTeamForm.controls.teamID.hasError('pattern')">
+							Team code must be alphanumeric and it cannot contain spaces or
+							special characters
+						</div>
+					</div>
+				</div>
+			</form>
 		</div>
 		<div class="divider">OR</div>
 		<div class="flex items-center justify-center">

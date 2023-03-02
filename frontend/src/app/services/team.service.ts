@@ -14,4 +14,20 @@ export class TeamService {
 	createTeam(team: any) {
 		return this.http.post(`${this.url}/`, team, defaultHttpPostHeader)
 	}
+
+	sendTeamJoinRequest(teamCode: string) {
+		return this.http.post(
+			`${this.url}/${teamCode}/join`,
+			{},
+			defaultHttpPostHeader,
+		)
+	}
+
+	withdrawTeamJoinRequest() {
+		return this.http.post(
+			`${this.url}/withdraw-join-request`,
+			{},
+			defaultHttpPostHeader,
+		)
+	}
 }

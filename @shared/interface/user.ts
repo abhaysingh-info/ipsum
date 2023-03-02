@@ -1,5 +1,7 @@
 // import { photo } from './common'
 
+import { Team } from './team'
+
 export type ItokenTypes =
 	| 'emailVerifyToken'
 	| 'emailResetToken'
@@ -47,6 +49,7 @@ export interface IVerifyUser {
 	payment_made: boolean
 	payment_screenshot: string
 	payment_status: payment_status
+	team: Team
 }
 
 export interface ICreateUser {

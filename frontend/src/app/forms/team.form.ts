@@ -15,3 +15,13 @@ export const teamForm = () =>
 			Validators.pattern(/^[a-zA-Z0-9 ]+$/),
 		]),
 	})
+
+export const joinTeamForm = () =>
+	new FormGroup({
+		teamID: new FormControl('', [
+			Validators.required,
+			Validators.minLength(3),
+			Validators.maxLength(10),
+			Validators.pattern(/^[a-zA-Z0-9]+$/),
+		]),
+	})

@@ -13,6 +13,7 @@ import { User, UserDocument } from '../../entities/user.entity';
 import { Express } from 'express';
 import { S3Service } from 'src/services/s3/s3.service';
 import { ObjectId } from 'mongoose';
+import { Team } from 'src/entities/team.entity';
 
 @Injectable()
 export class UserService {
@@ -59,7 +60,7 @@ export class UserService {
   ): Promise<UserDocument | null> {
     return await ControllerWrapper(async () => {
       return await this.UserModel.findOne({
-        email,
+        email: email,
       }).select(`${includePassword ? '+' : '-'}password`);
     });
   }
@@ -67,11 +68,15 @@ export class UserService {
   async getUserById(
     id: ObjectId,
     includePassword: boolean = false,
+    options: any = {},
   ): Promise<UserDocument | null> {
     return await ControllerWrapper(async () => {
-      return await this.UserModel.findOne({
-        _id: id,
-      }).select(`${includePassword ? '+' : '-'}password`);
+      return await this.UserModel.findOne(
+        {
+          _id: id,
+        },
+        options,
+      ).select(`${includePassword ? '+' : '-'}password`);
     });
   }
 
