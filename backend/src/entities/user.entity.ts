@@ -136,6 +136,9 @@ export class User {
   @Prop({ type: String })
   payment_screenshot: string;
 
+  @Prop({ type: String })
+  payment_transaction_id: string;
+
   @Prop({ type: String, enum: ['pending', 'verified', 'rejected'] })
   payment_status: payment_status;
 

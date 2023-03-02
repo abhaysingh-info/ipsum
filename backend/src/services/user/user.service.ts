@@ -97,7 +97,8 @@ export class UserService {
         {
           payment_made: true,
           payment_status: 'pending',
-          payment_image: imageUrl,
+          payment_screenshot: imageUrl,
+          payment_transaction_id: transaction_id,
         },
       );
       if (_user.acknowledged) {

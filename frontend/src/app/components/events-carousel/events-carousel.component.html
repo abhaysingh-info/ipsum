@@ -13,7 +13,7 @@
 	[scrollWindow]="false"
 >
 	<div
-		*ngIf="!events.length"
+		*ngIf="!events.length && !requestInProgress"
 		class="col-span-1 md:col-span-2 lg:col-span-3 xl:col-span-5 flex flex-col items-center justify-center w-full"
 	>
 		<img src="/assets/svg/joyride.svg" class="max-w-[15rem] mx-auto" />

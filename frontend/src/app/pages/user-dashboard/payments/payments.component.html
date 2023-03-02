@@ -30,7 +30,7 @@
 			</ng-container>
 		</div>
 		<div class="stat-title">Payment Status</div>
-		<div class="stat-value">
+		<div class="stat-value capitalize">
 			<ng-container [ngSwitch]="user.payment_made">
 				<ng-container *ngSwitchCase="true">
 					{{ user.payment_status }}
