@@ -2,9 +2,6 @@ import { HttpHeaders } from '@angular/common/http'
 import { IStringKey } from '@shared/interfaces'
 
 export const defaultHttpPostHeaderMultipart = {
-	headers: new HttpHeaders({
-		'Content-Type': 'multipart/form-data',
-	}),
 	withCredentials: true,
 }
 

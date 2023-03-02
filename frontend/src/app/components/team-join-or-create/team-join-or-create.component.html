@@ -6,10 +6,14 @@
 		</div>
 		<div class="divider">OR</div>
 		<div class="flex items-center justify-center">
-			<button class="btn btn-primary">Create a team</button>
-		</div>
-		<div class="card-actions justify-end">
-			<button class="btn btn-primary">Buy Now</button>
+			<button class="btn btn-primary" (click)="setCreateTeamModel(true)">
+				Create a team
+			</button>
 		</div>
 	</div>
 </div>
+
+<app-create-team
+	(onShowModel)="setCreateTeamModel($event)"
+	[showModel]="showCreateTeamModel"
+></app-create-team>

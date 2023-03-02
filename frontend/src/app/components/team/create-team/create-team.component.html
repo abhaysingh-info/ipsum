@@ -1,0 +1,136 @@
+<div
+	class="modal modal-bottom sm:modal-middle"
+	[ngClass]="{ 'modal-open': showModel }"
+>
+	<form
+		[formGroup]="teamForm"
+		(submit)="onSubmit()"
+		class="modal-box relative min-w-full min-h-screen mx-0 rounded-none lg:min-w-max lg:min-h-fit lg:rounded-lg lg:mx-auto"
+	>
+		<h3 class="font-bold text-lg">Create Your</h3>
+		<div class="py-4">
+			<div class="form-control">
+				<label class="label">
+					<div class="label-text">Team ID</div>
+				</label>
+				<input
+					class="input input-bordered"
+					type="text"
+					formControlName="teamID"
+					placeholder="Enter your team ID"
+					[ngClass]="{
+						'input-error':
+							(teamForm.controls['teamID'].invalid &&
+								(teamForm.controls['teamID'].dirty ||
+									teamForm.controls['teamID'].touched)) ||
+							messages['teamID']
+					}"
+				/>
+				<div class="label">
+					<div
+						class="label-text text-error"
+						*ngIf="
+							(teamForm.controls['teamID'].invalid &&
+								(teamForm.controls['teamID'].dirty ||
+									teamForm.controls['teamID'].touched)) ||
+							messages['teamID']
+						"
+					>
+						<ng-container *ngIf="messages['teamID']">
+							{{ messages['teamID'] }}
+						</ng-container>
+						<ng-container
+							*ngIf="teamForm.controls['teamID'].hasError('required')"
+						>
+							Team ID is required
+						</ng-container>
+						<ng-container
+							*ngIf="teamForm.controls['teamID'].hasError('minlength')"
+						>
+							Team ID must be at least 3 characters long.
+						</ng-container>
+						<ng-container
+							*ngIf="teamForm.controls['teamID'].hasError('maxlength')"
+						>
+							Team ID must be at most 10 characters long.
+						</ng-container>
+						<ng-container
+							*ngIf="teamForm.controls['teamID'].hasError('pattern')"
+						>
+							Team ID must be alphanumeric and should not contain any spaces or
+							special characters
+						</ng-container>
+					</div>
+				</div>
+			</div>
+			<div class="form-control">
+				<label class="label">
+					<div class="label-text">Team Name</div>
+				</label>
+				<input
+					class="input input-bordered"
+					type="text"
+					formControlName="teamName"
+					placeholder="Enter your team name"
+					[ngClass]="{
+						'input-error':
+							(teamForm.controls['teamName'].invalid &&
+								(teamForm.controls['teamName'].dirty ||
+									teamForm.controls['teamName'].touched)) ||
+							messages['teamName']
+					}"
+				/>
+				<div class="label">
+					<div
+						class="label-text text-error"
+						*ngIf="
+							(teamForm.controls['teamName'].invalid &&
+								(teamForm.controls['teamName'].dirty ||
+									teamForm.controls['teamName'].touched)) ||
+							messages['teamName']
+						"
+					>
+						<ng-container *ngIf="messages['teamName']">
+							{{ messages['teamName'] }}
+						</ng-container>
+						<ng-container
+							*ngIf="teamForm.controls['teamName'].hasError('required')"
+						>
+							Team Name is required
+						</ng-container>
+						<ng-container
+							*ngIf="teamForm.controls['teamName'].hasError('minlength')"
+						>
+							Team Name must be at least 3 characters long
+						</ng-container>
+						<ng-container
+							*ngIf="teamForm.controls['teamName'].hasError('maxlength')"
+						>
+							Team Name must be at most 50 characters long
+						</ng-container>
+						<ng-container
+							*ngIf="teamForm.controls['teamName'].hasError('pattern')"
+						>
+							Team Name must be alphanumeric and should not contain any special
+							characters
+						</ng-container>
+					</div>
+				</div>
+			</div>
+			<div class="label block">
+				<div class="label-text text-success">
+					{{ messages['success'] }}
+				</div>
+				<div class="label-text text-error">
+					{{ messages['general'] }}
+				</div>
+			</div>
+		</div>
+		<div class="modal-action gap-2">
+			<button class="btn btn-outline" (click)="emitShowModel(false)">
+				Close
+			</button>
+			<button class="btn btn-success" type="submit">Submit</button>
+		</div>
+	</form>
+</div>

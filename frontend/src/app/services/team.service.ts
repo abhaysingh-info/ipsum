@@ -1,9 +1,17 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core'
+import { environment } from 'src/environments/environment'
+import { defaultHttpPostHeader } from './helper'
+import { HttpClient } from '@angular/common/http'
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root',
 })
 export class TeamService {
+	private url = `${environment.serverUrl}/team`
 
-  constructor() { }
+	constructor(private http: HttpClient) {}
+
+	createTeam(team: any) {
+		return this.http.post(`${this.url}/`, team, defaultHttpPostHeader)
+	}
 }

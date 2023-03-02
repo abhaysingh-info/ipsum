@@ -29,7 +29,7 @@ export class TeamService {
     if (userAlreadyInATeam) {
       throw new HttpException('You are already in a team', 400);
     }
-    return this.TeamModal.create(createTeam);
+    return this.TeamModal.create({ ...createTeam, leader_id: user._id });
   }
 
   async deleteUsersTeamIfLeader(user: UserDocument) {
