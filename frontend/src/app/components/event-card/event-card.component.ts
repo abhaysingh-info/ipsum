@@ -32,6 +32,7 @@ export class EventCardComponent {
 	faLocation = faMapMarkerAlt
 
 	loaderForSpinner: boolean = false
+	readMore: boolean = false
 
 	roles = roles
 
@@ -39,5 +40,9 @@ export class EventCardComponent {
 
 	emitOnDelete() {
 		this.onDelete.emit(this.index as number)
+	}
+
+	toggleReadMore() {
+		this.readMore = !this.readMore
 	}
 }

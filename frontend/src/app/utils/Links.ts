@@ -30,7 +30,7 @@ const links: ILink[] = [
 		link: '/dashboard',
 		title: 'Dashboard',
 		icon: faUser,
-		forRoles: [roles['admin'], roles['client']],
+		forRoles: [roles['client']],
 	},
 	{
 		forLoggedIn: true,

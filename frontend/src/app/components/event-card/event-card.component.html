@@ -45,8 +45,21 @@
 				</div>
 			</div>
 			<div class="mt-4 text-sm">
-				{{ event.description?.slice(0, 150)
-				}}{{ (event.description?.length || 0) > 150 ? '...' : '' }}
+				<ng-container [ngSwitch]="readMore">
+					<ng-container *ngSwitchCase="true">
+						{{ event.description }}
+					</ng-container>
+					<ng-container *ngSwitchDefault>
+						{{ event.description?.slice(0, 150) }}
+					</ng-container>
+				</ng-container>
+				<ng-container *ngIf="(event.description?.length || 0) > 150">
+					<a
+						(click)="toggleReadMore()"
+						class="text-primary cursor-pointer no-underline hover:underline hover:underline-offset-1"
+						>Read {{ readMore ? 'less' : 'more...' }}</a
+					>
+				</ng-container>
 			</div>
 
 			<div class="mt-4 flex gap-1 text-sm flex-wrap items-baseline">
@@ -76,6 +89,8 @@
 					>
 						<fa-icon [icon]="faFilePdf"></fa-icon> View
 					</a>
+
+					<div class="btn btn-outline btn-info btn-sm gap-1">Participate</div>
 				</ng-container>
 				<ng-container *ngIf="user?.roles === roles['admin']">
 					<button
@@ -89,3 +104,4 @@
 		</div>
 	</div>
 </div>
+{{ event | json }}
