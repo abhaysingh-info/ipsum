@@ -45,50 +45,6 @@ export class NavbarComponent
 	ngOnInit(): void {
 		const html = document.querySelector('body')
 		html?.setAttribute('data-theme', 'light')
-
-		this.subscriptions.push(
-			this.userService.isLoggedIn.subscribe({
-				next: (value: boolean) => {
-					this.isLoggedIn = value
-					if (value) {
-						this.toastService.addToast({
-							message: messages.loginSuccess,
-							toastFace: 'success',
-						})
-					} else {
-						this.userService.setUser({})
-						this.router.navigateByUrl('/')
-					}
-				},
-			}),
-			this.userService.user.subscribe({
-				next: (value) => {
-					this.user = value
-				},
-			}),
-		)
-	}
-
-	logOut() {
-		this.subscriptions.push(
-			this.userService.logout().subscribe({
-				next: (response) => {
-					this.userService.setIsLoggedIn(false)
-					this.userService.setUser({})
-					this.toastService.addToast({
-						toastFace: 'success',
-						message: 'Logged-out successfully!',
-					})
-					this.router.navigateByUrl(redirectAfterLoginUnAuth)
-				},
-				error: (error) => {
-					this.toastService.addToast({
-						toastFace: 'error',
-						message: 'Failed to log-out...',
-					})
-				},
-			}) as any,
-		)
 	}
 
 	ngOnDestroy(): void {

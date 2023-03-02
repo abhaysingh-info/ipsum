@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
 import { NavbarComponent } from './components/navbar/navbar.component'
 import { ToastComponent } from './components/toast/toast.component'
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 
 @NgModule({
 	declarations: [AppComponent],
@@ -16,6 +17,7 @@ import { ToastComponent } from './components/toast/toast.component'
 		NavbarComponent,
 		HttpClientModule,
 		ToastComponent,
+		FontAwesomeModule,
 	],
 	providers: [],
 	bootstrap: [AppComponent],

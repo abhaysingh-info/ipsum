@@ -3,6 +3,9 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+	scroll-behavior: smooth;
+}
 div::-webkit-scrollbar {
 	width: 0px;
 }
