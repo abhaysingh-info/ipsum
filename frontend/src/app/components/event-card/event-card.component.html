@@ -44,7 +44,7 @@
 					{{ event.commencementDate | date : 'dd MMMM yyyy' }}
 				</div>
 			</div>
-			<div class="mt-4 text-base">
+			<div class="mt-4 text-sm">
 				{{ event.description?.slice(0, 150)
 				}}{{ (event.description?.length || 0) > 150 ? '...' : '' }}
 			</div>

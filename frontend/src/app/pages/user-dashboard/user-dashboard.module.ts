@@ -8,6 +8,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 import { MakePaymentComponent } from './make-payment/make-payment.component'
 import { ReactiveFormsModule } from '@angular/forms'
 import { SpinnerComponent } from 'src/app/components/spinner/spinner.component'
+import { EventsCarouselComponent } from 'src/app/components/events-carousel/events-carousel.component'
 
 @NgModule({
 	declarations: [
@@ -21,6 +22,7 @@ import { SpinnerComponent } from 'src/app/components/spinner/spinner.component'
 		FontAwesomeModule,
 		ReactiveFormsModule,
 		SpinnerComponent,
+		EventsCarouselComponent,
 	],
 })
 export class UserDashboardModule {}

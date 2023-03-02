@@ -8,6 +8,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 import { AskConfirmationComponent } from 'src/app/shared/ask-confirmation/ask-confirmation.component'
 import { SpinnerComponent } from 'src/app/components/spinner/spinner.component'
 import { EventCardComponent } from 'src/app/components/event-card/event-card.component'
+import { EventsCarouselComponent } from 'src/app/components/events-carousel/events-carousel.component'
 
 @NgModule({
 	declarations: [ManageEventComponent],
@@ -19,6 +20,7 @@ import { EventCardComponent } from 'src/app/components/event-card/event-card.com
 		AskConfirmationComponent,
 		SpinnerComponent,
 		EventCardComponent,
+		EventsCarouselComponent,
 	],
 })
 export class ManageEventModule {}
