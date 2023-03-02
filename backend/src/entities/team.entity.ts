@@ -1,8 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, HydratedDocument, Types } from 'mongoose';
+import { Document, HydratedDocument, ObjectId, Types } from 'mongoose';
 import { User } from './user.entity';
-
-console.log(User.name);
 
 @Schema()
 export class Team extends Document {
@@ -12,11 +10,19 @@ export class Team extends Document {
   @Prop({ required: true, type: String })
   teamName: string;
 
-  @Prop({ required: true, unique: true, type: String, ref: User.name })
-  leader_id: string;
+  @Prop({
+    required: true,
+    unique: true,
+    type: Types.ObjectId,
+    ref: User.name,
+  })
+  leader_id: ObjectId;
 
   @Prop({ required: true, type: [String] })
   teamMembersEmail: string[];
+
+  @Prop({ required: true, type: Boolean, default: false })
+  isLocked: boolean;
 }
 
 export const TeamSchema = SchemaFactory.createForClass(Team);

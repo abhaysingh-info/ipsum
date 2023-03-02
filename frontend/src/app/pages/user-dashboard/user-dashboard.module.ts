@@ -9,6 +9,7 @@ import { MakePaymentComponent } from './make-payment/make-payment.component'
 import { ReactiveFormsModule } from '@angular/forms'
 import { SpinnerComponent } from 'src/app/components/spinner/spinner.component'
 import { EventsCarouselComponent } from 'src/app/components/events-carousel/events-carousel.component'
+import { TeamJoinOrCreateComponent } from 'src/app/components/team-join-or-create/team-join-or-create.component'
 
 @NgModule({
 	declarations: [
@@ -23,6 +24,7 @@ import { EventsCarouselComponent } from 'src/app/components/events-carousel/even
 		ReactiveFormsModule,
 		SpinnerComponent,
 		EventsCarouselComponent,
+		TeamJoinOrCreateComponent,
 	],
 })
 export class UserDashboardModule {}

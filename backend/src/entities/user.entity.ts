@@ -12,7 +12,8 @@ import {
   verify as JWTVerify,
 } from 'jsonwebtoken';
 import { ItokenTypes, payment_status } from '@shared/interfaces/user';
-import { HydratedDocument } from 'mongoose';
+import { HydratedDocument, ObjectId } from 'mongoose';
+import { Types } from 'mongoose';
 
 @Schema()
 export class User {

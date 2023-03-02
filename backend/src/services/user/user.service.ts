@@ -12,6 +12,7 @@ import { UpdateUserDto } from '../../dto/user/update-user.dto';
 import { User, UserDocument } from '../../entities/user.entity';
 import { Express } from 'express';
 import { S3Service } from 'src/services/s3/s3.service';
+import { ObjectId } from 'mongoose';
 
 @Injectable()
 export class UserService {
@@ -59,6 +60,17 @@ export class UserService {
     return await ControllerWrapper(async () => {
       return await this.UserModel.findOne({
         email,
+      }).select(`${includePassword ? '+' : '-'}password`);
+    });
+  }
+
+  async getUserById(
+    id: ObjectId,
+    includePassword: boolean = false,
+  ): Promise<UserDocument | null> {
+    return await ControllerWrapper(async () => {
+      return await this.UserModel.findOne({
+        _id: id,
       }).select(`${includePassword ? '+' : '-'}password`);
     });
   }

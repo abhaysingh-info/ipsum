@@ -7,6 +7,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { UserModule } from './controllers/user/user.module';
 import { EventModule } from './controllers/event/event.module';
+import { TeamModule } from './controllers/team/team.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { EventModule } from './controllers/event/event.module';
     }),
     UserModule,
     EventModule,
+    TeamModule,
   ],
   controllers: [AppController],
   providers: [
