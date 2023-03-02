@@ -63,6 +63,6 @@ export const CreateEvent = () =>
 		), // done
 		eventRequirementField: new FormArray(
 			[],
-			Validators.compose([Validators.required, Validators.maxLength(5)]),
+			Validators.compose([Validators.maxLength(5)]),
 		),
 	})

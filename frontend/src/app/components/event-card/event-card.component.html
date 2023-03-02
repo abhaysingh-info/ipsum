@@ -44,7 +44,7 @@
 					{{ event.commencementDate | date : 'dd MMMM yyyy' }}
 				</div>
 			</div>
-			<div class="mt-4 text-sm">
+			<div class="mt-4 text-sm max-h-[6rem] overflow-y-auto">
 				<ng-container [ngSwitch]="readMore">
 					<ng-container *ngSwitchCase="true">
 						{{ event.description }}
@@ -104,4 +104,3 @@
 		</div>
 	</div>
 </div>
-{{ event | json }}
