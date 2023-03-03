@@ -1,4 +1,3 @@
-{{ team | json }}
 <div class="card bg-base-100 border">
 	<div class="card-body" *ngIf="team?.teamName">
 		<h2 class="card-title">Team Details</h2>
@@ -51,11 +50,6 @@
 								{{ team.leader.phoneNumber }}
 							</p>
 						</div>
-						<!-- <p>Name: {{ member.name }}</p>
-						<p>Email: {{ member.email }}</p>
-						<p>
-							Phone Number: {{ member.countryCode }} {{ member.phoneNumber }}
-						</p> -->
 						<div class="divider"></div>
 					</div>
 				</div>
