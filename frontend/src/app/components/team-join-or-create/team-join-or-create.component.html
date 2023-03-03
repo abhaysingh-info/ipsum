@@ -1,54 +1,68 @@
-{{ (user$ | async)?.team | json }}
+{{ team | json }}
 <div class="card bg-base-100 border">
-	<div class="card-body" *ngIf="(user$ | async)?.team">
+	<div class="card-body" *ngIf="team?.teamName">
 		<h2 class="card-title">Team Details</h2>
 		<div class="py-4">
 			<div class="flex items-center m-2">
 				<div class="flex-1">
 					<h3 class="card-subtitle font-bold">Team Name</h3>
-					<p class="card-text text-gray-500">
-						{{ (user$ | async)?.team?.teamName }}
+					<p class="card-text capitalize text-gray-500">
+						{{ team.teamName }}
 					</p>
 				</div>
 				<div class="flex-1">
 					<h3 class="card-subtitle font-bold">Team Code</h3>
-					<p class="card-text text-gray-500">
-						{{ (user$ | async)?.team?.teamID }}
+					<p class="card-text uppercase text-gray-500">
+						{{ team.teamID }}
 					</p>
 				</div>
 			</div>
 			<div class="flex items-center m-2">
 				<div class="flex-1">
-					<h3 class="card-subtitle font-bold">Team Leaders Email:</h3>
+					<h3 class="card-subtitle font-bold">Team Leaders Detail:</h3>
+					<p class="card-text text-gray-500">Name: {{ team.leader.name }}</p>
+					<p class="card-text text-gray-500">Email: {{ team.leader.name }}</p>
 					<p class="card-text text-gray-500">
-						{{ (user$ | async)?.team?.leader_id }}
+						Phone Number: {{ team.leader.countryCode }}
+						{{ team.leader.phoneNumber }}
 					</p>
 				</div>
 			</div>
 			<div class="flex items-center m-2">
 				<div class="flex-1">
 					<h3 class="card-subtitle font-bold">Team Members:</h3>
-					<div
-						class="card-text text-gray-500"
-						*ngIf="!(user$ | async)?.team?.teamMembersEmail?.length"
-					>
+					<div class="card-text text-gray-500" *ngIf="!team.teamMembers.length">
 						No members yet
 					</div>
 					<div
-						class="card-text text-gray-500"
-						*ngIf="(user$ | async)?.team?.teamMembersEmail?.length"
+						class="card-text text-gray-500 flex"
+						*ngIf="team.teamMembers.length"
 					>
-						<ul>
-							<li *ngFor="let email of (user$ | async)?.team?.teamMembersEmail">
-								{{ email }}
-							</li>
-						</ul>
+						<div class="flex-1" *ngFor="let member of team.teamMembers">
+							<h3 class="card-subtitle font-bold">Team Member 1:</h3>
+							<p class="card-text text-gray-500">
+								Name: {{ team.leader.name }}
+							</p>
+							<p class="card-text text-gray-500">
+								Email: {{ team.leader.name }}
+							</p>
+							<p class="card-text text-gray-500">
+								Phone Number: {{ team.leader.countryCode }}
+								{{ team.leader.phoneNumber }}
+							</p>
+						</div>
+						<!-- <p>Name: {{ member.name }}</p>
+						<p>Email: {{ member.email }}</p>
+						<p>
+							Phone Number: {{ member.countryCode }} {{ member.phoneNumber }}
+						</p> -->
+						<div class="divider"></div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="card-body" *ngIf="!(user$ | async)?.team">
+	<div class="card-body" *ngIf="!team.teamName">
 		<div>
 			<h2 class="card-title">Join a team</h2>
 			<form [formGroup]="joinTeamForm">

@@ -47,6 +47,7 @@ export class CreateTeamComponent {
 				this.setMessages('success', 'Team created successfully')
 				this.teamForm.disable()
 				this.requestInProgress = false
+				this.emitShowModel(true)
 			},
 			error: (error) => {
 				if (error.error.statusCode) {

@@ -66,7 +66,7 @@ export interface ILoginUser {
 }
 
 export interface IUserExtention {
-	_id: ObjectId
+	_id: ObjectId | string
 	name: string
 	email: string
 	countryCode: string
