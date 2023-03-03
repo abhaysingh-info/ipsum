@@ -20,7 +20,7 @@
 				<div class="flex-1">
 					<h3 class="card-subtitle font-bold">Team Leaders Detail:</h3>
 					<p class="card-text text-gray-500">Name: {{ team.leader.name }}</p>
-					<p class="card-text text-gray-500">Email: {{ team.leader.name }}</p>
+					<p class="card-text text-gray-500">Email: {{ team.leader.email }}</p>
 					<p class="card-text text-gray-500">
 						Phone Number: {{ team.leader.countryCode }}
 						{{ team.leader.phoneNumber }}
@@ -39,15 +39,11 @@
 					>
 						<div class="flex-1" *ngFor="let member of team.teamMembers">
 							<h3 class="card-subtitle font-bold">Team Member 1:</h3>
+							<p class="card-text text-gray-500">Name: {{ member.name }}</p>
+							<p class="card-text text-gray-500">Email: {{ member.email }}</p>
 							<p class="card-text text-gray-500">
-								Name: {{ team.leader.name }}
-							</p>
-							<p class="card-text text-gray-500">
-								Email: {{ team.leader.name }}
-							</p>
-							<p class="card-text text-gray-500">
-								Phone Number: {{ team.leader.countryCode }}
-								{{ team.leader.phoneNumber }}
+								Phone Number: {{ member.countryCode }}
+								{{ member.phoneNumber }}
 							</p>
 						</div>
 						<div class="divider"></div>
