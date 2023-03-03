@@ -36,4 +36,8 @@ export class TeamService {
 			defaultHttpPostHeader,
 		)
 	}
+
+	getTeamJoinRequest() {
+		return this.http.get(`${this.url}/join`, defaultHttpPostHeader)
+	}
 }

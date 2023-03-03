@@ -1,4 +1,5 @@
-<div class="card bg-base-100 border">
+<div class="card bg-base-100 border relative">
+	<app-spinner *ngIf="requestInProgress"></app-spinner>
 	<div class="card-body" *ngIf="team?.teamName">
 		<h2 class="card-title">Team Details</h2>
 		<div class="py-4">
@@ -55,13 +56,13 @@
 	<div class="card-body" *ngIf="!team.teamName">
 		<div>
 			<h2 class="card-title">Join a team</h2>
-			<form [formGroup]="joinTeamForm">
+			<form [formGroup]="joinTeamForm" (ngSubmit)="onSubmit()">
 				<div class="form-control mt-3">
 					<div class="input-group">
 						<input
 							type="text"
 							formControlName="teamID"
-							class="input input-bordered"
+							class="input input-bordered w-full"
 							placeholder="Enter team code"
 							[ngClass]="{
 								'input-error':
@@ -70,16 +71,26 @@
 									joinTeamForm.controls.teamID.invalid
 							}"
 						/>
-						<button class="btn btn-primary">Send Request</button>
+						<button class="btn btn-primary min-w-min max-w-min" type="submit">
+							Send Request
+						</button>
 					</div>
 					<div
 						class="label text-error"
 						*ngIf="
-							(joinTeamForm.controls.teamID.touched ||
+							((joinTeamForm.controls.teamID.touched ||
 								joinTeamForm.controls.teamID.dirty) &&
-							joinTeamForm.controls.teamID.invalid
+								joinTeamForm.controls.teamID.invalid) ||
+							messages['teamID'] ||
+							messages['general']
 						"
 					>
+						<div *ngIf="messages['teamID']">
+							{{ messages['teamID'] }}
+						</div>
+						<div *ngIf="messages['general']">
+							{{ messages['general'] }}
+						</div>
 						<div *ngIf="joinTeamForm.controls.teamID.hasError('required')">
 							Team code is required
 						</div>
@@ -102,6 +113,15 @@
 			<button class="btn btn-primary" (click)="setCreateTeamModel(true)">
 				Create a team
 			</button>
+		</div>
+	</div>
+	<div
+		*ngIf="!team?._id && teamJoinRequest?._id"
+		class="absolute bg-gray-100/50 top-0 bottom-0 left-0 right-0 flex items-center flex-col justify-center"
+	>
+		<div class="text-center">
+			<fa-icon [icon]="faLock" class="text-3xl"></fa-icon>
+			<h3 class="card-subtitle font-bold">Your request has been sent</h3>
 		</div>
 	</div>
 </div>

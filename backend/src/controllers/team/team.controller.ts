@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   Delete,
@@ -80,7 +81,16 @@ export class TeamController {
     @CurrentUser() user: UserDocument,
     @Param('team_code') team_code: string,
   ) {
+    if (!team_code?.length)
+      throw new BadRequestException('Team code is required');
+    team_code = team_code.toLowerCase();
     return await this.teamService.joinTeam(team_code, user);
+  }
+
+  @Get('/join')
+  @UseGuards(AuthenticateGuard)
+  async getTeamJoinRequests(@CurrentUser() user: UserDocument) {
+    return await this.teamService.getTeamJoinRequest(user);
   }
 
   @Post('/withdraw-join-request')

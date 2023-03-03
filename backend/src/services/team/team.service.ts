@@ -119,6 +119,15 @@ export class TeamService {
     return { success: true };
   }
 
+  async getTeamJoinRequest(user: UserDocument) {
+    const requests = await this.TeamJoinRequestModal.findOne({
+      'user.email': user.email,
+      accepted: false,
+    });
+    console.log(requests);
+    return requests;
+  }
+
   async addMemberToTeam(member_email: string, user: UserDocument) {
     const team = await this.getTeam({ user });
     const member = await this.userService.findOneByEmail(member_email);
