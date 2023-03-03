@@ -52,10 +52,7 @@
 		<div>
 			<h2 class="card-title">Join a team</h2>
 			<form [formGroup]="joinTeamForm">
-				<div class="form-control">
-					<label class="label"
-						><span class="label-text"> Team Code </span></label
-					>
+				<div class="form-control mt-3">
 					<div class="input-group">
 						<input
 							type="text"
@@ -72,7 +69,7 @@
 						<button class="btn btn-primary">Send Request</button>
 					</div>
 					<div
-						class="error-message"
+						class="label text-error"
 						*ngIf="
 							(joinTeamForm.controls.teamID.touched ||
 								joinTeamForm.controls.teamID.dirty) &&

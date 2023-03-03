@@ -14,6 +14,7 @@ import {
   TeamJoinRequest,
   TeamJoinRequestDocument,
 } from 'src/entities/team-join-request.entity';
+import { IUserExtention } from '@shared/interfaces/user';
 
 @Injectable()
 export class TeamService {
@@ -29,7 +30,7 @@ export class TeamService {
     if (userAlreadyInATeam) {
       throw new HttpException('You are already in a team', 400);
     }
-    return this.TeamModal.create({ ...createTeam, leader_id: user._id });
+    return this.TeamModal.create({ ...createTeam, leader: user });
   }
 
   async deleteUsersTeamIfLeader(user: UserDocument) {
@@ -37,7 +38,7 @@ export class TeamService {
     if (!team) {
       throw new BadRequestException('You are not in a team');
     }
-    if (user._id !== (team.leader_id as any)) {
+    if (user._id !== (team.leader._id as any)) {
       throw new BadRequestException(
         'You are not the leader of this team so you cannot delete it',
       );
@@ -84,18 +85,24 @@ export class TeamService {
     if (!team) {
       throw new BadRequestException('Team does not exist');
     }
+
+    if ((team.leader._id as any) === user._id) {
+      throw new BadRequestException('You are leader of this team');
+    }
+
     if (team.isLocked) {
       throw new BadRequestException('Team is locked');
     }
-    if ((team.leader_id as any) === user._id) {
-      throw new BadRequestException('You are leader of this team');
-    }
-    if (team.teamMembersEmail.includes(user.email)) {
+
+    const teamMemberExists = team.teamMembers.find(
+      (team_member) => (team_member._id as any) === user._id,
+    );
+    if (teamMemberExists) {
       throw new BadRequestException('User is already in the team');
     }
     return await this.TeamJoinRequestModal.create({
       team_id: team._id,
-      user_id: user._id,
+      user: user,
     });
   }
 
@@ -106,7 +113,7 @@ export class TeamService {
     });
     if (withdrawAllJoinRequests.deletedCount === 0) {
       throw new BadRequestException(
-        'You have already being accepted into the team',
+        'You have already being accepted into the team or may have not made any request',
       );
     }
     return { success: true };
@@ -124,13 +131,17 @@ export class TeamService {
     if (team.isLocked) {
       throw new BadRequestException('Team is locked');
     }
-    if ((team.leader_id as any) === member._id) {
+    if ((team.leader._id as any) === member._id) {
       throw new BadRequestException('You are leader of this team');
     }
-    if (team.teamMembersEmail.includes(user.email)) {
+
+    const teamMemberExists = team.teamMembers.find(
+      (team_member) => (team_member._id as any) === member._id,
+    );
+    if (teamMemberExists) {
       throw new BadRequestException('User is already in the team');
     }
-    team.teamMembersEmail.push(user.email);
+    team.teamMembers.push(user as any);
     return await team.save();
   }
 
@@ -146,35 +157,39 @@ export class TeamService {
       throw new NotFoundException('Request does not exist');
     }
 
-    const member = await this.userService.getUserById(request.user_id as any);
-    if (!member) {
-      throw new NotFoundException('User does not exist');
-    }
-
     const team = await this.getTeam({ team_id: request.team_id as any });
     if (!team) {
       throw new NotFoundException('Team does not exist');
     }
 
-    if (user._id !== (team.leader_id as any)) {
+    if (user._id !== (team.leader._id as any)) {
       throw new BadRequestException('You are not the leader of this team');
+    }
+
+    const member = await this.userService.getUserById(request.user._id as any);
+    if (!member) {
+      throw new NotFoundException('User does not exist');
     }
 
     if (team.isLocked) {
       throw new BadRequestException('Team is locked');
     }
 
-    console.log(member._id === (team.leader_id as any));
-    if (member._id === (team.leader_id as any)) {
+    console.log(member._id === (team.leader._id as any));
+    if (member._id === (team.leader._id as any)) {
       throw new BadRequestException('You are leader of this team');
     }
 
-    if (team.teamMembersEmail.includes(member.email)) {
+    const teamMemberExists = team.teamMembers.find(
+      (team_member) => (team_member._id as any) === member._id,
+    );
+
+    if (teamMemberExists) {
       throw new BadRequestException('User is already in the team');
     }
 
     if (accept === true) {
-      team.teamMembersEmail.push(member.email);
+      team.teamMembers.push(member as any);
       await team.save();
     }
     await this.TeamJoinRequestModal.updateOne(
@@ -191,14 +206,14 @@ export class TeamService {
     if (!team) {
       throw new BadRequestException('You are not in a team');
     }
-    if (user._id === (team.leader_id as any)) {
+    if (user._id === (team.leader._id as any)) {
       throw new BadRequestException('You are the leader of this team');
     }
     if (team.isLocked) {
       throw new BadRequestException('Team is locked');
     }
-    team.teamMembersEmail = team.teamMembersEmail.filter(
-      (email) => email !== user.email,
+    team.teamMembers = team.teamMembers.filter(
+      (member) => member.email !== user.email,
     );
     await team.save();
     return { success: true };
@@ -216,7 +231,16 @@ export class TeamService {
     let team: TeamDocument;
     if (user) {
       team = await this.TeamModal.findOne({
-        $or: [{ leader_id: user._id }, { teamMembersEmail: user.email }],
+        $or: [
+          { 'leader._id': user._id },
+          {
+            teamMembers: {
+              $elemMatch: {
+                email: user.email,
+              },
+            },
+          },
+        ],
       });
     } else if (team_id) {
       team = await this.TeamModal.findOne({ _id: team_id });

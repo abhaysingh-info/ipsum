@@ -2,8 +2,9 @@
 
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, ObjectId, Types } from 'mongoose';
-import { User } from './user.entity';
+import { User, UserExtentionSchema } from './user.entity';
 import { Team } from './team.entity';
+import { IUserExtention } from '@shared/interfaces/user';
 
 @Schema()
 export class TeamJoinRequest {
@@ -11,9 +12,8 @@ export class TeamJoinRequest {
   @Prop({ required: true, type: Types.ObjectId, ref: Team.name })
   team_id: ObjectId;
 
-  // user_id: ObjectId;
-  @Prop({ required: true, type: Types.ObjectId, ref: User.name })
-  user_id: ObjectId;
+  @Prop({ required: true, type: UserExtentionSchema })
+  user: IUserExtention;
 
   // isAccepted: boolean;
   @Prop({ required: true, type: Boolean, default: false })

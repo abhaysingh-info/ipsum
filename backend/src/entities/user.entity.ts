@@ -16,6 +16,73 @@ import { HydratedDocument, ObjectId } from 'mongoose';
 import { Types } from 'mongoose';
 
 @Schema()
+export class UserExtention {
+  @Prop({
+    type: Types.ObjectId,
+    ref: 'User',
+    required: true,
+  })
+  _id: ObjectId;
+
+  @Prop({
+    type: String,
+    required: true,
+    minlength: 1,
+    maxlength: 128,
+    match: regxr.name,
+    validate: {
+      validator: (value: string) => {
+        return matchRegx(value, regxr.name);
+      },
+      message: 'Please provide a valid name',
+    },
+  })
+  name: string;
+
+  @Prop({
+    type: String,
+    required: true,
+    match: regxr.email,
+    unique: true,
+    validate: {
+      validator: (value: string) => {
+        return matchRegx(value, regxr.email);
+      },
+      message: 'Please provide a valid e-mail',
+    },
+  })
+  email: string;
+
+  @Prop({
+    type: String,
+    required: true,
+    validate: {
+      validator: (value: string) => {
+        return matchRegx(value, regxr.countryCode);
+      },
+      message: 'Please provide valid country code',
+    },
+  })
+  countryCode: string;
+
+  @Prop({
+    type: String,
+    required: true,
+    match: [regxr.number, 'Please provide a valid phone number!'],
+    unique: true,
+    validate: {
+      validator: (value: string) => {
+        return matchRegx(value, regxr.number);
+      },
+      message: 'Please provide a valid phone number',
+    },
+  })
+  phoneNumber: string;
+}
+
+export const UserExtentionSchema = SchemaFactory.createForClass(UserExtention);
+
+@Schema()
 export class User {
   @Prop({
     type: String,

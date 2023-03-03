@@ -1,5 +1,6 @@
 // import { photo } from './common'
 
+import { ObjectId } from 'mongoose'
 import { Team } from './team'
 
 export type ItokenTypes =
@@ -49,7 +50,7 @@ export interface IVerifyUser {
 	payment_made: boolean
 	payment_screenshot: string
 	payment_status: payment_status
-	team: Team
+	// team: Team
 }
 
 export interface ICreateUser {
@@ -62,4 +63,12 @@ export interface ICreateUser {
 export interface ILoginUser {
 	email: string
 	password: string
+}
+
+export interface IUserExtention {
+	_id: ObjectId
+	name: string
+	email: string
+	countryCode: string
+	phoneNumber: string
 }

@@ -103,23 +103,11 @@ export class UserController {
       );
     }
 
-    const userTeam: any = await this.teamService.getTeam({ user });
+    // const userTeam: any = await this.teamService.getTeam({ user });
 
-    if (userTeam) {
-      if ((userTeam.leader_id as any) === user._id) {
-        userTeam.leader_id = user.email;
-      } else {
-        const leader = await this.userService.getUserById(
-          userTeam.leader_id,
-          false,
-          {
-            email: 1,
-          },
-        );
-        userTeam.leader_id = leader.email;
-      }
-      (user as any).team = userTeam;
-    }
+    // if (userTeam) {
+    //   (user as any).team = userTeam;
+    // }
 
     return await SetLogginToken(res, user);
   }
@@ -138,23 +126,12 @@ export class UserController {
     @CurrentUser() user: UserDocument,
   ) {
     if (user?._id) {
-      const userTeam: any = await this.teamService.getTeam({ user });
+      // const userTeam: any = await this.teamService.getTeam({ user });
 
-      if (userTeam) {
-        if ((userTeam.leader_id as any) === user._id) {
-          userTeam.leader_id = user.email;
-        } else {
-          const leader = await this.userService.getUserById(
-            userTeam.leader_id,
-            false,
-            {
-              email: 1,
-            },
-          );
-          userTeam.leader_id = leader.email;
-        }
-        (user as any).team = userTeam;
-      }
+      // if (userTeam) {
+      //   (user as any).team = userTeam;
+      // }
+
       let data = {
         ...(await SetLogginToken(res, user)),
         success: true,
