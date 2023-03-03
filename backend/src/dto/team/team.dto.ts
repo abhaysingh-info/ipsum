@@ -13,10 +13,7 @@ export class CreateTeamDto {
   @IsNotEmpty()
   @IsString()
   @IsRegxMatch(/^[a-zA-Z0-9]+$/)
-  @Transform((value) => {
-    console.log(value);
-    return value ? value.value.toLowerCase() : value;
-  })
+  @Transform((value) => (value ? value.value.toLowerCase() : value))
   teamID: string;
 
   @IsNotEmpty()
