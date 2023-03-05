@@ -15,7 +15,8 @@ async function bootstrap() {
   );
 
   app.enableCors({
-    origin: 'http://localhost:4200',
+    origin:
+      'https://abhaysingh-info-didactic-waffle-jgq9rp9r96gcj7wr-4200.preview.app.github.dev',
     credentials: true,
   });
 

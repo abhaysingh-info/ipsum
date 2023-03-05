@@ -3,7 +3,8 @@ import { HttpClient } from '@angular/common/http'
 import { environment } from 'src/environments/environment'
 import { ICreateUser, ILoginUser, IVerifyUser } from '@shared/interfaces/user'
 import { BehaviorSubject, Observable } from 'rxjs'
-import { defaultHttpPostHeader, defaultHttpPostHeaderMultipart } from './helper'
+import { defaultHttpPostHeader, getQueryString } from './helper'
+import { IGetUsersQuery } from '@shared/interfaces/query'
 
 @Injectable({
 	providedIn: 'root',
@@ -81,5 +82,16 @@ export class UserService {
 		return this.http.post(`${this.url}/payment/${transaction_id}`, formData, {
 			withCredentials: true,
 		})
+	}
+
+	getAllUsers(filter: IGetUsersQuery, startFrom: number) {
+		const query = getQueryString({
+			startFrom,
+		})
+		return this.http.post(
+			`${this.url}/get?${query}`,
+			filter,
+			defaultHttpPostHeader,
+		)
 	}
 }

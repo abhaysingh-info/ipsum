@@ -9,11 +9,17 @@ import { Model } from 'mongoose';
 import ControllerWrapper from 'src/utils/ControllerWrapper';
 import { CreateUserDto } from '../../dto/user/create-user.dto';
 import { UpdateUserDto } from '../../dto/user/update-user.dto';
-import { User, UserDocument } from '../../entities/user.entity';
+import {
+  getSelectiveGeneralData,
+  User,
+  UserDocument,
+} from '../../entities/user.entity';
 import { Express } from 'express';
 import { S3Service } from 'src/services/s3/s3.service';
 import { ObjectId } from 'mongoose';
 import { Team } from 'src/entities/team.entity';
+import { GetUsersDto } from 'src/dto/user/get-users.dto';
+import roles from '@shared/utils/dist/roles';
 
 @Injectable()
 export class UserService {
@@ -50,8 +56,18 @@ export class UserService {
     });
   }
 
-  findAll(filter: Partial<User> = {}) {
-    return this.UserModel.find(filter);
+  async findAll(
+    _filter: GetUsersDto,
+    startFrom: number = 0,
+    limit: number = 10,
+  ) {
+    const filter = {
+      ..._filter,
+      roles: roles.client,
+    };
+    return await this.UserModel.find(filter, getSelectiveGeneralData)
+      .skip(startFrom)
+      .limit(limit);
   }
 
   async findOneByEmail(
