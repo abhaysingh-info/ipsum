@@ -7,7 +7,7 @@ import {
 	ReactiveFormsModule,
 	Validators,
 } from '@angular/forms'
-import { Router } from '@angular/router'
+import { Router, RouterModule } from '@angular/router'
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 import { SpinnerComponent } from '../spinner/spinner.component'
@@ -24,6 +24,7 @@ import { CustomSubscription } from 'src/app/utils/common'
 		FontAwesomeModule,
 		ReactiveFormsModule,
 		SpinnerComponent,
+		RouterModule,
 	],
 	templateUrl: './sign-in.component.html',
 	styleUrls: ['./sign-in.component.scss'],

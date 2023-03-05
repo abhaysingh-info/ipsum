@@ -12,7 +12,7 @@ import {
 } from '@angular/forms'
 import { regx } from 'src/app/utils/regx'
 import { SpinnerComponent } from '../spinner/spinner.component'
-import { Router } from '@angular/router'
+import { Router, RouterModule } from '@angular/router'
 
 @Component({
 	selector: 'app-sign-up',
@@ -22,6 +22,7 @@ import { Router } from '@angular/router'
 		FontAwesomeModule,
 		ReactiveFormsModule,
 		SpinnerComponent,
+		RouterModule,
 	],
 	templateUrl: './sign-up.component.html',
 	styleUrls: ['./sign-up.component.scss'],
