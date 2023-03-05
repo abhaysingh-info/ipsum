@@ -7,19 +7,18 @@ import {
   IsEnum,
   IsOptional,
   IsEmail,
+  IsNumberString,
 } from 'class-validator';
-import regx from '@shared/utils/dist/regx';
 import { IsRegxMatch } from 'src/utils/custom-validators';
 
 export class GetUsersDto {
   @IsOptional()
   @IsString()
-  @IsEmail()
   email: string;
 
   @IsOptional()
   @IsString()
-  @IsRegxMatch(regx.phoneNumber)
+  @IsNumberString()
   phone: string;
 
   @IsOptional()

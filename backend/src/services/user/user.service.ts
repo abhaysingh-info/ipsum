@@ -8,7 +8,10 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import ControllerWrapper from 'src/utils/ControllerWrapper';
 import { CreateUserDto } from '../../dto/user/create-user.dto';
-import { UpdateUserDto } from '../../dto/user/update-user.dto';
+import {
+  UpdatePaymentDto,
+  UpdateUserDto,
+} from '../../dto/user/update-user.dto';
 import {
   getSelectiveGeneralData,
   User,
@@ -61,11 +64,27 @@ export class UserService {
     startFrom: number = 0,
     limit: number = 10,
   ) {
-    const filter = {
-      ..._filter,
+    const filters = {
       roles: roles.client,
     };
-    return await this.UserModel.find(filter, getSelectiveGeneralData)
+    if (_filter.email) {
+      filters['email'] = {
+        $regex: _filter.email,
+      };
+    }
+    if (_filter.phone) {
+      filters['phoneNumber'] = {
+        $regex: _filter.phone,
+      };
+    }
+    if (typeof _filter.payment_made === typeof true) {
+      filters['payment_made'] = _filter.payment_made;
+    }
+    if (_filter.payment_status) {
+      filters['payment_status'] = _filter.payment_status;
+    }
+
+    return await this.UserModel.find(filters, getSelectiveGeneralData)
       .skip(startFrom)
       .limit(limit);
   }
@@ -132,6 +151,26 @@ export class UserService {
           payment_status: 'pending',
           payment_screenshot: imageUrl,
           payment_transaction_id: transaction_id,
+        },
+      );
+      if (_user.acknowledged) {
+        return { success: true };
+      } else {
+        throw new InternalServerErrorException(
+          'Failed to save data, if this error persists please contact out support',
+        );
+      }
+    });
+  }
+
+  async updatePaymentStatus(updatePaymentDto: UpdatePaymentDto) {
+    return await ControllerWrapper(async () => {
+      const _user = await this.UserModel.updateOne(
+        {
+          _id: updatePaymentDto.userId,
+        },
+        {
+          payment_status: updatePaymentDto.payment_status,
         },
       );
       if (_user.acknowledged) {

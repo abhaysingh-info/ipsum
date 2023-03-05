@@ -86,11 +86,22 @@ export class UserService {
 
 	getAllUsers(filter: IGetUsersQuery, startFrom: number) {
 		const query = getQueryString({
-			startFrom,
+			startFrom: startFrom,
 		})
 		return this.http.post(
 			`${this.url}/get?${query}`,
 			filter,
+			defaultHttpPostHeader,
+		)
+	}
+
+	updatePaymetnStatus(userId: string, payment_status: string) {
+		return this.http.put(
+			`${this.url}/payment/update-status`,
+			{
+				userId,
+				payment_status,
+			},
 			defaultHttpPostHeader,
 		)
 	}

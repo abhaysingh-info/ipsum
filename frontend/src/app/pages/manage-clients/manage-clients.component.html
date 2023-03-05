@@ -1,7 +1,20 @@
 <div class="max-w-screen-2xl w-full mx-auto">
+	<div class="w-full mt-6 mb-2 px-4 flex gap-2 flex-wrap">
+		<label (click)="showFilterModal = true" class="btn btn-sm btn-primary"
+			>Filters</label
+		>
+		<button
+			(click)="refreshUsers()"
+			class="btn btn-sm btn-secondary"
+			[ngClass]="{
+				'btn-disabled': requestInProgress
+			}"
+		>
+			Refresh
+		</button>
+	</div>
 	<div class="overflow-x-auto w-full">
 		<table class="table w-full">
-			<!-- head -->
 			<thead>
 				<tr>
 					<th>Name</th>
@@ -11,37 +24,129 @@
 					<th>Payment Status</th>
 					<th>Payment ScreenShot</th>
 					<th>Transaction Id</th>
-					<th>Role</th>
 					<th>Account Suspended</th>
 					<th>Account Blocked</th>
+					<th>Actions</th>
 				</tr>
 			</thead>
 			<tbody>
-				<!-- row 1 -->
-				<tr>
+				<tr
+					*ngFor="let user of users; let index = index; trackBy: trackById"
+					class="text-center hover"
+				>
+					<td>{{ user.name }}</td>
 					<td>
-						<div class="flex items-center space-x-3">
-							<div>
-								<div class="font-bold">Hart Hagerty</div>
-								<div class="text-sm opacity-50">United States</div>
-							</div>
-						</div>
+						{{ user.email }}
+					</td>
+					<td>{{ user.countryCode }}-{{ user.phoneNumber }}</td>
+					<td>
+						<fa-icon
+							[icon]="user.payment_made ? faCheckCircle : faXmarkCircle"
+							title="Payment Made Status"
+							[ngClass]="user.payment_made ? 'text-success' : 'text-error'"
+						></fa-icon>
+					</td>
+					<td class="capitalize">
+						<fa-icon
+							class="text-warning"
+							*ngIf="!user.payment_status"
+							[icon]="faExclamationCircle"
+						></fa-icon>
+						<fa-icon
+							class="text-info"
+							*ngIf="user.payment_status === 'pending'"
+							[icon]="faExclamationCircle"
+						></fa-icon>
+						<fa-icon
+							class="text-success"
+							*ngIf="user.payment_status === 'verified'"
+							[icon]="faCheckCircle"
+						></fa-icon>
+						<fa-icon
+							class="text-error"
+							*ngIf="user.payment_status === 'rejected'"
+							[icon]="faXmarkCircle"
+						></fa-icon>
+						{{ user.payment_status ? user.payment_status : 'Not Made' }}
 					</td>
 					<td>
-						Zemlak, Daniel and Leannon
-						<br />
-						<span class="badge badge-ghost badge-sm"
-							>Desktop Support Technician</span
+						<ng-container *ngIf="user.payment_screenshot">
+							<label
+								(click)="showPreviewImage(user.payment_screenshot, index)"
+								class="btn btn-sm btn-primary"
+								>View</label
+							>
+						</ng-container>
+						<ng-container *ngIf="!user.payment_screenshot"> --- </ng-container>
+					</td>
+					<td>
+						{{
+							user.payment_transaction_id ? user.payment_transaction_id : '---'
+						}}
+					</td>
+					<td>
+						<fa-icon
+							[icon]="user.suspended ? faCheckCircle : faXmarkCircle"
+							title="Account not suspended"
+							[ngClass]="user.suspended ? 'text-error' : 'text-success'"
+						></fa-icon>
+					</td>
+					<td>
+						<fa-icon
+							[icon]="user.isBlocked ? faCheckCircle : faXmarkCircle"
+							title="Account not blocked"
+							[ngClass]="user.isBlocked ? 'text-error' : 'text-success'"
+						></fa-icon>
+					</td>
+					<td>
+						<button
+							class="btn btn-warning btn-xs"
+							(click)="showUpdateUserModal(index)"
+							[ngClass]="{
+								'btn-disabled': !user.payment_made
+							}"
 						>
+							Update Payment Status
+						</button>
 					</td>
-					<td>Purple</td>
-					<th>
-						<button class="btn btn-ghost btn-xs">details</button>
-					</th>
+				</tr>
+				<tr class="text-center" *ngIf="!users.length && !requestInProgress">
+					<td [colSpan]="10">
+						<fa-icon
+							[icon]="faExclamationCircle"
+							class="text-4xl text-warning"
+						></fa-icon>
+						<p class="text-lg text-warning">No users found</p>
+					</td>
+				</tr>
+
+				<tr class="text-center min-h-[15rem]" *ngIf="requestInProgress">
+					<td [colSpan]="10">
+						<fa-icon
+							*ngIf="!users.length"
+							[icon]="faSpinner"
+							[spin]="true"
+							class="text-4xl text-primary animate-spin"
+						></fa-icon>
+					</td>
 				</tr>
 			</tbody>
-			<!-- foot -->
 			<tfoot>
+				<tr class="text-center">
+					<th>
+						<!-- *ngIf="!loadedAllUsers" -->
+						<button
+							class="btn btn-primary btn-sm"
+							(click)="getUsers()"
+							[ngClass]="{
+								'btn-disabled': requestInProgress || loadedAllUsers
+							}"
+						>
+							Load More
+						</button>
+					</th>
+					<th [colSpan]="9"></th>
+				</tr>
 				<tr>
 					<th>Name</th>
 					<th>Email</th>
@@ -50,11 +155,265 @@
 					<th>Payment Status</th>
 					<th>Payment ScreenShot</th>
 					<th>Transaction Id</th>
-					<th>Role</th>
 					<th>Account Suspended</th>
 					<th>Account Blocked</th>
+					<th>Actions</th>
 				</tr>
 			</tfoot>
 		</table>
 	</div>
+</div>
+
+<!-- After project is completed extract all these models into their own component files -->
+
+<!-- Filter form Modal -->
+<input
+	type="checkbox"
+	id="filterFormModal"
+	[checked]="showFilterModal"
+	class="modal-toggle"
+/>
+<div class="modal">
+	<form [formGroup]="filterForm" class="modal-box">
+		<h3 class="font-bold text-lg">Filter User</h3>
+		<div class="py-4">
+			<div class="form-control mb-3">
+				<label class="label">
+					<span class="label-text">Email</span>
+				</label>
+				<input
+					type="text"
+					class="input input-bordered"
+					placeholder="Email"
+					formControlName="email"
+					[ngClass]="{
+						'input-error':
+							filterForm.get('email')?.invalid &&
+							filterForm.get('email')?.touched
+					}"
+				/>
+			</div>
+			<div class="form-control mb-3">
+				<label class="label">
+					<span class="label-text">Phone</span>
+				</label>
+				<input
+					type="number"
+					class="input input-bordered"
+					placeholder="Phone Number"
+					formControlName="phone"
+					[ngClass]="{
+						'input-error':
+							filterForm.get('phone')?.invalid &&
+							filterForm.get('phone')?.touched
+					}"
+				/>
+			</div>
+
+			<div class="form-control mb-3">
+				<label class="label">
+					<span class="label-text">Payment Made</span>
+				</label>
+				<select
+					class="input input-bordered"
+					formControlName="payment_made"
+					[ngClass]="{
+						'input-error':
+							filterForm.get('payment_made')?.invalid &&
+							filterForm.get('payment_made')?.touched
+					}"
+				>
+					<option [value]="null">All</option>
+					<option [value]="true">Yes</option>
+					<option [value]="false">No</option>
+				</select>
+			</div>
+
+			<div class="form-control mb-3">
+				<label class="label">
+					<span class="label-text">Payment Status</span>
+				</label>
+				<select
+					class="input input-bordered"
+					formControlName="payment_status"
+					[ngClass]="{
+						'input-error':
+							filterForm.get('payment_status')?.invalid &&
+							filterForm.get('payment_status')?.touched
+					}"
+				>
+					<option [value]="null">All</option>
+					<option value="verified">Verified</option>
+					<option value="rejected">Rejected</option>
+					<option value="pending">Pending</option>
+				</select>
+			</div>
+		</div>
+		<div>
+			{{ filterForm.value | json }}
+		</div>
+		<div class="label">
+			<span class="label-text-alt text-error" *ngIf="error">
+				{{ error }}
+			</span>
+		</div>
+		<div class="modal-action">
+			<label (click)="showFilterModal = false" class="btn">Close</label>
+			<button
+				class="btn btn-primary gap-1"
+				[ngClass]="{
+					'btn-disabled': filterForm.invalid || requestInProgress
+				}"
+				(click)="onFilter()"
+			>
+				<fa-icon
+					*ngIf="requestInProgress"
+					class="animate-spin"
+					[icon]="faSpinner"
+				></fa-icon>
+				Filter
+			</button>
+		</div>
+	</form>
+</div>
+
+<!-- preview image modal -->
+<!-- <label for="my-modal" class="btn">open modal</label> -->
+<input
+	type="checkbox"
+	[checked]="showPreviewImageModal"
+	id="preview-image-modal"
+	class="modal-toggle"
+/>
+<div class="modal">
+	<div class="modal-box">
+		<h3 class="font-bold text-lg">
+			Transaction Submitted By: {{ selectedUser.name }} ({{
+				selectedUser.email
+			}})
+		</h3>
+		<p class="py-4">
+			<img
+				*ngIf="selectedUser.payment_screenshot"
+				[src]="
+					assetBaseUrl +
+					'/filters:quality(50)/' +
+					selectedUser.payment_screenshot
+				"
+				[alt]="
+					'Transaction Submitted By: ' +
+					selectedUser.name +
+					' ( ' +
+					selectedUser.email +
+					' )'
+				"
+				class="w-full min-w-[20rem] min-h-[14rem] bg-gray-200"
+			/>
+		</p>
+		<div class="modal-action">
+			<label (click)="hidePreviewImage()" class="btn">Close</label>
+		</div>
+	</div>
+</div>
+
+<!-- Update Payment Status modal -->
+<!-- <label for="my-modal" class="btn">open modal</label> -->
+<input
+	type="checkbox"
+	[checked]="showUpdateUserDetailModal"
+	id="preview-image-modal"
+	class="modal-toggle"
+/>
+<div class="modal">
+	<form class="modal-box" [formGroup]="updateUserForm">
+		<h3 class="font-bold text-lg capitalize">
+			Update: {{ selectedUser.name }} ({{ selectedUser.email }})
+		</h3>
+		<div class="py-4">
+			<div class="form-control w-full mb-3">
+				<label class="label">
+					<span class="label-text">User Id</span>
+				</label>
+				<input
+					type="text"
+					placeholder="Type here"
+					formControlName="userId"
+					[readonly]="true"
+					class="input input-bordered w-full max-w-xs input-readonly bg-gray-400"
+					[ngClass]="{
+						'input-error':
+							(updateUserForm.get('userId')?.invalid &&
+								updateUserForm.get('userId')?.touched) ||
+							updateUserForm.get('userId')?.dirty
+					}"
+				/>
+				<div class="label">
+					<label
+						*ngIf="
+							updateUserForm.get('userId')?.invalid &&
+							updateUserForm.get('userId')?.touched
+						"
+						class="label-text-alt text-error"
+					>
+						<ng-container
+							*ngIf="updateUserForm.get('userId')?.hasError('required')"
+						>
+							User Id is required
+						</ng-container>
+					</label>
+				</div>
+			</div>
+			<div class="form-control w-full mb-3">
+				<label class="label">
+					<span class="label-text">Payment Status</span>
+				</label>
+				<select
+					formControlName="payment_status"
+					class="select select-bordered w-full max-w-xs"
+				>
+					<option value="rejected">Rejected</option>
+					<option value="verified">Verified</option>
+					<option value="pending">Pending</option>
+				</select>
+				<div class="label">
+					<label
+						*ngIf="
+							updateUserForm.get('payment_status')?.invalid &&
+							updateUserForm.get('payment_status')?.touched
+						"
+						class="label-text-alt text-error"
+					>
+						Please select a payment status
+					</label>
+				</div>
+			</div>
+			<div class="label">
+				<div class="label-text text-error" *ngIf="updateUserError">
+					{{ updateUserError }}
+				</div>
+				<div *ngIf="updateUserSuccess" class="label-text text-success">
+					{{ updateUserSuccess }}
+				</div>
+			</div>
+		</div>
+		<div class="modal-action gap-2">
+			<button (click)="hideUpdateUserModal()" type="button" class="btn">
+				Close
+			</button>
+			<button
+				class="btn btn-success gap-1"
+				[ngClass]="{
+					'btn-disabled': requestSecondaryInProgress
+				}"
+				(click)="onUpdatePaymentSubmit()"
+			>
+				<fa-icon
+					[icon]="faSpinner"
+					*ngIf="requestSecondaryInProgress"
+					class="animate-spin"
+				></fa-icon>
+				Submit
+			</button>
+		</div>
+	</form>
 </div>

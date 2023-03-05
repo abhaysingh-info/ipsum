@@ -37,6 +37,23 @@ export interface IUser {
 	payment_status: payment_status
 }
 
+export interface IGeneralUser {
+	_id: string
+	name: string
+	email: string
+	isEmailVerified: boolean
+	countryCode: string
+	phoneNumber: string
+	isPhoneNumberVerified: boolean
+	roles: string
+	suspended: boolean // suspended is for read-only access
+	isBlocked: boolean // blocked is for no access
+	payment_made: boolean
+	payment_screenshot: string
+	payment_transaction_id: string
+	payment_status: string
+}
+
 export type payment_status = 'pending' | 'verified' | 'rejected'
 
 export interface IVerifyUser {

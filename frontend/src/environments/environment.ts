@@ -5,8 +5,7 @@
 
 export const environment = {
 	production: false,
-	serverUrl:
-		'https://abhaysingh-info-didactic-waffle-jgq9rp9r96gcj7wr-4000.preview.app.github.dev',
+	serverUrl: 'http://localhost:4000',
 	assets_base_url: 'https://d3743700chk2jt.cloudfront.net',
 }
 

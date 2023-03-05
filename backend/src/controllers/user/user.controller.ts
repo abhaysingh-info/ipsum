@@ -10,6 +10,7 @@ import {
   Res,
   UseGuards,
   Get,
+  Put,
   UseInterceptors,
   UploadedFile,
   BadRequestException,
@@ -17,7 +18,10 @@ import {
 } from '@nestjs/common';
 import { UserService } from '../../services/user/user.service';
 import { CreateUserDto } from '../../dto/user/create-user.dto';
-import { UpdateUserDto } from '../../dto/user/update-user.dto';
+import {
+  UpdatePaymentDto,
+  UpdateUserDto,
+} from '../../dto/user/update-user.dto';
 import { LoginUserDto } from '../../dto/user/login-user.dto';
 import SetLogginToken from 'src/utils/SetLogginToken';
 import { Response } from 'express';
@@ -27,7 +31,6 @@ import { UserDocument } from 'src/entities/user.entity';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Express } from 'express';
 import { TeamService } from 'src/services/team/team.service';
-import { IStringKey } from '@shared/interfaces';
 import { GetUsersDto } from 'src/dto/user/get-users.dto';
 import { HasRoleGuard } from 'src/guards/has-role/has-role.guard';
 import roles from '@shared/utils/dist/roles';
@@ -59,14 +62,18 @@ export class UserController {
   @UseGuards(AuthenticateGuard, HasRoleGuard(roles.admin))
   async findAll(
     @Body() filter: GetUsersDto,
-    @Query('startFrom') startFrom: number,
+    @Query('startFrom') startFrom: string,
   ) {
     const limit = 10;
-    const users = await this.userService.findAll(filter, startFrom, limit);
+    const users = await this.userService.findAll(
+      filter,
+      startFrom?.length ? parseInt(startFrom) : 0,
+      limit,
+    );
     return {
       success: true,
       data: users,
-      startFrom,
+      startFrom: startFrom?.length ? parseInt(startFrom) : 0,
       limit,
     };
   }
@@ -123,12 +130,6 @@ export class UserController {
       );
     }
 
-    // const userTeam: any = await this.teamService.getTeam({ user });
-
-    // if (userTeam) {
-    //   (user as any).team = userTeam;
-    // }
-
     return await SetLogginToken(res, user);
   }
 
@@ -146,12 +147,6 @@ export class UserController {
     @CurrentUser() user: UserDocument,
   ) {
     if (user?._id) {
-      // const userTeam: any = await this.teamService.getTeam({ user });
-
-      // if (userTeam) {
-      //   (user as any).team = userTeam;
-      // }
-
       let data = {
         ...(await SetLogginToken(res, user)),
         success: true,
@@ -173,7 +168,7 @@ export class UserController {
   }
 
   @Delete()
-  @UseGuards(AuthenticateGuard)
+  @UseGuards(AuthenticateGuard, HasRoleGuard(roles.admin))
   remove(@CurrentUser() user: UserDocument) {
     return this.userService.remove(user._id.toString());
   }
@@ -207,5 +202,11 @@ export class UserController {
       transaction_image,
       currentUser,
     );
+  }
+
+  @Put('payment/update-status')
+  @UseGuards(AuthenticateGuard, HasRoleGuard(roles.admin))
+  update_payment_status(@Body() updatePaymentDto: UpdatePaymentDto) {
+    return this.userService.updatePaymentStatus(updatePaymentDto);
   }
 }
