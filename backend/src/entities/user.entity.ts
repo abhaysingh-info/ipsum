@@ -296,3 +296,30 @@ UserSchema.methods.comparePassword = async function (
     (await scryptHash(passwordFromLogin, salt)).toString('hex') === password
   );
 };
+
+export const getSelectiveGeneralData = {
+  name: 1,
+  email: 1,
+  isEmailVerified: 1,
+  emailVerifyToken: 0, // only used once to verify
+  emailResetToken: 0,
+  emailResetTokenExpiry: 0,
+  countryCode: 1,
+  phoneNumber: 1,
+  phoneOtp: 0,
+  phoneOtpExpiry: 0,
+  isPhoneNumberVerified: 1,
+  password: 0,
+  passwordResetToken: 0,
+  passwordResetTokenExpiry: 0,
+  passwordTries: 0,
+  roles: 1,
+  suspended: 1, // suspended is for read-only access
+  isBlocked: 1, // blocked is for no access
+  payment_made: 1,
+  payment_screenshot: 1,
+  payment_transaction_id: 1,
+  payment_status: 1,
+  token: 0,
+  tokenExpiry: 0,
+};

@@ -13,6 +13,7 @@ import {
   UseInterceptors,
   UploadedFile,
   BadRequestException,
+  Query,
 } from '@nestjs/common';
 import { UserService } from '../../services/user/user.service';
 import { CreateUserDto } from '../../dto/user/create-user.dto';
@@ -27,6 +28,9 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { Express } from 'express';
 import { TeamService } from 'src/services/team/team.service';
 import { IStringKey } from '@shared/interfaces';
+import { GetUsersDto } from 'src/dto/user/get-users.dto';
+import { HasRoleGuard } from 'src/guards/has-role/has-role.guard';
+import roles from '@shared/utils/dist/roles';
 
 @Controller('user')
 export class UserController {
@@ -49,6 +53,22 @@ export class UserController {
         message: 'We are sorry, there was an error while creating your account',
       };
     }
+  }
+
+  @Post('get')
+  @UseGuards(AuthenticateGuard, HasRoleGuard(roles.admin))
+  async findAll(
+    @Body() filter: GetUsersDto,
+    @Query('startFrom') startFrom: number,
+  ) {
+    const limit = 10;
+    const users = await this.userService.findAll(filter, startFrom, limit);
+    return {
+      success: true,
+      data: users,
+      startFrom,
+      limit,
+    };
   }
 
   @Post('login')
