@@ -22,8 +22,4 @@ export class UpdatePaymentDto {
   @IsString()
   @IsMongoId()
   userId: string;
-
-  constructor() {
-    console.log(this);
-  }
 }

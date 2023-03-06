@@ -111,7 +111,6 @@ export class TeamJoinOrCreateComponent
 			this.teamService.getTeamJoinRequest().subscribe({
 				next: (teamJoinRequest: any) => {
 					this.teamJoinRequest = teamJoinRequest
-					console.log(teamJoinRequest)
 					this.joinTeamForm.reset()
 					if (!teamJoinRequest?._id) {
 						this.getTeam()

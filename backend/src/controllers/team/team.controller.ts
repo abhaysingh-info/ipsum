@@ -114,7 +114,6 @@ export class TeamController {
     @Param('member_id') _member_id: string,
   ) {
     const member_id = new Types.ObjectId(_member_id) as any;
-    console.log(member_id);
     return await this.teamService.removeMemberFromTeam(user, member_id);
   }
 }

@@ -15,7 +15,6 @@ export const defaultHttpPostHeader = {
 export function getQueryString(query: IStringKey<string | number | boolean>) {
 	let queryString = Object.keys(query)
 		.map((key: string) => {
-			console.log(query[key])
 			return query[key] ? key + '=' + query[key] : ''
 		})
 		.join('&')
