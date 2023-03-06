@@ -13,6 +13,7 @@ import { AskConfirmationComponent } from 'src/app/shared/ask-confirmation/ask-co
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { SpinnerComponent } from '../spinner/spinner.component'
 import { TeamService } from 'src/app/services/team.service'
+import { EventParticipateComponent } from '../event-participate/event-participate.component'
 
 @Component({
 	selector: 'app-events-carousel',
@@ -24,6 +25,7 @@ import { TeamService } from 'src/app/services/team.service'
 		InfiniteScrollModule,
 		AskConfirmationComponent,
 		SpinnerComponent,
+		EventParticipateComponent,
 	],
 	templateUrl: './events-carousel.component.html',
 	styleUrls: ['./events-carousel.component.scss'],
@@ -99,8 +101,6 @@ export class EventsCarouselComponent
 	}
 
 	ngOnInit(): void {
-		// this.user = this.userService.getUser()
-
 		this.getEvents()
 	}
 
@@ -129,6 +129,15 @@ export class EventsCarouselComponent
 				},
 			}) as any,
 		)
+	}
+
+	participateInEvent: IDBEvent | undefined = undefined
+	captureEmitOnParticipate(index: number | undefined) {
+		if (index !== undefined) {
+			this.participateInEvent = this.events[index]
+		} else {
+			this.participateInEvent = undefined
+		}
 	}
 
 	trackById(index: number, object: IDBEvent) {

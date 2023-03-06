@@ -61,3 +61,24 @@ export class Event extends Document {
 
 export const EventSchema = SchemaFactory.createForClass(Event);
 export type EventDocument = HydratedDocument<Event>;
+
+@Schema()
+export class EventRegistrationExtention extends Document {
+  @Prop({ required: true, type: String })
+  eventId: string;
+
+  @Prop({ required: true, enum: eventType, type: String })
+  eventType: string;
+
+  @Prop({ required: true, type: String })
+  name: string;
+
+  @Prop({ required: true })
+  eventBatch: number;
+}
+
+export const EventRegistrationExtentionSchema = SchemaFactory.createForClass(
+  EventRegistrationExtention,
+);
+export type EventRegistrationExtentionDocument =
+  HydratedDocument<EventRegistrationExtention>;

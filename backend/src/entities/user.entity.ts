@@ -43,7 +43,6 @@ export class UserExtention {
     type: String,
     required: true,
     match: regxr.email,
-    unique: true,
     validate: {
       validator: (value: string) => {
         return matchRegx(value, regxr.email);
@@ -69,7 +68,6 @@ export class UserExtention {
     type: String,
     required: true,
     match: [regxr.number, 'Please provide a valid phone number!'],
-    unique: true,
     validate: {
       validator: (value: string) => {
         return matchRegx(value, regxr.number);

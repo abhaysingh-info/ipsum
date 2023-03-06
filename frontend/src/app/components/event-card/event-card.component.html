@@ -95,21 +95,34 @@
 					<div
 						[ngClass]="{
 							'btn-disabled':
-								!team?.isLocked && event.eventType !== 'individual',
+								today > Date.parse($any(event.registrationClosesOn)) ||
+								(!team?.isLocked && event.eventType !== 'individual') ||
+								(event.eventType === 'team' &&
+									team?.leader?._id &&
+									team?.leader?._id !== user?._id),
 							'btn-info btn-outline':
-								(team?.isLocked && event.eventType === 'team') ||
-								event.eventType === 'individual'
+								((team?.isLocked &&
+									event.eventType === 'team' &&
+									team?.leader?._id &&
+									team?.leader?._id === user?._id) ||
+									event.eventType === 'individual') &&
+								today <= Date.parse($any(event.registrationClosesOn))
 						}"
 						class="btn btn-sm gap-1"
+						(click)="emitOnParticipate()"
 					>
 						{{
-							!$any(team?._id)?.length
+							today > Date.parse($any(event.registrationClosesOn))
+								? 'Registration Closed'
+								: !$any(team?._id)?.length
 								? 'Please join a team'
 								: event.eventType === 'individual'
 								? 'Participate'
 								: !team?.isLocked
 								? 'Please lock your team'
-								: 'Participate'
+								: team?.leader?._id && team?.leader?._id === user?._id
+								? 'Participate'
+								: 'Ask leader'
 						}}
 					</div>
 				</ng-container>

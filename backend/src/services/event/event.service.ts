@@ -6,13 +6,19 @@ import {
   Logger,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Types } from 'mongoose';
+import { ObjectId, Types } from 'mongoose';
 import { Model } from 'mongoose';
 import { CreateEventDto } from 'src/dto/event/event.dto';
 import { Event, EventDocument } from 'src/entities/event.entity';
 import ControllerWrapper from 'src/utils/ControllerWrapper';
 import { S3Service } from '../s3/s3.service';
 import { Express } from 'express';
+import { UserDocument } from 'src/entities/user.entity';
+import { TeamService } from '../team/team.service';
+import {
+  EventRegistration,
+  EventRegistrationDocument,
+} from 'src/entities/event-registration.entity';
 
 @Injectable()
 export class EventService {
@@ -21,6 +27,7 @@ export class EventService {
   constructor(
     @InjectModel(Event.name) private EventModel: Model<EventDocument>,
     private s3Service: S3Service,
+    private teamService: TeamService,
   ) {}
 
   async create(event: CreateEventDto) {
@@ -62,6 +69,12 @@ export class EventService {
       return {
         success: true,
       };
+    });
+  }
+
+  async getEventById(_id: ObjectId) {
+    return await ControllerWrapper(async () => {
+      return await this.EventModel.findOne({ _id });
     });
   }
 }

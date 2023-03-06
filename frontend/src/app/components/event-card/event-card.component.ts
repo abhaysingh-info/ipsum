@@ -22,6 +22,8 @@ import { Team } from '@shared/interfaces/team'
 	styleUrls: ['./event-card.component.scss'],
 })
 export class EventCardComponent {
+	Date = Date
+
 	@Input() event: Partial<IDBEvent> = {}
 	@Input() user: Partial<IVerifyUser> | undefined = {}
 	@Input() team: Team | null = {
@@ -41,6 +43,9 @@ export class EventCardComponent {
 	@Input() index: number | null = null
 
 	@Output() onDelete: EventEmitter<number> = new EventEmitter<number>(false)
+	@Output() onParticipate: EventEmitter<number> = new EventEmitter<number>(
+		false,
+	)
 
 	faFilePdf = faFilePdf
 	faCalendar = faCalendar
@@ -53,11 +58,18 @@ export class EventCardComponent {
 
 	imageBaseUrl: string = environment.assets_base_url
 
+	today = Date.now()
+	registrationClosed = new Date(this.event?.registrationClosesOn as any)
+
 	emitOnDelete() {
 		this.onDelete.emit(this.index as number)
 	}
 
 	toggleReadMore() {
 		this.readMore = !this.readMore
+	}
+
+	emitOnParticipate() {
+		this.onParticipate.emit(this.index as number)
 	}
 }

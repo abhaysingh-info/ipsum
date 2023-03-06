@@ -2,6 +2,27 @@ import { FormGroup, Validators, FormControl, FormArray } from '@angular/forms'
 import { eventType } from '../utils/event'
 import { oneOfFromArray } from '../validators'
 
+export const EventRegistrationRequirementFieldForm = (question: string) =>
+	new FormGroup({
+		question: new FormControl(
+			question,
+			Validators.compose([Validators.required]),
+		),
+		answer: new FormControl(
+			'',
+			Validators.compose([Validators.required, Validators.maxLength(512)]),
+		),
+	})
+
+export const EventRegistrationRequirementsForm = () =>
+	new FormGroup({
+		eventId: new FormControl('', Validators.compose([Validators.required, ,])),
+		eventRequirementField: new FormArray(
+			[],
+			Validators.compose([Validators.maxLength(5)]),
+		),
+	})
+
 export const EventRequirementFieldForm = () =>
 	new FormGroup({
 		question: new FormControl(
@@ -9,7 +30,7 @@ export const EventRequirementFieldForm = () =>
 			Validators.compose([Validators.required, Validators.maxLength(512)]),
 		),
 		requirementFieldType: new FormControl(
-			null,
+			'text',
 			Validators.compose([
 				Validators.required,
 				oneOfFromArray(['text', 'file']),

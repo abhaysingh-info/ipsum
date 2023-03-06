@@ -15,6 +15,10 @@ export interface Event {
 	description: string
 	eventBatch: number
 	moreInformationPdf: string
+	eventRequirementField: {
+		question: string
+		fieldType: string
+	}[]
 }
 
 export interface IDBEvent {
@@ -30,5 +34,9 @@ export interface IDBEvent {
 	eventBatch: number
 	moreInformationPdf: string
 	createdAt: Date | string
+	eventRequirementField: {
+		question: string
+		fieldType: string
+	}[]
 	__v: number
 }

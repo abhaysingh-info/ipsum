@@ -29,6 +29,7 @@
 			[team]="team$ | async"
 			[index]="index"
 			(onDelete)="deleteEvent($event)"
+			(onParticipate)="captureEmitOnParticipate($event)"
 		></app-event-card>
 	</div>
 
@@ -66,3 +67,9 @@
 	"
 	[btnActionType]="'error'"
 ></app-ask-confirmation>
+
+<app-event-participate
+	*ngIf="participateInEvent"
+	[event]="participateInEvent"
+	(onClose)="captureEmitOnParticipate(undefined)"
+></app-event-participate>

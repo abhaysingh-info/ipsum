@@ -29,4 +29,12 @@ export class EventService {
 	delete(id: string) {
 		return this.http.delete(`${this.url}/${id}`, defaultHttpPostHeader)
 	}
+
+	participate(data: any, allowMajorityRegistration: boolean = false) {
+		return this.http.post(
+			`${this.url}/participate?allowMajorityRegistration=${allowMajorityRegistration}`,
+			data,
+			defaultHttpPostHeader,
+		)
+	}
 }

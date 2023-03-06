@@ -30,3 +30,29 @@ export class Team extends Document {
 
 export const TeamSchema = SchemaFactory.createForClass(Team);
 export type TeamDocument = HydratedDocument<Team>;
+
+// team extention for other fields
+@Schema()
+export class TeamExtention extends Document {
+  @Prop({ required: true, type: String })
+  teamID: string;
+
+  @Prop({ required: true, type: String })
+  teamName: string;
+
+  @Prop({ required: true, type: UserExtentionSchema })
+  leader: IUserExtention;
+
+  @Prop({
+    required: true,
+    type: [UserExtentionSchema],
+    maxlength: MAX_TEAM_MEMBERS,
+  })
+  teamMembers: IUserExtention[];
+
+  @Prop({ required: true, type: Boolean, default: false })
+  isLocked: boolean;
+}
+
+export const TeamExtentionSchema = SchemaFactory.createForClass(TeamExtention);
+export type TeamExtentionDocument = HydratedDocument<TeamExtention>;
