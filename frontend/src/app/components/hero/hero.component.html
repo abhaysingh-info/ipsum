@@ -29,7 +29,24 @@
 		<div
 			class="space-y-4 flex justify-center sm:justify-start space-y-0 space-x-4"
 		>
-			<a class="btn btn-lg btn-primary" [routerLink]="'/sign-up'">Register</a>
+			<a
+				class="btn btn-lg btn-primary"
+				*ngIf="!user.roles"
+				[routerLink]="'/sign-up'"
+				>Register</a
+			>
+			<a
+				class="btn btn-lg btn-primary"
+				*ngIf="user.roles === 'CLIENT'"
+				[routerLink]="'/dashboard'"
+				>Dashboard</a
+			>
+			<a
+				class="btn btn-lg btn-primary"
+				*ngIf="user.roles === 'ADMIN'"
+				[routerLink]="'/manage-event'"
+				>Manage Events</a
+			>
 		</div>
 	</div>
 	<div class="lg:mt-0 md:col-span-1 lg:col-span-2 lg:flex relative">
