@@ -21,7 +21,7 @@ export interface IDBEvent {
 	_id: ObjectId
 	image: string
 	eventId: string
-	eventType: string
+	eventType: eventType
 	name: string
 	commencementDate: Date | string
 	venue: string

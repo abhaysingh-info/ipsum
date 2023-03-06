@@ -1,0 +1,19 @@
+<div
+	class="modal"
+	[ngClass]="{
+		'modal-open': dialogData.show
+	}"
+>
+	<div class="modal-box">
+		<h3 class="font-bold text-lg">{{ dialogData.title }}</h3>
+		<p class="py-4">{{ dialogData.message }}</p>
+		<div class="modal-action">
+			<button
+				(click)="closeDialog()"
+				[class]="'btn ' + 'btn-' + dialogData.dialogType"
+			>
+				{{ dialogData.cancelText }}
+			</button>
+		</div>
+	</div>
+</div>

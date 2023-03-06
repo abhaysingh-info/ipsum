@@ -12,6 +12,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll'
 import { AskConfirmationComponent } from 'src/app/shared/ask-confirmation/ask-confirmation.component'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { SpinnerComponent } from '../spinner/spinner.component'
+import { TeamService } from 'src/app/services/team.service'
 
 @Component({
 	selector: 'app-events-carousel',
@@ -46,11 +47,13 @@ export class EventsCarouselComponent
 		private eventService: EventService,
 		private toastService: ToastService,
 		private userService: UserService,
+		private teamService: TeamService,
 	) {
 		super()
 	}
 
 	user$ = this.userService.user
+	team$ = this.teamService.team
 
 	// related to delete event
 	showDeleteConfirmation: boolean = false

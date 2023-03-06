@@ -7,6 +7,7 @@ import links, { redirectAfterLoginUnAuth } from './utils/Links'
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons'
 import { CustomSubscription } from './utils/common'
 import { ToastService } from './services/toast.service'
+import { TeamService } from './services/team.service'
 
 @Component({
 	selector: 'app-root',
@@ -19,12 +20,15 @@ export class AppComponent
 {
 	title = 'frontend'
 
+	requestInProgress: boolean = false
+
 	faRightFromBracket = faRightFromBracket
 
 	constructor(
 		private userService: UserService,
 		private router: Router,
 		private toastService: ToastService,
+		private teamService: TeamService,
 	) {
 		super()
 	}
@@ -43,6 +47,7 @@ export class AppComponent
 				} else {
 					this.userService.setIsLoggedIn(resp.success ? true : false)
 					this.userService.setUser(resp.user as IVerifyUser)
+					this.resetAndGetTeam()
 				}
 			},
 			error: () => {
@@ -85,6 +90,25 @@ export class AppComponent
 				},
 			}) as any,
 		)
+	}
+
+	getTeam() {
+		this.requestInProgress = true
+		this.subscriptions.push(
+			this.teamService.getTeam().subscribe({
+				next: (team) => {
+					this.teamService.setTeam(team)
+					this.requestInProgress = false
+				},
+				error: () => {
+					this.requestInProgress = false
+				},
+			}) as any,
+		)
+	}
+	resetAndGetTeam() {
+		this.requestInProgress = false
+		this.getTeam()
 	}
 
 	ngOnDestroy() {

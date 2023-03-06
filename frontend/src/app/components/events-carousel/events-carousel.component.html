@@ -26,6 +26,7 @@
 		<app-event-card
 			[event]="event"
 			[user]="$any(user$ | async)"
+			[team]="team$ | async"
 			[index]="index"
 			(onDelete)="deleteEvent($event)"
 		></app-event-card>

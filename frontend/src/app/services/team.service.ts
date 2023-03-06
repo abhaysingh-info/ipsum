@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core'
 import { environment } from 'src/environments/environment'
 import { defaultHttpPostHeader } from './helper'
 import { HttpClient } from '@angular/common/http'
-import { Observable } from 'rxjs'
+import { BehaviorSubject, Observable } from 'rxjs'
 import { Team } from '@shared/interfaces/team'
 
 @Injectable({
@@ -11,7 +11,27 @@ import { Team } from '@shared/interfaces/team'
 export class TeamService {
 	private url = `${environment.serverUrl}/team`
 
+	private teamBehaviour: BehaviorSubject<Team> = new BehaviorSubject<Team>({
+		_id: '',
+		isLocked: true,
+		teamID: '',
+		teamName: '',
+		leader: {
+			_id: '',
+			name: '',
+			email: '',
+			countryCode: '',
+			phoneNumber: '',
+		},
+		teamMembers: [],
+	})
+	team = this.teamBehaviour.asObservable()
+
 	constructor(private http: HttpClient) {}
+
+	setTeam(team: Team) {
+		this.teamBehaviour.next(team)
+	}
 
 	getTeam() {
 		return this.http.get<Team>(`${this.url}/`, defaultHttpPostHeader)

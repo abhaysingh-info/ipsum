@@ -8,6 +8,7 @@ import { AppComponent } from './app.component'
 import { NavbarComponent } from './components/navbar/navbar.component'
 import { ToastComponent } from './components/toast/toast.component'
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
+import { AlertDialogComponent } from 'src/app/shared/alert-dialog/alert-dialog.component'
 
 @NgModule({
 	declarations: [AppComponent],
@@ -18,6 +19,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 		HttpClientModule,
 		ToastComponent,
 		FontAwesomeModule,
+		AlertDialogComponent,
 	],
 	providers: [],
 	bootstrap: [AppComponent],

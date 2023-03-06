@@ -12,6 +12,7 @@ import {
 	faMapMarker,
 	faMapMarkerAlt,
 } from '@fortawesome/free-solid-svg-icons'
+import { Team } from '@shared/interfaces/team'
 
 @Component({
 	selector: 'app-event-card',
@@ -23,6 +24,20 @@ import {
 export class EventCardComponent {
 	@Input() event: Partial<IDBEvent> = {}
 	@Input() user: Partial<IVerifyUser> | undefined = {}
+	@Input() team: Team | null = {
+		_id: '',
+		isLocked: false,
+		leader: {
+			_id: '',
+			name: '',
+			email: '',
+			countryCode: '',
+			phoneNumber: '',
+		},
+		teamID: '',
+		teamName: '',
+		teamMembers: [],
+	}
 	@Input() index: number | null = null
 
 	@Output() onDelete: EventEmitter<number> = new EventEmitter<number>(false)

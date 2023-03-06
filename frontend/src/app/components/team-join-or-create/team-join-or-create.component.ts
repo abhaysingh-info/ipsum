@@ -99,6 +99,9 @@ export class TeamJoinOrCreateComponent
 					this.refreshGetAllTeamJoinRequests()
 				}
 			}) as any,
+			this.teamService.team.subscribe((team) => {
+				this.team = team || {}
+			}) as any,
 		)
 	}
 
@@ -127,7 +130,7 @@ export class TeamJoinOrCreateComponent
 		this.subscriptions.push(
 			this.teamService.getTeam().subscribe({
 				next: (team) => {
-					this.team = team || {}
+					this.teamService.setTeam(team)
 					this.showCreateTeamModel = team?._id
 						? false
 						: this.showCreateTeamModel
