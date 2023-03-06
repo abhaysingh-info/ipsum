@@ -21,6 +21,10 @@ export class TeamService {
 		return this.http.post(`${this.url}/`, team, defaultHttpPostHeader)
 	}
 
+	deleteTeam() {
+		return this.http.delete(`${this.url}/`, defaultHttpPostHeader)
+	}
+
 	sendTeamJoinRequest(teamCode: string) {
 		return this.http.post(
 			`${this.url}/${teamCode}/join`,
@@ -37,7 +41,33 @@ export class TeamService {
 		)
 	}
 
+	acceptTeamJoinRequest(request_id: string, accept: boolean) {
+		return this.http.post(
+			`${this.url}/accept-join-request`,
+			{ accept, request_id },
+			defaultHttpPostHeader,
+		)
+	}
+
 	getTeamJoinRequest() {
 		return this.http.get(`${this.url}/join`, defaultHttpPostHeader)
+	}
+
+	getAllTeamJoinRequests(startFrom: number = 0) {
+		return this.http.get(
+			`${this.url}/all-join-requests?startFrom=${startFrom}`,
+			defaultHttpPostHeader,
+		)
+	}
+
+	removeMemberFromTeam(member_id: string) {
+		return this.http.delete(
+			`${this.url}/member/${member_id}`,
+			defaultHttpPostHeader,
+		)
+	}
+
+	lockTeam() {
+		return this.http.post(`${this.url}/lock`, {}, defaultHttpPostHeader)
 	}
 }

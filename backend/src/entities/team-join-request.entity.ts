@@ -16,7 +16,7 @@ export class TeamJoinRequest {
   user: IUserExtention;
 
   // isAccepted: boolean;
-  @Prop({ required: true, type: Boolean, default: false })
+  @Prop({ type: Boolean, default: null })
   accepted: boolean;
 }
 

@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common'
 export class AskConfirmationComponent {
 	@Input() showConfirmation: boolean = false
 	@Input() title: string = 'Have you ate my pizza?'
+	@Input() description: string = ''
 	@Input() btnActionType:
 		| 'error'
 		| 'primary'

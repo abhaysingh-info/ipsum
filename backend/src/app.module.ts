@@ -8,6 +8,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { UserModule } from './controllers/user/user.module';
 import { EventModule } from './controllers/event/event.module';
 import { TeamModule } from './controllers/team/team.module';
+import { NotificationModule } from './controllers/notification/notification.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { TeamModule } from './controllers/team/team.module';
     UserModule,
     EventModule,
     TeamModule,
+    NotificationModule,
   ],
   controllers: [AppController],
   providers: [

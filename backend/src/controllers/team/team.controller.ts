@@ -6,6 +6,7 @@ import {
   Get,
   Param,
   Post,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import roles from '@shared/utils/dist/roles';
@@ -43,13 +44,10 @@ export class TeamController {
     return await this.teamService.deleteUsersTeamIfLeader(user);
   }
 
-  @Post('lock')
+  @Post('/lock')
   @UseGuards(AuthenticateGuard)
-  async updateLockStatus(@CurrentUser() user: UserDocument) {
-    return await this.teamService.updateTeamLockStatus({
-      user: user,
-      isLocked: true,
-    });
+  async lockTeam(@CurrentUser() user: UserDocument) {
+    return await this.teamService.lockTeam(user);
   }
 
   @Post('/:team_id/unlock')
@@ -97,5 +95,26 @@ export class TeamController {
   @UseGuards(AuthenticateGuard)
   async withdrawJoinRequest(@CurrentUser() user: UserDocument) {
     return await this.teamService.withdrawAllJoinRequests(user);
+  }
+
+  @Get('/all-join-requests')
+  @UseGuards(AuthenticateGuard)
+  async getAllJoinRequests(
+    @CurrentUser() user: UserDocument,
+    @Query('startFrom') _startFrom: string,
+  ) {
+    const startFrom = parseInt(_startFrom);
+    return await this.teamService.getAllTeamJoinRequests(user, startFrom || 0);
+  }
+
+  @Delete('/member/:member_id')
+  @UseGuards(AuthenticateGuard)
+  async removeMemberFromTeam(
+    @CurrentUser() user: UserDocument,
+    @Param('member_id') _member_id: string,
+  ) {
+    const member_id = new Types.ObjectId(_member_id) as any;
+    console.log(member_id);
+    return await this.teamService.removeMemberFromTeam(user, member_id);
   }
 }

@@ -9,8 +9,16 @@ import { Team } from '@shared/interfaces/team'
 import { CustomSubscription } from 'src/app/utils/common'
 import { IStringKey } from '@shared/interfaces'
 import { SpinnerComponent } from '../spinner/spinner.component'
-import { faLock } from '@fortawesome/free-solid-svg-icons'
+import {
+	faBell,
+	faCheck,
+	faLock,
+	faSpinner,
+	faXmark,
+} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
+import { AskConfirmationComponent } from 'src/app/shared/ask-confirmation/ask-confirmation.component'
+import { IVerifyUser } from '@shared/interfaces/user'
 
 @Component({
 	selector: 'app-team-join-or-create',
@@ -21,6 +29,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 		ReactiveFormsModule,
 		SpinnerComponent,
 		FontAwesomeModule,
+		AskConfirmationComponent,
 	],
 	templateUrl: './team-join-or-create.component.html',
 	styleUrls: ['./team-join-or-create.component.scss'],
@@ -29,9 +38,13 @@ export class TeamJoinOrCreateComponent
 	extends CustomSubscription
 	implements OnInit, OnDestroy
 {
-	joinTeamForm = joinTeamForm()
-
+	faSpinner = faSpinner
 	faLock = faLock
+	faBell = faBell
+	faCheck = faCheck
+	faXmark = faXmark
+
+	joinTeamForm = joinTeamForm()
 
 	requestInProgress: boolean = false
 
@@ -67,7 +80,7 @@ export class TeamJoinOrCreateComponent
 
 	teamJoinRequest: any | null = null
 
-	user$ = this.userService.user
+	user = this.userService.getUser()
 
 	setCreateTeamModel(value: boolean) {
 		if (value) {
@@ -78,7 +91,15 @@ export class TeamJoinOrCreateComponent
 	}
 
 	ngOnInit(): void {
-		this.getTeamJoinRequest()
+		this.subscriptions.push(
+			this.userService.user.subscribe((user) => {
+				this.user = user as any
+				if (user._id) {
+					this.getTeamJoinRequest()
+					this.refreshGetAllTeamJoinRequests()
+				}
+			}) as any,
+		)
 	}
 
 	getTeamJoinRequest() {
@@ -118,6 +139,11 @@ export class TeamJoinOrCreateComponent
 			}) as any,
 		)
 	}
+	resetAndGetTeam() {
+		this.requestInProgress = false
+		this.resetMessages()
+		this.getTeam()
+	}
 
 	setMessages(key: string, message: string) {
 		this.messages[key] = message
@@ -129,6 +155,7 @@ export class TeamJoinOrCreateComponent
 			this.joinTeamForm.markAllAsTouched()
 			return
 		}
+		this.resetMessages()
 		this.requestInProgress = true
 		this.teamService
 			.sendTeamJoinRequest(this.joinTeamForm.value.teamID!)
@@ -159,5 +186,153 @@ export class TeamJoinOrCreateComponent
 
 	ngOnDestroy(): void {
 		this.unsubscribeAll()
+	}
+
+	deleteTeam() {
+		if (this.user._id !== this.team.leader._id) return
+		if (this.requestInProgress) return
+		this.resetMessages()
+		this.requestInProgress = true
+		this.teamService.deleteTeam().subscribe({
+			next: (response) => {
+				this.requestInProgress = false
+				this.resetMessages()
+				this.getTeam()
+			},
+			error: (error) => {
+				this.setMessages('general', error.error.message || error.message)
+				this.requestInProgress = false
+			},
+		})
+	}
+
+	resetMessages() {
+		Object.keys(this.messages).forEach((key) => {
+			this.messages[key] = ''
+		})
+	}
+
+	withdrawTeamJoinRequest() {
+		if (this.requestInProgress) return
+		this.resetMessages()
+		this.requestInProgress = true
+		this.teamService.withdrawTeamJoinRequest().subscribe({
+			next: (response) => {
+				this.requestInProgress = false
+				this.resetMessages()
+				this.getTeamJoinRequest()
+			},
+			error: (error) => {
+				this.setMessages('general', error.error.message || error.message)
+				this.requestInProgress = false
+			},
+		})
+	}
+
+	acceptTeamJoinRequest(request_id: string, accept: boolean) {
+		if (this.user._id === this.team.leader._id) {
+			if (this.requestInProgress) return
+			this.resetMessages()
+			this.requestInProgress = true
+			this.teamService.acceptTeamJoinRequest(request_id, accept).subscribe({
+				next: (response) => {
+					this.requestInProgress = false
+					this.resetMessages()
+					this.getTeamJoinRequest()
+				},
+				error: (error) => {
+					this.setMessages('general', error.error.message || error.message)
+					this.requestInProgress = false
+				},
+			})
+		}
+	}
+
+	allTeamJoinRequests: any[] = []
+	allTeamJoinRequestsStartFrom: number = 0
+	allTeamJoinRequestsInProgress: boolean = false
+	loadedAllTeamJoinRequests: boolean = false
+	getAllTeamJoinRequests() {
+		if (this.allTeamJoinRequestsInProgress) return
+		this.allTeamJoinRequestsInProgress = true
+		this.subscriptions.push(
+			this.teamService
+				.getAllTeamJoinRequests(this.allTeamJoinRequestsStartFrom)
+				.subscribe({
+					next: (response: any) => {
+						this.allTeamJoinRequests.push(...response.data)
+						this.allTeamJoinRequestsStartFrom +=
+							response.startFrom + response.limit
+						this.allTeamJoinRequestsInProgress = false
+						if (response.data.length < response.limit) {
+							this.loadedAllTeamJoinRequests = true
+						}
+					},
+					error: (error) => {
+						this.setMessages('general', error.error.message || error.message)
+						this.allTeamJoinRequestsInProgress = false
+					},
+				}) as any,
+		)
+	}
+	refreshGetAllTeamJoinRequests() {
+		this.allTeamJoinRequests = []
+		this.allTeamJoinRequestsStartFrom = 0
+		this.allTeamJoinRequestsInProgress = false
+		this.loadedAllTeamJoinRequests = false
+		this.getAllTeamJoinRequests()
+	}
+
+	removeMember(member_id: string) {
+		if (this.user._id === this.team.leader._id) {
+			if (this.requestInProgress) return
+			this.resetMessages()
+			this.requestInProgress = true
+			this.teamService.removeMemberFromTeam(member_id).subscribe({
+				next: (response) => {
+					this.requestInProgress = false
+					this.resetMessages()
+					this.resetAndGetTeam()
+				},
+				error: (error) => {
+					this.setMessages('general', error.error.message || error.message)
+					this.requestInProgress = false
+				},
+			})
+		}
+	}
+
+	showLockTeamConfirmation: boolean = false
+
+	showLockTeamConfirmationDialog() {
+		this.showLockTeamConfirmation = true
+	}
+
+	hasUnAcceptedOrRejectedRequest() {
+		return this.allTeamJoinRequests.filter((request) => {
+			return request.accepted === null
+		})?.length
+	}
+
+	lockTeam($event: boolean) {
+		if ($event) {
+			if (this.user._id === this.team.leader._id) {
+				if (this.requestInProgress) return
+				this.resetMessages()
+				this.requestInProgress = true
+				this.teamService.lockTeam().subscribe({
+					next: (response) => {
+						this.requestInProgress = false
+						this.resetMessages()
+						this.resetAndGetTeam()
+					},
+					error: (error) => {
+						this.setMessages('general', error.error.message || error.message)
+						this.requestInProgress = false
+					},
+				})
+			}
+		}
+		this.showLockTeamConfirmation = false
 	}
 }

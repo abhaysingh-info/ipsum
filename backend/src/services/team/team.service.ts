@@ -5,8 +5,13 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, ObjectId, Types } from 'mongoose';
-import { Team, TeamDocument } from 'src/entities/team.entity';
+import { Model, ObjectId, SchemaTypes, Types } from 'mongoose';
+import {
+  MAX_TEAM_MEMBERS,
+  MIN_TEAM_MEMBERS,
+  Team,
+  TeamDocument,
+} from 'src/entities/team.entity';
 import { UserService } from '../user/user.service';
 import { CreateTeamDto } from 'src/dto/team/team.dto';
 import { UserDocument } from 'src/entities/user.entity';
@@ -14,6 +19,7 @@ import {
   TeamJoinRequest,
   TeamJoinRequestDocument,
 } from 'src/entities/team-join-request.entity';
+import ControllerWrapper from 'src/utils/ControllerWrapper';
 import { IUserExtention } from '@shared/interfaces/user';
 
 @Injectable()
@@ -38,15 +44,22 @@ export class TeamService {
     if (!team) {
       throw new BadRequestException('You are not in a team');
     }
-    if (user._id !== (team.leader._id as any)) {
+    if (user._id.toString() !== team.leader._id.toString()) {
       throw new BadRequestException(
         'You are not the leader of this team so you cannot delete it',
       );
     }
+    if (team.teamMembers.length) {
+      throw new BadRequestException('You cannot delete a team with members');
+    }
     if (team.isLocked) {
       throw new BadRequestException('You cannot delete a locked team');
     }
-    return await this.TeamModal.deleteOne({ _id: team._id });
+    await this.TeamModal.deleteOne({ _id: team._id });
+    await this.TeamJoinRequestModal.deleteMany({ team_id: team._id });
+    return {
+      success: true,
+    };
   }
 
   async updateTeamLockStatus({
@@ -70,7 +83,10 @@ export class TeamService {
 
   async joinTeam(team_code: string, user: UserDocument) {
     const userAlreadyMadeAnyRequest = await this.TeamJoinRequestModal.findOne({
-      user_id: user._id,
+      'user._id': user._id,
+      accepted: {
+        $in: [null, true],
+      },
     });
     if (userAlreadyMadeAnyRequest) {
       throw new BadRequestException(
@@ -86,8 +102,12 @@ export class TeamService {
       throw new BadRequestException('Team does not exist');
     }
 
-    if ((team.leader._id as any) === user._id) {
+    if (team.leader._id.toString() === user._id.toString()) {
       throw new BadRequestException('You are leader of this team');
+    }
+
+    if (team.teamMembers.length >= MAX_TEAM_MEMBERS) {
+      throw new BadRequestException('Team is full');
     }
 
     if (team.isLocked) {
@@ -95,7 +115,7 @@ export class TeamService {
     }
 
     const teamMemberExists = team.teamMembers.find(
-      (team_member) => (team_member._id as any) === user._id,
+      (team_member) => team_member._id.toString() === user._id.toString(),
     );
     if (teamMemberExists) {
       throw new BadRequestException('User is already in the team');
@@ -108,7 +128,7 @@ export class TeamService {
 
   async withdrawAllJoinRequests(user: UserDocument) {
     const withdrawAllJoinRequests = await this.TeamJoinRequestModal.deleteMany({
-      user_id: user._id,
+      'user._id': user._id,
       accepted: false,
     });
     if (withdrawAllJoinRequests.deletedCount === 0) {
@@ -122,36 +142,35 @@ export class TeamService {
   async getTeamJoinRequest(user: UserDocument) {
     const requests = await this.TeamJoinRequestModal.findOne({
       'user.email': user.email,
-      accepted: false,
+      accepted: {
+        $in: [null, true],
+      },
     });
-    console.log(requests);
     return requests;
   }
 
-  async addMemberToTeam(member_email: string, user: UserDocument) {
+  async getAllTeamJoinRequests(
+    user: UserDocument,
+    startFrom: number = 0,
+    limit: number = 10,
+  ) {
     const team = await this.getTeam({ user });
-    const member = await this.userService.findOneByEmail(member_email);
     if (!team) {
-      throw new BadRequestException('Team does not exist');
+      throw new BadRequestException('You are not in a team');
     }
-    if (!member) {
-      throw new BadRequestException('User does not exist');
+    if (team.leader._id.toString() !== user._id.toString()) {
+      throw new BadRequestException('You are not the leader of this team');
     }
-    if (team.isLocked) {
-      throw new BadRequestException('Team is locked');
-    }
-    if ((team.leader._id as any) === member._id) {
-      throw new BadRequestException('You are leader of this team');
-    }
-
-    const teamMemberExists = team.teamMembers.find(
-      (team_member) => (team_member._id as any) === member._id,
-    );
-    if (teamMemberExists) {
-      throw new BadRequestException('User is already in the team');
-    }
-    team.teamMembers.push(user as any);
-    return await team.save();
+    const requests = await this.TeamJoinRequestModal.find({
+      team_id: team._id,
+    })
+      .skip(startFrom)
+      .limit(limit);
+    return {
+      data: requests,
+      startFrom,
+      limit,
+    };
   }
 
   async acceptTeamJoinRequest(
@@ -171,7 +190,7 @@ export class TeamService {
       throw new NotFoundException('Team does not exist');
     }
 
-    if (user._id !== (team.leader._id as any)) {
+    if (user._id.toString() !== team.leader._id.toString()) {
       throw new BadRequestException('You are not the leader of this team');
     }
 
@@ -184,13 +203,16 @@ export class TeamService {
       throw new BadRequestException('Team is locked');
     }
 
-    console.log(member._id === (team.leader._id as any));
-    if (member._id === (team.leader._id as any)) {
+    if (team.teamMembers.length >= MAX_TEAM_MEMBERS) {
+      throw new BadRequestException('Team is full');
+    }
+
+    if (member._id.toString() === team.leader._id.toString()) {
       throw new BadRequestException('You are leader of this team');
     }
 
     const teamMemberExists = team.teamMembers.find(
-      (team_member) => (team_member._id as any) === member._id,
+      (team_member) => team_member._id.toString() === member._id.toString(),
     );
 
     if (teamMemberExists) {
@@ -200,10 +222,14 @@ export class TeamService {
     if (accept === true) {
       team.teamMembers.push(member as any);
       await team.save();
+    } else {
+      await this.TeamJoinRequestModal.deleteOne({
+        _id: request_id,
+      });
     }
     await this.TeamJoinRequestModal.updateOne(
       { _id: request_id },
-      { isAccepted: accept },
+      { accepted: accept },
     );
     return {
       success: true,
@@ -215,7 +241,7 @@ export class TeamService {
     if (!team) {
       throw new BadRequestException('You are not in a team');
     }
-    if (user._id === (team.leader._id as any)) {
+    if (user._id.toString() === team.leader._id.toString()) {
       throw new BadRequestException('You are the leader of this team');
     }
     if (team.isLocked) {
@@ -225,6 +251,37 @@ export class TeamService {
       (member) => member.email !== user.email,
     );
     await team.save();
+    return { success: true };
+  }
+
+  async removeMemberFromTeam(
+    user: UserDocument,
+    member_id: ObjectId,
+  ): Promise<{ success: boolean }> {
+    const team = await this.getTeam({ user });
+    if (!team) {
+      throw new BadRequestException('You are not in a team');
+    }
+    if (user._id.toString() !== team.leader._id.toString()) {
+      throw new BadRequestException('You are not the leader of this team');
+    }
+    if (team.isLocked) {
+      throw new BadRequestException('Team is locked');
+    }
+    const member = await this.userService.getUserById(member_id);
+    if (!member) {
+      throw new NotFoundException('User does not exist');
+    }
+    if (member._id.toString() === team.leader._id.toString()) {
+      throw new BadRequestException('You are leader of this team');
+    }
+    team.teamMembers = team.teamMembers.filter(
+      (_member) => _member._id.toString() !== member._id.toString(),
+    );
+    await team.save();
+    await this.TeamJoinRequestModal.deleteMany({
+      'user._id': member._id,
+    });
     return { success: true };
   }
 
@@ -254,10 +311,37 @@ export class TeamService {
     } else if (team_id) {
       team = await this.TeamModal.findOne({ _id: team_id });
     } else if (team_code) {
-      team = await this.TeamModal.findOne();
+      team = await this.TeamModal.findOne({
+        teamID: team_code,
+      });
     } else {
       throw new BadRequestException('Invalid request');
     }
     return team;
+  }
+
+  async lockTeam(user: UserDocument) {
+    return await ControllerWrapper(async () => {
+      const team = await this.getTeam({ user });
+      if (!team) {
+        throw new BadRequestException('You are not in a team');
+      }
+      if (user._id.toString() !== team.leader._id.toString()) {
+        throw new BadRequestException('You are not the leader of this team');
+      }
+      if (team.isLocked) {
+        throw new BadRequestException('Team is already locked');
+      }
+      if (team.teamMembers.length < MIN_TEAM_MEMBERS) {
+        throw new BadRequestException(
+          `Team should have atleast ${
+            MIN_TEAM_MEMBERS + 1
+          } members, inorder to lock the team.`,
+        );
+      }
+      team.isLocked = true;
+      await team.save();
+      return { success: true };
+    });
   }
 }
