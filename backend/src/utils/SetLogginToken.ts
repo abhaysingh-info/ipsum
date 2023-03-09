@@ -1,6 +1,5 @@
 import { Response } from 'express';
-import { TeamDocument } from 'src/entities/team.entity';
-import { User, UserDocument } from 'src/entities/user.entity';
+import { UserDocument } from 'src/entities/user.entity';
 
 export default async function (res: Response, user: UserDocument) {
   const token: string = await user.getJwtToken();
@@ -20,7 +19,6 @@ export default async function (res: Response, user: UserDocument) {
       payment_made: user.payment_made,
       payment_screenshot: user.payment_screenshot,
       payment_status: user.payment_status,
-      team: (user as any)?.team,
     },
   };
 }

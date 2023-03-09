@@ -6,8 +6,6 @@ import * as cookieParser from 'cookie-parser';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { UserModule } from './controllers/user/user.module';
-import { EventModule } from './controllers/event/event.module';
-import { TeamModule } from './controllers/team/team.module';
 import { NotificationModule } from './controllers/notification/notification.module';
 
 @Module({
@@ -22,8 +20,6 @@ import { NotificationModule } from './controllers/notification/notification.modu
       inject: [ConfigService],
     }),
     UserModule,
-    EventModule,
-    TeamModule,
     NotificationModule,
   ],
   controllers: [AppController],

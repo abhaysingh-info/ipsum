@@ -30,17 +30,13 @@ import { CurrentUser } from 'src/decorators/CurrentUser.decorator';
 import { UserDocument } from 'src/entities/user.entity';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Express } from 'express';
-import { TeamService } from 'src/services/team/team.service';
 import { GetUsersDto } from 'src/dto/user/get-users.dto';
 import { HasRoleGuard } from 'src/guards/has-role/has-role.guard';
 import roles from '@shared/utils/dist/roles';
 
 @Controller('user')
 export class UserController {
-  constructor(
-    private readonly userService: UserService,
-    private readonly teamService: TeamService,
-  ) {}
+  constructor(private readonly userService: UserService) {}
 
   @Post()
   async create(@Body() createUserDto: CreateUserDto) {
