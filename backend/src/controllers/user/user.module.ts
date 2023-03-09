@@ -20,18 +20,10 @@ import {
         name: User.name,
         schema: UserSchema,
       },
-      {
-        name: Team.name,
-        schema: TeamSchema,
-      },
-      {
-        name: TeamJoinRequest.name,
-        schema: TeamJoinRequestSchema,
-      },
     ]),
   ],
   controllers: [UserController],
-  providers: [UserService, S3Service, ConfigService, TeamService],
+  providers: [UserService, S3Service, ConfigService],
 })
 export class UserModule {
   configure(consumer: MiddlewareConsumer) {
