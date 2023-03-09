@@ -66,7 +66,7 @@ export class SignUpComponent implements OnInit {
 
 	createUser: FormGroup = this.formBuilder.group({
 		name: [
-			'Om Namaha',
+			'',
 			[
 				Validators.required,
 				Validators.minLength(2),
@@ -74,10 +74,10 @@ export class SignUpComponent implements OnInit {
 				Validators.pattern(regx.name),
 			],
 		],
-		email: ['om@om.om', [Validators.required, Validators.email]],
+		email: ['', [Validators.required, Validators.email]],
 		countryCode: ['+91', [Validators.required, Validators.minLength(2)]],
 		phoneNumber: [
-			'1234567898',
+			'',
 			[
 				Validators.required,
 				Validators.minLength(1),
@@ -86,7 +86,7 @@ export class SignUpComponent implements OnInit {
 			],
 		],
 		password: [
-			'om@om.om',
+			'',
 			[Validators.required, Validators.minLength(6), Validators.maxLength(156)],
 		],
 	})

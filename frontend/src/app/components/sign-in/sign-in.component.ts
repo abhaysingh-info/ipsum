@@ -59,9 +59,9 @@ export class SignInComponent
 	}
 
 	loginUser: FormGroup = this.formBuilder.group({
-		email: ['om@om.om', [Validators.required, Validators.email]],
+		email: ['', [Validators.required, Validators.email]],
 		password: [
-			'om@om.om',
+			'',
 			[Validators.required, Validators.minLength(6), Validators.maxLength(156)],
 		],
 	})

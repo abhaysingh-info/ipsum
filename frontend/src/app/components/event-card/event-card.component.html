@@ -114,10 +114,10 @@
 						{{
 							today > Date.parse($any(event.registrationClosesOn))
 								? 'Registration Closed'
-								: !$any(team?._id)?.length
-								? 'Please join a team'
 								: event.eventType === 'individual'
 								? 'Participate'
+								: !$any(team?._id)?.length
+								? 'Please join a team'
 								: !team?.isLocked
 								? 'Please lock your team'
 								: team?.leader?._id && team?.leader?._id === user?._id
