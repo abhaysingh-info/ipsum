@@ -6,12 +6,6 @@ import { User, UserSchema } from '../../entities/user.entity';
 import { AttachUserMiddleware } from 'src/middlewares/attach-user/attach-user.middleware';
 import { S3Service } from 'src/services/s3/s3.service';
 import { ConfigService } from '@nestjs/config';
-import { TeamService } from 'src/services/team/team.service';
-import { Team, TeamSchema } from 'src/entities/team.entity';
-import {
-  TeamJoinRequest,
-  TeamJoinRequestSchema,
-} from 'src/entities/team-join-request.entity';
 
 @Module({
   imports: [

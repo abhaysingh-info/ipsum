@@ -20,7 +20,6 @@ import {
 import { Express } from 'express';
 import { S3Service } from 'src/services/s3/s3.service';
 import { ObjectId } from 'mongoose';
-import { Team } from 'src/entities/team.entity';
 import { GetUsersDto } from 'src/dto/user/get-users.dto';
 import roles from '@shared/utils/dist/roles';
 
