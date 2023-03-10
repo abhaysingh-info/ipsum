@@ -1,0 +1,28 @@
+<div
+	class="grid grid-flow-col gap-5 text-center auto-cols-max max-w-full overflow-x-hidden justify-center lg:justify-start"
+>
+	<div class="flex flex-col p-2 glass rounded-box text-neutral-content">
+		<span class="countdown font-mono text-3xl md:text-5xl">
+			<span [style]="'--value: ' + days"></span>
+		</span>
+		<span class="">days</span>
+	</div>
+	<div class="flex flex-col p-2 glass rounded-box text-neutral-content">
+		<span class="countdown font-mono text-3xl md:text-5xl">
+			<span [style]="'--value: ' + hours"></span>
+		</span>
+		<span class="">hours</span>
+	</div>
+	<div class="flex flex-col p-2 glass rounded-box text-neutral-content">
+		<span class="countdown font-mono text-3xl md:text-5xl">
+			<span [style]="'--value: ' + minutes"></span>
+		</span>
+		<span class="">min</span>
+	</div>
+	<div class="flex flex-col p-2 glass rounded-box text-neutral-content">
+		<span class="countdown font-mono text-3xl md:text-5xl">
+			<span [style]="'--value: ' + seconds"></span>
+		</span>
+		<span class="">sec</span>
+	</div>
+</div>

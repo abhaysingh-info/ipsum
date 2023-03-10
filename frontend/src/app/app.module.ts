@@ -5,10 +5,11 @@ import { HttpClientModule } from '@angular/common/http'
 
 import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
-import { NavbarComponent } from './components/navbar/navbar.component'
 import { ToastComponent } from './components/toast/toast.component'
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 import { AlertDialogComponent } from 'src/app/shared/alert-dialog/alert-dialog.component'
+import { NavbarComponent } from './layout/navbar/navbar.component'
+import { FooterComponent } from './layout/footer/footer.component'
 
 @NgModule({
 	declarations: [AppComponent],
@@ -16,6 +17,7 @@ import { AlertDialogComponent } from 'src/app/shared/alert-dialog/alert-dialog.c
 		BrowserModule.withServerTransition({ appId: 'serverApp' }),
 		AppRoutingModule,
 		NavbarComponent,
+		FooterComponent,
 		HttpClientModule,
 		ToastComponent,
 		FontAwesomeModule,

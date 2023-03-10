@@ -5,6 +5,8 @@
 
 * {
 	scroll-behavior: smooth;
+	box-sizing: border-box;
+	overflow-x: hidden !important;
 }
 div::-webkit-scrollbar {
 	width: 0px;
