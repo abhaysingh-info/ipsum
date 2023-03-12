@@ -45,7 +45,7 @@ export const eventSchedule = {
 					createdAt: new Date('2021-05-10'),
 					eventBatch: 1,
 					eventType: 'both',
-					image: '/assets/images/pexels-rodnae-productions-7915237.jpg',
+					image: '/assets/images/pexels-rodnae-productions-7915237.webp',
 					venue: 'MIT ACSC, Alandi',
 				},
 				{
@@ -58,7 +58,7 @@ export const eventSchedule = {
 					createdAt: new Date('2021-05-10'),
 					eventBatch: 1,
 					eventType: 'both',
-					image: '/assets/images/pexels-rodnae-productions-7915237.jpg',
+					image: '/assets/images/pexels-rodnae-productions-7915237.webp',
 					venue: 'MIT ACSC, Alandi',
 				},
 				{
@@ -71,7 +71,7 @@ export const eventSchedule = {
 					createdAt: new Date('2021-05-10'),
 					eventBatch: 1,
 					eventType: 'both',
-					image: '/assets/images/pexels-rodnae-productions-7915237.jpg',
+					image: '/assets/images/pexels-rodnae-productions-7915237.webp',
 					venue: 'MIT ACSC, Alandi',
 				},
 				{
@@ -84,7 +84,7 @@ export const eventSchedule = {
 					createdAt: new Date('2021-05-10'),
 					eventBatch: 1,
 					eventType: 'both',
-					image: '/assets/images/pexels-rodnae-productions-7915237.jpg',
+					image: '/assets/images/pexels-rodnae-productions-7915237.webp',
 					venue: 'MIT ACSC, Alandi',
 				},
 				{
@@ -97,7 +97,7 @@ export const eventSchedule = {
 					createdAt: new Date('2021-05-10'),
 					eventBatch: 1,
 					eventType: 'both',
-					image: '/assets/images/pexels-rodnae-productions-7915237.jpg',
+					image: '/assets/images/pexels-rodnae-productions-7915237.webp',
 					venue: 'MIT ACSC, Alandi',
 				},
 			],
@@ -115,7 +115,7 @@ export const eventSchedule = {
 					createdAt: new Date('2021-05-10'),
 					eventBatch: 1,
 					eventType: 'both',
-					image: '/assets/images/pexels-rodnae-productions-7915237.jpg',
+					image: '/assets/images/pexels-rodnae-productions-7915237.webp',
 					venue: 'MIT ACSC, Alandi',
 				},
 				{
@@ -128,7 +128,7 @@ export const eventSchedule = {
 					createdAt: new Date('2021-05-10'),
 					eventBatch: 1,
 					eventType: 'both',
-					image: '/assets/images/pexels-rodnae-productions-7915237.jpg',
+					image: '/assets/images/pexels-rodnae-productions-7915237.webp',
 					venue: 'MIT ACSC, Alandi',
 				},
 				{
@@ -141,7 +141,7 @@ export const eventSchedule = {
 					createdAt: new Date('2021-05-10'),
 					eventBatch: 1,
 					eventType: 'both',
-					image: '/assets/images/pexels-rodnae-productions-7915237.jpg',
+					image: '/assets/images/pexels-rodnae-productions-7915237.webp',
 					venue: 'MIT ACSC, Alandi',
 				},
 				{
@@ -154,7 +154,7 @@ export const eventSchedule = {
 					createdAt: new Date('2021-05-10'),
 					eventBatch: 1,
 					eventType: 'both',
-					image: '/assets/images/pexels-rodnae-productions-7915237.jpg',
+					image: '/assets/images/pexels-rodnae-productions-7915237.webp',
 					venue: 'MIT ACSC, Alandi',
 				},
 				{
@@ -167,7 +167,7 @@ export const eventSchedule = {
 					createdAt: new Date('2021-05-10'),
 					eventBatch: 1,
 					eventType: 'both',
-					image: '/assets/images/pexels-rodnae-productions-7915237.jpg',
+					image: '/assets/images/pexels-rodnae-productions-7915237.webp',
 					venue: 'MIT ACSC, Alandi',
 				},
 			],
