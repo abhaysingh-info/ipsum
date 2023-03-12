@@ -10,8 +10,8 @@ module.exports = {
 			{
 				light: {
 					...require('daisyui/src/colors/themes')['[data-theme=light]'],
-					primary: '#58c1ff',
-					'primary-focus': '#1371e3',
+					primary: '#ff69b4',
+					'primary-focus': '#ff7f50',
 					'primary-content': '#FFFFFF',
 				},
 			},

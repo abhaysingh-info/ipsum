@@ -9,6 +9,7 @@ import { PartyHeroComponent } from 'src/app/components/party-hero/party-hero.com
 import { EventScheduleComponent } from 'src/app/components/event-schedule/event-schedule.component'
 import { FaqComponent } from 'src/app/components/faq/faq.component'
 import { SponsorsComponent } from 'src/app/components/sponsors/sponsors.component'
+import { RegistrationModalComponent } from 'src/app/components/registration-modal/registration-modal.component'
 
 @NgModule({
 	declarations: [HomeComponent],
@@ -21,6 +22,7 @@ import { SponsorsComponent } from 'src/app/components/sponsors/sponsors.componen
 		EventScheduleComponent,
 		FaqComponent,
 		SponsorsComponent,
+		RegistrationModalComponent,
 	],
 })
 export class HomeModule {}

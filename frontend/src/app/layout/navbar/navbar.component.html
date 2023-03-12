@@ -6,9 +6,16 @@
 				<span class="text-2xl"> IPSUM </span>
 			</a>
 		</div>
-		<div class="navbar-end lg:hidden">
-			<div class="dropdown">
-				<label tabindex="0" class="btn btn-ghost btn-circle">
+		<div class="navbar-end hidden lg:flex">
+			<ul class="menu menu-horizontal px-1">
+				<li *ngFor="let link of links">
+					<a [href]="link.path">{{ link.name }}</a>
+				</li>
+			</ul>
+		</div>
+		<div class="navbar-end hidden">
+			<div class="dropdown dropdown-end">
+				<label [tabindex]="0" class="btn btn-ghost btn-circle">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						class="h-5 w-5"
@@ -25,21 +32,16 @@
 					</svg>
 				</label>
 				<ul
-					tabindex="0"
-					class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+					[tabindex]="0"
+					class="menu dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
 				>
-					<li *ngFor="let link of links">
-						<a [href]="link.path">{{ link.name }}</a>
-					</li>
+					<ng-container *ngFor="let link of links">
+						<li>
+							<a [href]="link.path">{{ link.name }}</a>
+						</li>
+					</ng-container>
 				</ul>
 			</div>
-		</div>
-		<div class="navbar-end hidden lg:flex">
-			<ul class="menu menu-horizontal px-1">
-				<li *ngFor="let link of links">
-					<a [href]="link.path">{{ link.name }}</a>
-				</li>
-			</ul>
 		</div>
 	</div>
 </div>
