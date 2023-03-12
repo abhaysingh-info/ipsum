@@ -1,0 +1,20 @@
+<div
+	id="event-schedule"
+	class="w-full mx-auto max-w-screen-xl min-h-screen mt-24 pt-14 pb-10"
+>
+	<h1
+		class="text-4xl md:text-5xl gradient-text font-arvo font-bold text-center"
+	>
+		{{ eventSchedule.title }}
+	</h1>
+	<p
+		class="text-center mt-4 font-arvo tracking-[0.2rem] lg:tracking-[0.4rem] break-words"
+	>
+		{{ eventSchedule.subtitle }}
+	</p>
+	<div class="grid grid-cols-1 gap-4 mt-6">
+		<div *ngFor="let event of eventSchedule.schedules">
+			<app-schedule-collapse [events]="event"></app-schedule-collapse>
+		</div>
+	</div>
+</div>

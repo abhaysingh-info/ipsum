@@ -28,19 +28,17 @@
 					tabindex="0"
 					class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
 				>
-					<li><a>Homepage</a></li>
-					<li><a>Portfolio</a></li>
-					<li><a>About</a></li>
+					<li *ngFor="let link of links">
+						<a [href]="link.path">{{ link.name }}</a>
+					</li>
 				</ul>
 			</div>
 		</div>
 		<div class="navbar-end hidden lg:flex">
 			<ul class="menu menu-horizontal px-1">
-				<li><a>Home</a></li>
-				<li><a>About</a></li>
-				<li><a>Schedule</a></li>
-				<li><a>Events</a></li>
-				<li><a>Sponsors</a></li>
+				<li *ngFor="let link of links">
+					<a [href]="link.path">{{ link.name }}</a>
+				</li>
 			</ul>
 		</div>
 	</div>

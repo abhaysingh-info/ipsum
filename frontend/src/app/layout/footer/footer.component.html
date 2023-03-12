@@ -1,1 +1,18 @@
-<p>footer works!</p>
+<footer
+	class="p-4 bg-white rounded-lg shadow md:flex md:items-center md:justify-between md:p-6 dark:bg-gray-800"
+>
+	<span
+		class="flex gap-1 text-sm text-gray-500 sm:text-center dark:text-gray-400"
+	>
+		<img src="/assets/images/logo.png" class="w-5" />IPSUM
+	</span>
+	<ul
+		class="flex flex-wrap items-center mt-3 text-sm text-gray-500 dark:text-gray-400 sm:mt-0"
+	>
+		<li *ngFor="let link of links">
+			<a [href]="link.path" class="mr-4 hover:underline md:mr-6">{{
+				link.name
+			}}</a>
+		</li>
+	</ul>
+</footer>

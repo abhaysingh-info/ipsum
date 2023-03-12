@@ -1,0 +1,9 @@
+<div tabindex="0" class="">
+	<h2 class="divider h-full text-2xl">
+		Events on {{ events.date | date : 'd MMMM YYYY' }}
+	</h2>
+	<app-events-carousel
+		[events]="$any(events.events)"
+		[type]="'carousel'"
+	></app-events-carousel>
+</div>

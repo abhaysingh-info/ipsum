@@ -1,0 +1,31 @@
+<div class="max-w-screen-xl mx-auto my-16" id="sponsors">
+	<h1
+		class="text-4xl md:text-5xl gradient-text font-arvo font-bold text-center"
+	>
+		Event Sponsors
+	</h1>
+	<p
+		class="mt-0 font-arvo tracking-[0.2rem] lg:tracking-[0.4rem] break-words text-center"
+	>
+		Know who made this event possible.
+	</p>
+	<div
+		class="carousel overflow-x-auto font-arvo font-bold text-xl md:text-2xl mt-10 gap-6 justify-center px-10 mx-auto"
+	>
+		<ng-container *ngFor="let sponsor of sponsors; let index = index">
+			<div
+				class="carousel-item text-gray-600"
+				[ngClass]="{
+					'ml-[180px] lg:ml-0': index === 0
+				}"
+			>
+				<ng-container *ngIf="sponsor.image !== null">
+					<img [src]="sponsor.image" [alt]="sponsor.name" class="max-w-[90%]" />
+				</ng-container>
+				<ng-container *ngIf="sponsor.image === null">
+					{{ sponsor.name }}
+				</ng-container>
+			</div>
+		</ng-container>
+	</div>
+</div>

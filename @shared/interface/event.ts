@@ -1,6 +1,6 @@
 import { ObjectId } from 'mongoose'
 
-export type eventType = 'individual' | 'team'
+export type eventType = 'individual' | 'team' | 'both'
 
 export type IrequirementFieldType = 'text' | 'file'
 

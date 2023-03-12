@@ -6,6 +6,9 @@ import { HomeComponent } from './home.component'
 import { AboutSeminarSectionComponent } from 'src/app/components/about-seminar-section/about-seminar-section.component'
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 import { PartyHeroComponent } from 'src/app/components/party-hero/party-hero.component'
+import { EventScheduleComponent } from 'src/app/components/event-schedule/event-schedule.component'
+import { FaqComponent } from 'src/app/components/faq/faq.component'
+import { SponsorsComponent } from 'src/app/components/sponsors/sponsors.component'
 
 @NgModule({
 	declarations: [HomeComponent],
@@ -15,6 +18,9 @@ import { PartyHeroComponent } from 'src/app/components/party-hero/party-hero.com
 		FontAwesomeModule,
 		AboutSeminarSectionComponent,
 		PartyHeroComponent,
+		EventScheduleComponent,
+		FaqComponent,
+		SponsorsComponent,
 	],
 })
 export class HomeModule {}

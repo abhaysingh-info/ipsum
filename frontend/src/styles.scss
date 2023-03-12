@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Arvo:wght@400;700&display=swap');
 /* You can add global styles to this file, and also import other style files */
 @tailwind base;
 @tailwind components;
@@ -16,4 +17,33 @@ div::-webkit-scrollbar {
 	-webkit-backdrop-filter: blur(8px);
 	backdrop-filter: blur(8px);
 	background-color: hsla(var(--b1), 5%);
+}
+
+.gradient-text {
+	background: linear-gradient(45deg, #ff69b4, #ff7f50);
+	background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+.bg-redish-gradient {
+	background: linear-gradient(45deg, #ff69b4, #ff7f50);
+	border-width: 0px;
+}
+
+.bg-blue-gradient {
+	background: linear-gradient(45deg, #58c1ff, #1371e3);
+	border-width: 0px;
+}
+
+.font-arvo {
+	font-family: 'Arvo', serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	overflow-y: hidden;
 }

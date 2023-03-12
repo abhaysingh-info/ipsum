@@ -1,0 +1,39 @@
+<section class="w-full max-w-screen-xl mx-auto my-24" id="faq">
+	<section class="bg-white dark:bg-gray-900">
+		<div class="max-w-screen-xl px-4 pb-8 mx-auto lg:pb-24 lg:px-6">
+			<h1
+				class="text-3xl md:text-4xl gradient-text font-arvo font-bold text-center"
+			>
+				Frequently Asked Questions
+			</h1>
+			<p
+				class="mt-0 font-arvo tracking-[0.2rem] lg:tracking-[0.4rem] break-words text-center"
+			>
+				What we are asked the most!
+			</p>
+			<div class="max-w-screen-md mx-auto flex flex-col gap-2 mt-10">
+				<div
+					id="accordion-flush"
+					data-accordion="collapse"
+					data-active-classes="bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+					data-inactive-classes="text-gray-500 dark:text-gray-400"
+					*ngFor="let faq of faqs"
+				>
+					<div
+						tabindex="0"
+						class="collapse collapse-arrow border border-base-200 bg-base-100 rounded-box"
+					>
+						<div class="collapse-title text-xl font-medium">
+							{{ faq.question }}
+						</div>
+						<div class="collapse-content text-gray-500">
+							<p>
+								{{ faq.answer }}
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</section>
