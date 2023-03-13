@@ -2,7 +2,10 @@ import { Component } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 import { IconCardComponent } from 'src/app/shared/icon-card/icon-card.component'
-import { aboutSeminarSection } from 'src/app/utils/text.config'
+import {
+	aboutSeminarSection,
+	eventRegistrationLink,
+} from 'src/app/utils/text.config'
 import { faPlay } from '@fortawesome/free-solid-svg-icons'
 
 @Component({
@@ -14,6 +17,8 @@ import { faPlay } from '@fortawesome/free-solid-svg-icons'
 })
 export class AboutSeminarSectionComponent {
 	modalOpen = false
+
+	registrationLink = eventRegistrationLink
 
 	faPlay = faPlay
 

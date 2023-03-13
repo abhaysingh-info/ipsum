@@ -9,7 +9,6 @@ import { PartyHeroComponent } from 'src/app/components/party-hero/party-hero.com
 import { EventScheduleComponent } from 'src/app/components/event-schedule/event-schedule.component'
 import { FaqComponent } from 'src/app/components/faq/faq.component'
 import { SponsorsComponent } from 'src/app/components/sponsors/sponsors.component'
-import { RegistrationModalComponent } from 'src/app/components/registration-modal/registration-modal.component'
 import { AboutMitComponent } from 'src/app/components/about-mit/about-mit.component'
 
 @NgModule({
@@ -23,7 +22,6 @@ import { AboutMitComponent } from 'src/app/components/about-mit/about-mit.compon
 		EventScheduleComponent,
 		FaqComponent,
 		SponsorsComponent,
-		RegistrationModalComponent,
 		AboutMitComponent,
 	],
 })

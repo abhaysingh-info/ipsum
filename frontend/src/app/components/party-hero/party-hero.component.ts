@@ -1,6 +1,7 @@
 import { Component } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { CountDownComponent } from 'src/app/shared/count-down/count-down.component'
+import { eventRegistrationLink } from 'src/app/utils/text.config'
 
 @Component({
 	selector: 'app-party-hero',
@@ -11,4 +12,6 @@ import { CountDownComponent } from 'src/app/shared/count-down/count-down.compone
 })
 export class PartyHeroComponent {
 	countDownTill = new Date('2023-03-20T00:00:00')
+
+	registrationLink = eventRegistrationLink
 }
