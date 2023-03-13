@@ -25,7 +25,7 @@ export const links = [
 
 export const aboutSeminarSection = {
 	title: 'About IPSUM',
-	subtitle: 'Lorem ipsum dolor sit amet consectetur adipisicing elit',
+	subtitle: 'Intelligence with Presentation & Smart Utilization of Management',
 	description:
 		'Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime veniam, iste tenetur, numquam eius necessitatibus obcaecati veritatis repudiandae sint hic cumque esse itaque laudantium culpa optio voluptates mollitia autem! Laudantium quasi quo eligendi dolore obcaecati vel maxime officiis quae repellat, autem corporis et eveniet quis aliquid voluptate? Possimus, quasi fugit.',
 }
