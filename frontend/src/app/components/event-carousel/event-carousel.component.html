@@ -1,6 +1,6 @@
 <div
 	[ngClass]="{
-		'carousel carousel-end rounded-box p-4 space-x-4 w-full':
+		'carousel carousel-end rounded-box p-4 space-x-4 w-full justify-between':
 			type === 'carousel',
 		'grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5': type === 'grid'
 	}"
@@ -8,6 +8,9 @@
 	<div
 		*ngFor="let event of events; let index = index; trackBy: trackById"
 		class="carousel-item flex max-w-full"
+		[ngClass]="{
+			'': index === 0
+		}"
 	>
 		<app-event-card [event]="event" [index]="index"></app-event-card>
 	</div>

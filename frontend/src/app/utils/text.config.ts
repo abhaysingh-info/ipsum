@@ -87,19 +87,6 @@ export const eventSchedule = {
 					image: '/assets/images/pexels-rodnae-productions-7915237.webp',
 					venue: 'MIT ACSC, Alandi',
 				},
-				{
-					_id: '5' as any,
-					name: 'Lorem ipsum dolor sit amet consectetur adipisicing elit',
-					description:
-						'Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime veniam, iste tenetur, numquam eius necessitatibus obcaecati veritatis repudiandae sint hic cumque esse itaque laudantium culpa optio voluptates mollitia autem! Laudantium quasi quo eligendi dolore obcaecati vel maxime officiis quae repellat, autem corporis et eveniet quis aliquid voluptate? Possimus, quasi fugit.',
-
-					commencementDate: new Date('2021-05-10'),
-					createdAt: new Date('2021-05-10'),
-					eventBatch: 1,
-					eventType: 'both',
-					image: '/assets/images/pexels-rodnae-productions-7915237.webp',
-					venue: 'MIT ACSC, Alandi',
-				},
 			],
 		},
 		{
@@ -133,32 +120,6 @@ export const eventSchedule = {
 				},
 				{
 					_id: '3' as any,
-					name: 'Lorem ipsum dolor sit amet consectetur adipisicing elit',
-					description:
-						'Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime veniam, iste tenetur, numquam eius necessitatibus obcaecati veritatis repudiandae sint hic cumque esse itaque laudantium culpa optio voluptates mollitia autem! Laudantium quasi quo eligendi dolore obcaecati vel maxime officiis quae repellat, autem corporis et eveniet quis aliquid voluptate? Possimus, quasi fugit.',
-
-					commencementDate: new Date('2021-05-10'),
-					createdAt: new Date('2021-05-10'),
-					eventBatch: 1,
-					eventType: 'both',
-					image: '/assets/images/pexels-rodnae-productions-7915237.webp',
-					venue: 'MIT ACSC, Alandi',
-				},
-				{
-					_id: '4' as any,
-					name: 'Lorem ipsum dolor sit amet consectetur adipisicing elit',
-					description:
-						'Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime veniam, iste tenetur, numquam eius necessitatibus obcaecati veritatis repudiandae sint hic cumque esse itaque laudantium culpa optio voluptates mollitia autem! Laudantium quasi quo eligendi dolore obcaecati vel maxime officiis quae repellat, autem corporis et eveniet quis aliquid voluptate? Possimus, quasi fugit.',
-
-					commencementDate: new Date('2021-05-10'),
-					createdAt: new Date('2021-05-10'),
-					eventBatch: 1,
-					eventType: 'both',
-					image: '/assets/images/pexels-rodnae-productions-7915237.webp',
-					venue: 'MIT ACSC, Alandi',
-				},
-				{
-					_id: '5' as any,
 					name: 'Lorem ipsum dolor sit amet consectetur adipisicing elit',
 					description:
 						'Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime veniam, iste tenetur, numquam eius necessitatibus obcaecati veritatis repudiandae sint hic cumque esse itaque laudantium culpa optio voluptates mollitia autem! Laudantium quasi quo eligendi dolore obcaecati vel maxime officiis quae repellat, autem corporis et eveniet quis aliquid voluptate? Possimus, quasi fugit.',
