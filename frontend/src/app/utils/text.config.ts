@@ -37,7 +37,7 @@ export const eventSchedule = {
 			events: [
 				{
 					_id: '1' as any,
-					name: 'Lorem ipsum dolor sit amet consectetur adipisicing elit',
+					name: 'Money Island',
 					description:
 						'Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime veniam, iste tenetur, numquam eius necessitatibus obcaecati veritatis repudiandae sint hic cumque esse itaque laudantium culpa optio voluptates mollitia autem! Laudantium quasi quo eligendi dolore obcaecati vel maxime officiis quae repellat, autem corporis et eveniet quis aliquid voluptate? Possimus, quasi fugit.',
 

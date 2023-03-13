@@ -10,6 +10,7 @@ import { EventScheduleComponent } from 'src/app/components/event-schedule/event-
 import { FaqComponent } from 'src/app/components/faq/faq.component'
 import { SponsorsComponent } from 'src/app/components/sponsors/sponsors.component'
 import { RegistrationModalComponent } from 'src/app/components/registration-modal/registration-modal.component'
+import { AboutMitComponent } from 'src/app/components/about-mit/about-mit.component'
 
 @NgModule({
 	declarations: [HomeComponent],
@@ -23,6 +24,7 @@ import { RegistrationModalComponent } from 'src/app/components/registration-moda
 		FaqComponent,
 		SponsorsComponent,
 		RegistrationModalComponent,
+		AboutMitComponent,
 	],
 })
 export class HomeModule {}
