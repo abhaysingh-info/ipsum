@@ -26,8 +26,6 @@ export const links = [
 export const aboutSeminarSection = {
 	title: 'About IPSUM',
 	subtitle: 'Intelligence with Presentation & Smart Utilization of Management',
-	// description:
-	// 	'The department of Business Administration and International Business at MAAERS MIT ARTS, COMMERCE and SCIENCE COLLEGE, Alandi, Pune, organises IPSUM, a two-day annual intercollege competition. Business, management, entrepreneurship, strategy-building exercises, and sports entertainment management activities are all provided by IPSUM 2K23.',
 	description: `IPSUM is a 2-day inter-collegiate flagship event organized by the Department of Business Administration & International Business of MIT Arts, Commerce & Science College, Alandi (D), Pune which was initiated in 2014 with the aim of providing a platform for students to showcase their talents and skills through tons of contests ranging from business-centered competitions like Shark Tank, and Paper Trading to generalized competitions like Debates, and Quizzes to exciting and fun-filled games with attractive awards and cash prizes to the participants and winners.`,
 }
 
@@ -42,72 +40,81 @@ export const eventSchedule = {
 					_id: '1' as any,
 					name: 'Money Island',
 					description:
-						'In this student entrepreneurs will have to present their business ideas either with PPT or pitch. A panel of three judges/investors, with an imaginary sum of 1 crore rupees at their disposal, will be present. The participant who manages to secure the highest investment amount from the judges/investors will be declared the winner of the competition. An entrepreneur will ask for an amount in exchange for a percentage of ownership. Entrepreneurs have to convince panel of judges/investors for investment in their idea(product/service). The more you earn the more chance to win.',
+						'In this student entrepreneurs will have to present their business ideas either with PPT or pitch. A panel of three judges/investors, with an imaginary sum of 1 crore rupees at their disposal, will be present. The participant who manages to secure the highest investment amount from the judges/investors will be declared the winner of the competition. An entrepreneur will ask for an amount in exchange for a percentage of ownership. Entrepreneurs have to convince panel of judges/investors for investment in their idea(product/service). The more you earn the more chance to win.',
 
-					commencementDate: new Date('2021-05-10'),
-					createdAt: new Date('2021-05-10'),
+					commencementDate: new Date('2023-03-20'),
 					eventBatch: 1,
-					eventType: 'both',
-					image: '/assets/images/pexels-rodnae-productions-7915237.webp',
+					eventType: 'team',
+					image: '/assets/images/money-island.webp',
 					venue: 'MIT ACSC, Alandi',
 					prizePool: 10000,
 				},
 				{
 					_id: '2' as any,
-					name: 'Word Clash (Debate)',
-					description:
-						'Debate will open with the affirmative team (the team that supports the resolution) presenting their arguments, followed by a member of the opposing team. This pattern is repeated for the second speaker in each team. Finally, each team gets an opportunity for rebutting the arguments of the opponent. Speakers should speak slowly and clearly. The judges and members of the audience should be taking notes as the debate proceeds.',
-
-					commencementDate: new Date('2021-05-10'),
-					createdAt: new Date('2021-05-10'),
-					eventBatch: 1,
-					eventType: 'both',
-					image: '/assets/images/pexels-rodnae-productions-7915237.webp',
-					venue: 'MIT ACSC, Alandi',
-					prizePool: 6000,
-				},
-				{
-					_id: '3' as any,
-					name: 'Sensing the sensex (Paper Trading)',
-					description:
-						'Participants will provide 3 tickets for buying and 3 tickets for selling and every time trader have to go to the broker for trade execution ( BUY/SELL)  All trades will done in a single lot and only gaining points will be decide as winner.  Participants have to complete task within 2 hours.',
-
-					commencementDate: new Date('2021-05-10'),
-					createdAt: new Date('2021-05-10'),
-					eventBatch: 1,
-					eventType: 'both',
-					image: '/assets/images/pexels-rodnae-productions-7915237.webp',
-					venue: 'MIT ACSC, Alandi',
-				},
-				{
-					_id: '4' as any,
 					name: 'Brainer (Business Quiz)',
 					description:
 						'There will be 3 rounds in this game, the first two will be elimination rounds and last one will be winning round. 15, 10, 5 questions will be asked in every round respectively. Level of questions will increase in every round easy to hardest. The one who answers more questions in last round will be the winner.',
-					commencementDate: new Date('2021-05-10'),
-					createdAt: new Date('2021-05-10'),
+					commencementDate: new Date('2023-03-20'),
 					eventBatch: 1,
 					eventType: 'both',
-					image: '/assets/images/pexels-rodnae-productions-7915237.webp',
+					image: '/assets/images/brainer.webp',
 					venue: 'MIT ACSC, Alandi',
+					prizePool: 0,
 				},
-			],
-		},
-		{
-			date: new Date('2023-03-22'),
-			events: [
 				{
-					_id: '1' as any,
+					_id: '3' as any,
 					name: '1- Min Games',
 					description:
 						'In this game participants will have to pick a chit out of a bowl and whatever product is written on that chit, you have to pick it up and prepare an ad for it. You would be given a time of 5 minutes for making and preparing your ad in front of a judge.',
 
-					commencementDate: new Date('2021-05-10'),
-					createdAt: new Date('2021-05-10'),
+					commencementDate: new Date('2023-03-20'),
 					eventBatch: 1,
 					eventType: 'both',
-					image: '/assets/images/pexels-rodnae-productions-7915237.webp',
+					image: '/assets/images/1mingame.webp',
 					venue: 'MIT ACSC, Alandi',
+					prizePool: 500,
+				},
+			],
+		},
+		{
+			date: new Date('2023-03-21'),
+			events: [
+				{
+					_id: '1' as any,
+					name: 'Sensing the sensex (Paper Trading)',
+					description:
+						'Participants will provide 3 tickets for buying and 3 tickets for selling and every time trader have to go to the broker for trade execution ( BUY/SELL)  All trades will done in a single lot and only gaining points will be decide as winner.  Participants have to complete task within 2 hours.',
+					commencementDate: new Date('2023-03-21'),
+					eventBatch: 1,
+					eventType: 'both',
+					image: '/assets/images/sensex.webp',
+					venue: 'MIT ACSC, Alandi',
+					prizePool: 3000,
+				},
+				{
+					_id: '2' as any,
+					name: 'Detective Game',
+					description:
+						'Some clues will be distributed on the campus containing the Ground Floor, Second Floor, and Garden Area. The team will have to find these clues in the given time in order to find the thief. Each team can play a mini-game to get an advantage. Upon winning the game, the team will be provided with a hint which will lead them to the location of the clue. The first team to find the culprit will win the round and will be promoted to the next round. The winner will be selected from the last two surviving teams. The team with the most points will win.',
+
+					commencementDate: new Date('2023-03-21'),
+					eventBatch: 1,
+					eventType: 'team',
+					image: '/assets/images/dectetive.webp',
+					venue: 'MIT ACSC, Alandi',
+				},
+				{
+					_id: '3' as any,
+					name: 'Word Clash (Debate)',
+					description:
+						'Debate will open with the affirmative team (the team that supports the resolution) presenting their arguments, followed by a member of the opposing team. This pattern is repeated for the second speaker in each team. Finally, each team gets an opportunity for rebutting the arguments of the opponent. Speakers should speak slowly and clearly. The judges and members of the audience should be taking notes as the debate proceeds.',
+
+					commencementDate: new Date('2023-03-21'),
+					eventBatch: 1,
+					eventType: 'team',
+					image: '/assets/images/word-clash.webp',
+					venue: 'MIT ACSC, Alandi',
+					prizePool: 6000,
 				},
 				{
 					_id: '2' as any,
@@ -115,24 +122,10 @@ export const eventSchedule = {
 					description:
 						'This is a individual event. There will be a bowl full of chits with a topic written on it. Every participant have to choose one chit from the bowl. Candidate will get 2 minutes after choosing chit to think on the topic. After 2 minutes timer will start and each individual will have to talk on that for about one minute.',
 
-					commencementDate: new Date('2021-05-10'),
-					createdAt: new Date('2021-05-10'),
+					commencementDate: new Date('2023-03-21'),
 					eventBatch: 1,
 					eventType: 'both',
-					image: '/assets/images/pexels-rodnae-productions-7915237.webp',
-					venue: 'MIT ACSC, Alandi',
-				},
-				{
-					_id: '3' as any,
-					name: 'Detective Game',
-					description:
-						'Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime veniam, iste tenetur, numquam eius necessitatibus obcaecati veritatis repudiandae sint hic cumque esse itaque laudantium culpa optio voluptates mollitia autem! Laudantium quasi quo eligendi dolore obcaecati vel maxime officiis quae repellat, autem corporis et eveniet quis aliquid voluptate? Possimus, quasi fugit.',
-
-					commencementDate: new Date('2021-05-10'),
-					createdAt: new Date('2021-05-10'),
-					eventBatch: 1,
-					eventType: 'both',
-					image: '/assets/images/pexels-rodnae-productions-7915237.webp',
+					image: '/assets/images/speech.webp',
 					venue: 'MIT ACSC, Alandi',
 				},
 			],

@@ -16,6 +16,7 @@
 	scroll-behavior: smooth;
 	box-sizing: border-box;
 	overflow-x: hidden !important;
+	min-height: max-content;
 }
 
 div::-webkit-scrollbar {
