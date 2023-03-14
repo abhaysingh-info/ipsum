@@ -109,8 +109,8 @@ export const eventSchedule = {
 					eventType: 'team',
 					image: '/assets/images/dectetive-resize.webp',
 					venue: 'MIT ACSC, Alandi',
-					moreInformationPdf: '',
 					prizePool: 500,
+					moreInformationPdf: '',
 				},
 				{
 					_id: '3' as any,
@@ -138,9 +138,9 @@ export const eventSchedule = {
 					eventType: 'both',
 					image: '/assets/images/speech-resize.webp',
 					venue: 'MIT ACSC, Alandi',
+					prizePool: 500,
 					moreInformationPdf:
 						'https://drive.google.com/file/d/1BZk4MrintXsXJF1-MYDECHmVUPQAFZcS/view?usp=sharing',
-					prizePool: 500,
 				},
 			],
 		},
