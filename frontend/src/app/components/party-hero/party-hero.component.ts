@@ -11,7 +11,7 @@ import { eventRegistrationLink } from 'src/app/utils/text.config'
 	styleUrls: ['./party-hero.component.scss'],
 })
 export class PartyHeroComponent {
-	countDownTill = new Date('2023-03-20T00:00:00')
+	countDownTill = new Date('2023-03-20T08:30:00')
 
 	registrationLink = eventRegistrationLink
 }

@@ -10,7 +10,7 @@
 		Know who made this event possible.
 	</p>
 	<div
-		class="carousel overflow-x-auto font-arvo font-bold text-xl md:text-2xl mt-10 gap-6 justify-center px-10 mx-auto"
+		class="carousel overflow-x-auto font-arvo font-bold text-xl md:text-2xl mt-10 gap-x-16 justify-center px-10 mx-auto"
 	>
 		<ng-container *ngFor="let sponsor of sponsors; let index = index">
 			<div
@@ -20,12 +20,30 @@
 				}"
 			>
 				<ng-container *ngIf="sponsor.image !== null">
-					<img [src]="sponsor.image" [alt]="sponsor.name" class="max-w-[90%]" />
+					<img
+						[src]="sponsor.image"
+						[alt]="sponsor.name"
+						[ngClass]="{
+							'max-w-[8rem]': sponsor.titleSponsorer,
+							'max-w-[6rem]': !sponsor.titleSponsorer
+						}"
+					/>
 				</ng-container>
 				<ng-container *ngIf="sponsor.image === null">
 					{{ sponsor.name }}
 				</ng-container>
 			</div>
 		</ng-container>
+	</div>
+	<div class="my-14 flex items-center justify-center flex-col">
+		<span
+			class="font-arvo tracking-[0.2rem] lg:tracking-[0.3rem] font-bold text-lg break-words mb-3"
+			>Printing Partner</span
+		>
+		<img
+			src="/assets/images/printing-partner.webp"
+			alt="Printing Partner"
+			class="max-w-[8rem]"
+		/>
 	</div>
 </div>
