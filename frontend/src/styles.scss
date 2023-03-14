@@ -4,11 +4,20 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+#128f8b
+#027d7a
+
+#006663
+
+**/
+
 * {
 	scroll-behavior: smooth;
 	box-sizing: border-box;
 	overflow-x: hidden !important;
 }
+
 div::-webkit-scrollbar {
 	width: 0px;
 }
@@ -20,18 +29,19 @@ div::-webkit-scrollbar {
 }
 
 .gradient-text {
-	background: linear-gradient(45deg, #ff69b4, #ff7f50);
+	background: linear-gradient(45deg, #027d7a, #1ab9b4);
 	background-clip: text;
 	-webkit-text-fill-color: transparent;
 }
 
 .bg-redish-gradient {
-	background: linear-gradient(45deg, #ff69b4, #ff7f50);
+	background: linear-gradient(45deg, #027d7a, #1ab9b4);
 	border-width: 0px;
 }
 
 .bg-blue-gradient {
-	background: linear-gradient(45deg, #58c1ff, #1371e3);
+	// background: linear-gradient(45deg, #58c1ff, #1371e3);
+	background: linear-gradient(45deg, #027d73, #1ab99e);
 	border-width: 0px;
 }
 

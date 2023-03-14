@@ -26,16 +26,17 @@ export const links = [
 export const aboutSeminarSection = {
 	title: 'About IPSUM',
 	subtitle: 'Intelligence with Presentation & Smart Utilization of Management',
-	description:
-		'Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime veniam, iste tenetur, numquam eius necessitatibus obcaecati veritatis repudiandae sint hic cumque esse itaque laudantium culpa optio voluptates mollitia autem! Laudantium quasi quo eligendi dolore obcaecati vel maxime officiis quae repellat, autem corporis et eveniet quis aliquid voluptate? Possimus, quasi fugit.',
+	// description:
+	// 	'The department of Business Administration and International Business at MAAERS MIT ARTS, COMMERCE and SCIENCE COLLEGE, Alandi, Pune, organises IPSUM, a two-day annual intercollege competition. Business, management, entrepreneurship, strategy-building exercises, and sports entertainment management activities are all provided by IPSUM 2K23.',
+	description: `IPSUM is a 2-day inter-collegiate flagship event organized by the Department of Business Administration & International Business of MIT Arts, Commerce & Science College, Alandi (D), Pune which was initiated in 2014 with the aim of providing a platform for students to showcase their talents and skills through tons of contests ranging from business-centered competitions like Shark Tank, and Paper Trading to generalized competitions like Debates, and Quizzes to exciting and fun-filled games with attractive awards and cash prizes to the participants and winners.`,
 }
 
 export const eventSchedule = {
 	title: 'Event Schedule',
-	subtitle: 'Lorem ipsum dolor sit amet consectetur adipisicing elit',
+	subtitle: '',
 	schedules: [
 		{
-			date: new Date('2023-03-21'),
+			date: new Date('2023-03-20'),
 			events: [
 				{
 					_id: '1' as any,
@@ -49,6 +50,7 @@ export const eventSchedule = {
 					eventType: 'both',
 					image: '/assets/images/pexels-rodnae-productions-7915237.webp',
 					venue: 'MIT ACSC, Alandi',
+					prizePool: 10000,
 				},
 				{
 					_id: '2' as any,
@@ -62,6 +64,7 @@ export const eventSchedule = {
 					eventType: 'both',
 					image: '/assets/images/pexels-rodnae-productions-7915237.webp',
 					venue: 'MIT ACSC, Alandi',
+					prizePool: 6000,
 				},
 				{
 					_id: '3' as any,
