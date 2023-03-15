@@ -57,13 +57,20 @@
 				}}</span>
 			</div>
 			<div
-				class="mt-4 flex gap-1 text-sm flex-wrap items-baseline"
+				class="mt-1 flex gap-1 text-sm flex-wrap items-baseline"
 				*ngIf="event.prizePool"
 			>
 				Pool Prize:
 				<span class="text-gray-600 font-semibold">{{
 					event.prizePool | currency : 'INR' : 'symbol' : '1.0-0'
 				}}</span>
+			</div>
+			<div
+				class="mt-1 flex gap-1 text-sm flex-wrap items-baseline"
+				*ngIf="event.hasGiftPrize"
+			>
+				Prize:
+				<span class="text-gray-600 font-semibold">Gift Hamper</span>
 			</div>
 			<div class="mt-4 flex gap-3 flex-wrap items-baseline text-sm">
 				<div class="flex gap-2 items-center">

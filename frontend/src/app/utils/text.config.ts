@@ -90,7 +90,8 @@ export const eventSchedule = {
 					eventType: 'individual',
 					image: '/assets/images/1mingame-resize.webp',
 					venue: 'MIT ACSC, Alandi',
-					prizePool: 500,
+					prizePool: 0,
+					hasGiftPrize: true,
 					moreInformationPdf:
 						'https://drive.google.com/file/d/1P2Tl5dC2sJ_BeqN61vYbmO886BXq0zH0/view?usp=sharing',
 				},
@@ -154,7 +155,8 @@ export const eventSchedule = {
 					eventType: 'individual',
 					image: '/assets/images/speech-resize.webp',
 					venue: 'MIT ACSC, Alandi',
-					prizePool: 500,
+					prizePool: 0,
+					hasGiftPrize: true,
 					moreInformationPdf:
 						'https://drive.google.com/file/d/1BZk4MrintXsXJF1-MYDECHmVUPQAFZcS/view?usp=sharing',
 				},
