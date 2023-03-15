@@ -48,6 +48,7 @@ export const eventSchedule = {
 					image: '/assets/images/money-island-resize.webp',
 					venue: 'MIT ACSC, Alandi',
 					prizePool: 10000,
+					moreInformationPdf: '',
 				},
 				{
 					_id: '2' as any,
@@ -60,6 +61,8 @@ export const eventSchedule = {
 					image: '/assets/images/brainer-resize.webp',
 					venue: 'MIT ACSC, Alandi',
 					prizePool: 0,
+					moreInformationPdf:
+						'https://drive.google.com/file/d/1HRDCTgQV9VNTLDyaeV7uMDPzUkJvJD82/view?usp=sharing',
 				},
 				{
 					_id: '3' as any,
@@ -73,6 +76,8 @@ export const eventSchedule = {
 					image: '/assets/images/1mingame-resize.webp',
 					venue: 'MIT ACSC, Alandi',
 					prizePool: 500,
+					moreInformationPdf:
+						'https://drive.google.com/file/d/1P2Tl5dC2sJ_BeqN61vYbmO886BXq0zH0/view?usp=sharing',
 				},
 			],
 		},
@@ -90,6 +95,8 @@ export const eventSchedule = {
 					image: '/assets/images/sensex-resize.webp',
 					venue: 'MIT ACSC, Alandi',
 					prizePool: 3000,
+					moreInformationPdf:
+						'https://drive.google.com/file/d/1bw7pUv1fMIAtk2-AyEFCDPsgZB7u7p_q/view?usp=sharing',
 				},
 				{
 					_id: '2' as any,
@@ -102,6 +109,8 @@ export const eventSchedule = {
 					eventType: 'team',
 					image: '/assets/images/dectetive-resize.webp',
 					venue: 'MIT ACSC, Alandi',
+					moreInformationPdf: '',
+					prizePool: 500,
 				},
 				{
 					_id: '3' as any,
@@ -115,6 +124,8 @@ export const eventSchedule = {
 					image: '/assets/images/word-clash-resize.webp',
 					venue: 'MIT ACSC, Alandi',
 					prizePool: 6000,
+					moreInformationPdf:
+						'https://drive.google.com/file/d/1D0ZhP94rndOLsGn7pU59ifuKmcBVQgFJ/view?usp=sharing',
 				},
 				{
 					_id: '2' as any,
@@ -127,6 +138,9 @@ export const eventSchedule = {
 					eventType: 'both',
 					image: '/assets/images/speech-resize.webp',
 					venue: 'MIT ACSC, Alandi',
+					moreInformationPdf:
+						'https://drive.google.com/file/d/1BZk4MrintXsXJF1-MYDECHmVUPQAFZcS/view?usp=sharing',
+					prizePool: 500,
 				},
 			],
 		},

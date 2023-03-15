@@ -23,11 +23,12 @@
 				</div>
 				<div class="flex text-sm gap-1">
 					<fa-icon class="text-primary" [icon]="faCalendar"></fa-icon>
-					{{ event.commencementDate | date : 'dd MMMM yyyy' }}
+					{{ event.commencementDate | date : 'dd' }}
+					{{ event.commencementDate | date : 'MMMM yyyy' }}
 				</div>
 			</div>
 			<div
-				class="mt-4 text-sm max-h-[6rem] overflow-y-auto description break-all"
+				class="mt-4 text-sm max-h-[6rem] overflow-y-auto description break-word"
 			>
 				<ng-container [ngSwitch]="readMore">
 					<ng-container *ngSwitchCase="true">
@@ -55,6 +56,15 @@
 					event.registrationClosesOn | date : 'dd MMMM yyyy'
 				}}</span>
 			</div>
+			<div
+				class="mt-4 flex gap-1 text-sm flex-wrap items-baseline"
+				*ngIf="event.prizePool"
+			>
+				Pool Prize:
+				<span class="text-gray-600 font-semibold">{{
+					event.prizePool | currency : 'INR' : 'symbol' : '1.0-0'
+				}}</span>
+			</div>
 			<div class="mt-4 flex gap-3 flex-wrap items-baseline text-sm">
 				<div class="flex gap-2 items-center">
 					<fa-icon class="text-primary" [icon]="faLocation"></fa-icon>
@@ -69,7 +79,7 @@
 					Batch {{ event.eventBatch }}
 				</div> -->
 			</div>
-			<!-- <div class="divider"></div>
+			<div class="divider"></div>
 			<div class="flex flex-wrap items-baseline gap-2">
 				<a
 					[href]="event.moreInformationPdf"
@@ -78,7 +88,7 @@
 				>
 					<fa-icon [icon]="faFilePdf"></fa-icon> View
 				</a>
-			</div> -->
+			</div>
 		</div>
 	</div>
 </div>

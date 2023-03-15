@@ -34,6 +34,7 @@ export interface IDBEvent {
 	eventBatch: number
 	moreInformationPdf: string
 	createdAt: Date | string
+	prizePool: number
 	eventRequirementField: {
 		question: string
 		fieldType: string
