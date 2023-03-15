@@ -48,7 +48,8 @@ export const eventSchedule = {
 					image: '/assets/images/money-island-resize.webp',
 					venue: 'MIT ACSC, Alandi',
 					prizePool: 10000,
-					moreInformationPdf: '',
+					moreInformationPdf:
+						'https://drive.google.com/file/d/1pgoTniGkbGKZUzeZTe5Ikk5ptAFHbVFU/view?usp=sharing',
 				},
 				{
 					_id: '2' as any,
@@ -110,7 +111,8 @@ export const eventSchedule = {
 					image: '/assets/images/dectetive-resize.webp',
 					venue: 'MIT ACSC, Alandi',
 					prizePool: 500,
-					moreInformationPdf: '',
+					moreInformationPdf:
+						'https://drive.google.com/file/d/1NzsIDyAdvixh2-8DsQLawPq0DgHFOl2f/view?usp=share_link',
 				},
 				{
 					_id: '3' as any,
@@ -125,7 +127,7 @@ export const eventSchedule = {
 					venue: 'MIT ACSC, Alandi',
 					prizePool: 6000,
 					moreInformationPdf:
-						'https://drive.google.com/file/d/1D0ZhP94rndOLsGn7pU59ifuKmcBVQgFJ/view?usp=sharing',
+						'https://drive.google.com/file/d/1n6-JcCnv61Gqsir5vAmvP0DbGgys0Mpr/view?usp=sharing',
 				},
 				{
 					_id: '2' as any,
