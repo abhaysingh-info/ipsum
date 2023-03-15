@@ -10,11 +10,12 @@ import {
 	faMapMarker,
 	faMapMarkerAlt,
 } from '@fortawesome/free-solid-svg-icons'
+import { DateSuffixPipe } from 'src/app/pipes/date-suffix.pipe'
 
 @Component({
 	selector: 'app-event-card',
 	standalone: true,
-	imports: [CommonModule, FontAwesomeModule],
+	imports: [CommonModule, FontAwesomeModule, DateSuffixPipe],
 	templateUrl: './event-card.component.html',
 	styleUrls: ['./event-card.component.scss'],
 })

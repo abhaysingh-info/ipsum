@@ -23,7 +23,7 @@
 				</div>
 				<div class="flex text-sm gap-1">
 					<fa-icon class="text-primary" [icon]="faCalendar"></fa-icon>
-					{{ event.commencementDate | date : 'dd' }}
+					{{ event.commencementDate | date : 'dd' | dateSuffix }}
 					{{ event.commencementDate | date : 'MMMM yyyy' }}
 				</div>
 			</div>
