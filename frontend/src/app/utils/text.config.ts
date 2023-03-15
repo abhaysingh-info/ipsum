@@ -151,13 +151,14 @@ export const eventSchedule = {
 
 export const faq: { question: string; answer: string }[] = [
 	{
-		question: 'What does IPSUM stands for?',
-		answer: 'Intelligence with Presentation & Smart Utilization of Management',
+		question: 'What does IPSUM stand for and when did it initially start?',
+		answer:
+			'IPSUM stands for "Intelligence with Presentation & Smart Utilization of Management". It initially started in the year 2014 as a college-level fest but was celebrated at an inter-collegiate level from 2015 onwards.',
 	},
 	{
-		question: 'When did IPSUM initially start?',
+		question: 'How do I register for multiple events?',
 		answer:
-			'It was commenced in the year 2014 as a college-level fest but was celebrated at an inter-collegiate level from 2015 onwards.',
+			'You can use the same registration link to register for multiple events. However, you will have to pay the registration fee for each event separately.',
 	},
 	{
 		question:
