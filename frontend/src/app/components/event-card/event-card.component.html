@@ -10,7 +10,7 @@
 	</picture>
 
 	<div class="relative px-4 -mt-16 prose">
-		<div class="bg-white p-4 rounded-lg shadow-lg">
+		<div class="relative bg-white p-4 rounded-lg shadow-lg min-h-[21.25rem]">
 			<h4 class="mt-1 text-xl font-semibold uppercase leading-tight truncate">
 				{{ event.name }}
 			</h4>
@@ -79,15 +79,17 @@
 					Batch {{ event.eventBatch }}
 				</div> -->
 			</div>
-			<div class="divider"></div>
-			<div class="flex flex-wrap items-baseline gap-2">
-				<a
-					[href]="event.moreInformationPdf"
-					target="_blank"
-					class="btn btn-outline btn-error btn-sm gap-1"
-				>
-					<fa-icon [icon]="faFilePdf"></fa-icon> View
-				</a>
+			<div class="absolute bottom-3.5 left-3 right-3">
+				<div class="divider"></div>
+				<div class="flex flex-wrap items-baseline gap-2">
+					<a
+						[href]="event.moreInformationPdf"
+						target="_blank"
+						class="btn btn-outline btn-error btn-sm gap-1"
+					>
+						<fa-icon [icon]="faFilePdf"></fa-icon> View
+					</a>
+				</div>
 			</div>
 		</div>
 	</div>

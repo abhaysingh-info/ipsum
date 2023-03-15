@@ -32,27 +32,27 @@
 			class="max-w-screen-md w-full flex justify-center items-center mx-auto relative max-h-[35rem]"
 		>
 			<img src="/assets/images/thumbnail.webp" class="mx-auto object-cover" />
-			<!-- <button
-				class="border-0 w-16 h-16 bg-white text-secondary rounded-full flex items-center justify-center absolute shadow-md text-xl"
+			<button
+				class="border-0 w-14 h-14 text-xl md:w-20 md:h-20 md:text-3xl lg:w-16 lg:h-16 lg:text-xl bg-white text-secondary rounded-full flex items-center justify-center absolute shadow-md"
 				(click)="modalOpen = true"
 			>
 				<fa-icon [icon]="faPlay"></fa-icon>
-			</button> -->
+			</button>
 		</div>
 	</div>
 </div>
 
 <div
-	class="modal modal-open cursor-pointer"
+	class="modal modal-open cursor-pointer min-h-screen"
 	(click)="modalOpen = false"
 	*ngIf="modalOpen"
 >
 	<div class="modal-box p-0 max-w-screen-sm">
 		<iframe
-			width="640"
-			height="360"
-			class="max-w-full"
-			src="https://www.youtube.com/embed/60ItHLz5WEA"
+			width="560"
+			height="365"
+			class="w-full"
+			src="https://www.youtube.com/embed/AakjVN9V5Ro"
 			title="YouTube video player"
 			frameborder="0"
 			allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

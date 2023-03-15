@@ -44,7 +44,7 @@ export const eventSchedule = {
 
 					commencementDate: new Date('2023-03-20'),
 					eventBatch: 1,
-					eventType: 'team',
+					eventType: 'both',
 					image: '/assets/images/money-island-resize.webp',
 					venue: 'MIT ACSC, Alandi',
 					prizePool: 10000,
@@ -58,7 +58,7 @@ export const eventSchedule = {
 						'There will be 3 rounds in this game, the first two will be elimination rounds and last one will be winning round. 15, 10, 5 questions will be asked in every round respectively. Level of questions will increase in every round easy to hardest. The one who answers more questions in last round will be the winner.',
 					commencementDate: new Date('2023-03-20'),
 					eventBatch: 1,
-					eventType: 'both',
+					eventType: 'individual',
 					image: '/assets/images/brainer-resize.webp',
 					venue: 'MIT ACSC, Alandi',
 					prizePool: 0,
@@ -67,13 +67,27 @@ export const eventSchedule = {
 				},
 				{
 					_id: '3' as any,
+					name: 'Food Stall',
+					description:
+						'Students will set up their own stalls and sell their food and products and earn money through it. For students the rent will be 500 rs /day and for outsiders the rent will range be 1000 rs per day.',
+
+					commencementDate: new Date('2023-03-20'),
+					eventBatch: 1,
+					eventType: 'both',
+					image: '/assets/images/food-stall.webp',
+					venue: 'MIT ACSC, Alandi',
+					moreInformationPdf:
+						'https://drive.google.com/file/d/1m6lxSq2m-Jn4XzPDwdxp4bf4HYiJxjXt/view?usp=sharing',
+				},
+				{
+					_id: '4' as any,
 					name: '1- Min Games',
 					description:
 						'In this game participants will have to pick a chit out of a bowl and whatever product is written on that chit, you have to pick it up and prepare an ad for it. You would be given a time of 5 minutes for making and preparing your ad in front of a judge.',
 
 					commencementDate: new Date('2023-03-20'),
 					eventBatch: 1,
-					eventType: 'both',
+					eventType: 'individual',
 					image: '/assets/images/1mingame-resize.webp',
 					venue: 'MIT ACSC, Alandi',
 					prizePool: 500,
@@ -92,7 +106,7 @@ export const eventSchedule = {
 						'Participants will provide 3 tickets for buying and 3 tickets for selling and every time trader have to go to the broker for trade execution ( BUY/SELL)  All trades will done in a single lot and only gaining points will be decide as winner.  Participants have to complete task within 2 hours.',
 					commencementDate: new Date('2023-03-21'),
 					eventBatch: 1,
-					eventType: 'both',
+					eventType: 'individual',
 					image: '/assets/images/sensex-resize.webp',
 					venue: 'MIT ACSC, Alandi',
 					prizePool: 3000,
@@ -130,19 +144,33 @@ export const eventSchedule = {
 						'https://drive.google.com/file/d/1n6-JcCnv61Gqsir5vAmvP0DbGgys0Mpr/view?usp=sharing',
 				},
 				{
-					_id: '2' as any,
+					_id: '4' as any,
 					name: '1- Min Speech',
 					description:
 						'This is a individual event. There will be a bowl full of chits with a topic written on it. Every participant have to choose one chit from the bowl. Candidate will get 2 minutes after choosing chit to think on the topic. After 2 minutes timer will start and each individual will have to talk on that for about one minute.',
 
 					commencementDate: new Date('2023-03-21'),
 					eventBatch: 1,
-					eventType: 'both',
+					eventType: 'individual',
 					image: '/assets/images/speech-resize.webp',
 					venue: 'MIT ACSC, Alandi',
 					prizePool: 500,
 					moreInformationPdf:
 						'https://drive.google.com/file/d/1BZk4MrintXsXJF1-MYDECHmVUPQAFZcS/view?usp=sharing',
+				},
+				{
+					_id: '5' as any,
+					name: 'Food Stall',
+					description:
+						'Students will set up their own stalls and sell their food and products and earn money through it. For students the rent will be 500 rs /day and for outsiders the rent will range be 1000 rs per day.',
+
+					commencementDate: new Date('2023-03-21'),
+					eventBatch: 1,
+					eventType: 'both',
+					image: '/assets/images/food-stall.webp',
+					venue: 'MIT ACSC, Alandi',
+					moreInformationPdf:
+						'https://drive.google.com/file/d/1m6lxSq2m-Jn4XzPDwdxp4bf4HYiJxjXt/view?usp=sharing',
 				},
 			],
 		},
