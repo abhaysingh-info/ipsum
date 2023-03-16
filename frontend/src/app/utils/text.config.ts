@@ -217,6 +217,11 @@ export const faq: { question: string; answer: string }[] = [
 		answer:
 			"Till 18 of March only.Since we're committed to making the event successful through proper planning and management, we refrain from accepting any spot-on registration to avoid chaos and confusion among participants and organizers.",
 	},
+	{
+		question: 'What is the venue of IPSUM 2k23?',
+		answer:
+			'IPSUM 2k23 will be conducted at MIT ACSC, Alandi, Pune. Classrooms will be allotted at the time of the event.',
+	},
 ]
 
 export const eventRegistrationLinks = [
@@ -227,18 +232,21 @@ export const eventRegistrationLinks = [
 	{ eventName: 'Event 5', link: '/' },
 ]
 
-export const sponsors = [
-	{
-		name: 'D S Creation',
-		image: '/assets/images/ds-creation.webp',
-	},
-	{
-		name: 'Munot Firm',
-		image: '/assets/images/munot-firm.webp',
-		titleSponsorer: true,
-	},
-	{
-		name: 'Ya techno solution',
-		image: '/assets/images/ya-technosolutions.webp',
-	},
-]
+export const sponsors = {
+	associateSponsors: [
+		{
+			name: 'D S Creation',
+			image: '/assets/images/ds-creation.webp',
+		},
+		{
+			name: 'Munot Firm',
+			image: '/assets/images/munot-firm.webp',
+			titleSponsorer: true,
+		},
+		{
+			name: 'Ya techno solution',
+			image: '/assets/images/ya-technosolutions.webp',
+			enlargeLogo: true,
+		},
+	],
+}
