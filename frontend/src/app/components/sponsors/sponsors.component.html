@@ -15,16 +15,14 @@
 			>Sponsors</span
 		>
 		<div
-			class="carousel overflow-x-auto font-arvo font-bold text-xl md:text-2xl gap-x-16 justify-center px-10 mx-auto"
+			class="carousel overflow-x-auto font-arvo font-bold text-xl md:text-2xl gap-x-8 md:gap-x-16 justify-center mx-auto"
 		>
 			<ng-container
 				*ngFor="let sponsor of sponsors.associateSponsors; let index = index"
 			>
 				<div
-					class="carousel-item flex-col text-gray-600 justify-end items-baseline"
-					[ngClass]="{
-						'ml-[480px] sm:ml-0 lg:ml-0': index === 0
-					}"
+					class="carousel-item flex-col text-gray-600 justify-end items-baseline mx-auto max-w-full"
+					[ngClass]="{}"
 				>
 					<ng-container *ngIf="sponsor.image !== null">
 						<div class="flex flex-col justify-end items-center">
