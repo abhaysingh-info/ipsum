@@ -158,7 +158,7 @@ export const eventSchedule = {
 					prizePool: 0,
 					hasGiftPrize: true,
 					moreInformationPdf:
-						'https://drive.google.com/file/d/1BZk4MrintXsXJF1-MYDECHmVUPQAFZcS/view?usp=sharing',
+						'https://drive.google.com/file/d/1NmC4QHwdK6zxydLCAg4XfXjPltIQeKYd/view?usp=sharing',
 				},
 				{
 					_id: '5' as any,
