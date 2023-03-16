@@ -249,4 +249,16 @@ export const sponsors = {
 			enlargeLogo: true,
 		},
 	],
+	foodPartner: [
+		{
+			name: 'Ganesh Developer',
+			image: '/assets/images/ganesh-developer.webp',
+			enlargeLogo: true,
+		},
+		{
+			name: 'Hotel Vishranta',
+			image: '/assets/images/hotel-vishranta.webp',
+			enlargeLogo: true,
+		},
+	],
 }

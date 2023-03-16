@@ -55,6 +55,40 @@
 	<div class="my-14 flex items-center justify-center flex-col">
 		<span
 			class="font-arvo tracking-[0.2rem] lg:tracking-[0.3rem] font-bold text-lg break-words mb-3"
+			>Food Partners</span
+		>
+		<div
+			class="carousel overflow-x-auto flex-wrap sm:flex-nowrap font-arvo font-bold text-xl md:text-2xl gap-x-8 md:gap-x-16 justify-center mx-auto"
+		>
+			<ng-container
+				*ngFor="let sponsor of sponsors.foodPartner; let index = index"
+			>
+				<div
+					class="carousel-item flex-col text-gray-600 justify-end items-baseline mx-auto max-w-full"
+					[ngClass]="{}"
+				>
+					<ng-container *ngIf="sponsor.image !== null">
+						<div class="flex flex-col justify-end items-center">
+							<img
+								[src]="sponsor.image"
+								[alt]="sponsor.name"
+								class="max-w-[5rem]"
+								[ngClass]="{
+									'max-w-[7.5rem]': sponsor.enlargeLogo
+								}"
+							/>
+						</div>
+					</ng-container>
+					<ng-container *ngIf="sponsor.image === null">
+						{{ sponsor.name }}
+					</ng-container>
+				</div>
+			</ng-container>
+		</div>
+	</div>
+	<div class="my-14 flex items-center justify-center flex-col">
+		<span
+			class="font-arvo tracking-[0.2rem] lg:tracking-[0.3rem] font-bold text-lg break-words mb-3"
 			>Printing Partner</span
 		>
 		<img
