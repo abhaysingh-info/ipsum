@@ -95,6 +95,21 @@ export const eventSchedule = {
 					moreInformationPdf:
 						'https://drive.google.com/file/d/1P2Tl5dC2sJ_BeqN61vYbmO886BXq0zH0/view?usp=sharing',
 				},
+				{
+					_id: '5' as any,
+					name: 'Detective Game',
+					description:
+						'Some clues will be distributed on the campus containing the Ground Floor, Second Floor, and Garden Area. The team will have to find these clues in the given time in order to find the thief. Each team can play a mini-game to get an advantage. Upon winning the game, the team will be provided with a hint which will lead them to the location of the clue. The first team to find the culprit will win the round and will be promoted to the next round. The winner will be selected from the last two surviving teams. The team with the most points will win.',
+
+					commencementDate: new Date('2023-03-20'),
+					eventBatch: 1,
+					eventType: 'team',
+					image: '/assets/images/dectetive-resize.webp',
+					venue: 'MIT ACSC, Alandi',
+					prizePool: 500,
+					moreInformationPdf:
+						'https://drive.google.com/file/d/1NzsIDyAdvixh2-8DsQLawPq0DgHFOl2f/view?usp=share_link',
+				},
 			],
 		},
 		{
@@ -146,6 +161,22 @@ export const eventSchedule = {
 				},
 				{
 					_id: '4' as any,
+					name: '1- Min Games',
+					description:
+						'In this game participants will have to pick a chit out of a bowl and whatever product is written on that chit, you have to pick it up and prepare an ad for it. You would be given a time of 5 minutes for making and preparing your ad in front of a judge.',
+
+					commencementDate: new Date('2023-03-21'),
+					eventBatch: 1,
+					eventType: 'individual',
+					image: '/assets/images/1mingame-resize.webp',
+					venue: 'MIT ACSC, Alandi',
+					prizePool: 0,
+					hasGiftPrize: true,
+					moreInformationPdf:
+						'https://drive.google.com/file/d/1P2Tl5dC2sJ_BeqN61vYbmO886BXq0zH0/view?usp=sharing',
+				},
+				{
+					_id: '5' as any,
 					name: '1- Min Speech',
 					description:
 						'This is a individual event. There will be a bowl full of chits with a topic written on it. Every participant have to choose one chit from the bowl. Candidate will get 2 minutes after choosing chit to think on the topic. After 2 minutes timer will start and each individual will have to talk on that for about one minute.',
@@ -161,7 +192,7 @@ export const eventSchedule = {
 						'https://drive.google.com/file/d/1NmC4QHwdK6zxydLCAg4XfXjPltIQeKYd/view?usp=sharing',
 				},
 				{
-					_id: '5' as any,
+					_id: '6' as any,
 					name: 'Food Stall',
 					description:
 						'Students will set up their own stalls and sell their food and products and earn money through it. For students the rent will be 500 rs /day and for outsiders the rent will range be 1000 rs per day.',
