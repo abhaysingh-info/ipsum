@@ -51,22 +51,6 @@ canvas {
 	position: absolute;
 }
 
-@keyframes resize {
-	50% {
-		width: calc(var(--dice-wh) / 2 * 0.75);
-		height: calc(var(--dice-wh) / 2 * 0.75);
-	}
-}
-
-@keyframes rotate {
-	0% {
-		transform: rotateY(0deg) rotateX(45deg) rotateZ(75deg);
-	}
-	100% {
-		transform: rotateY(360deg) rotateX(45deg) rotateZ(75deg);
-	}
-}
-
 .glass {
 	-webkit-backdrop-filter: blur(8px);
 	backdrop-filter: blur(8px);
@@ -175,6 +159,22 @@ canvas {
 	margin: 0 auto;
 	border-right: 0.15em solid white;
 	animation: typing 3s steps(40, end), blink-caret 0.75s step-end infinite;
+}
+
+@keyframes resize {
+	50% {
+		width: calc(var(--dice-wh) / 2 * 1.2);
+		height: calc(var(--dice-wh) / 2 * 1.2);
+	}
+}
+
+@keyframes rotate {
+	0% {
+		transform: rotateY(0deg) rotateX(45deg) rotateZ(75deg);
+	}
+	100% {
+		transform: rotateY(360deg) rotateX(45deg) rotateZ(75deg);
+	}
 }
 
 @keyframes typing {
